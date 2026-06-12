@@ -1,0 +1,423 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', Arial, sans-serif;
+    background-color: #060614;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    color: #c4c4e8;
+    min-height: 100vh;
+}
+
+/* ═══════════════════════════════
+   HEADER / NAV
+═══════════════════════════════ */
+header {
+    background: linear-gradient(160deg, #0d0d2b, #110a22);
+    border-bottom: 3px solid #1d4ed8;
+    padding: 1.2rem 2rem;
+    box-shadow: 0 4px 24px rgba(29, 78, 216, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+/* linha de scan sutil */
+header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.06), transparent);
+    animation: headerScan 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes headerScan {
+    0%   { left: -60%; }
+    100% { left: 140%; }
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+header nav ul li a {
+    color: #93c5fd;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.82rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 0.5rem 1.3rem;
+    border-radius: 8px;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+    font-family: 'Press Start 2P', cursive;
+}
+
+header nav ul li a:hover {
+    color: #fff;
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.14);
+    box-shadow: 0 0 14px rgba(59, 130, 246, 0.4);
+}
+
+/* ═══════════════════════════════
+   ANIMAÇÃO DE ENTRADA
+═══════════════════════════════ */
+@keyframes scaleInCenter {
+    0%   { transform: scale(0.96); opacity: 0; }
+    100% { transform: scale(1);    opacity: 1; }
+}
+
+.scale-in-center {
+    animation: scaleInCenter 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ═══════════════════════════════
+   MAIN
+═══════════════════════════════ */
+main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ═══════════════════════════════
+   SEÇÕES
+═══════════════════════════════ */
+section {
+    margin-bottom: 0;
+}
+
+/* parágrafo de introdução */
+section > p {
+    background: rgba(13, 13, 43, 0.85);
+    border: 2px solid #1e3a8a;
+    border-left: 4px solid #3b82f6;
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #c4c4e8;
+    box-shadow: 4px 4px 0 #0a1640;
+}
+
+section > p strong {
+    color: #f87171;
+}
+
+/* ═══════════════════════════════
+   TÍTULOS DE SEÇÃO   (h1 dentro de section)
+═══════════════════════════════ */
+section h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.82rem;
+    color: #60a5fa;
+    margin: 48px 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 12px rgba(96, 165, 250, 0.55);
+}
+
+/* ">" antes do título */
+section h1::before {
+    content: '>';
+    color: #ef4444;
+    font-size: 1rem;
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.7);
+    flex-shrink: 0;
+}
+
+/* linha após o título */
+section h1::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(to right, #1e40af, transparent);
+}
+
+/* ═══════════════════════════════
+   SEPARADOR HR
+═══════════════════════════════ */
+hr {
+    border: none;
+    border-top: 1px solid #1a2a50;
+    margin: 6px 0;
+}
+
+/* ═══════════════════════════════
+   LISTAS GENÉRICAS (Objetivo + Controles)
+═══════════════════════════════ */
+section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    background: rgba(13, 13, 43, 0.85);
+    border: 2px solid #1e3a8a;
+    border-radius: 20px;
+    padding: 1.2rem 1.6rem;
+    box-shadow: 5px 5px 0 #0a1640;
+}
+
+section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p {
+    font-size: 0.95rem;
+    color: #c4c4e8;
+    padding: 0.7rem 0;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p strong {
+    color: #a78bfa;
+}
+
+/* ═══════════════════════════════
+   CENÁRIOS
+═══════════════════════════════ */
+.cenarios-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cenario-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #0d0d2b 60%, #0a1628);
+    border-radius: 20px;
+    border: 2.5px solid #1e3a8a;
+    padding: 16px 20px;
+    box-shadow: 5px 5px 0 #0a1640, 0 0 16px rgba(59, 130, 246, 0.08);
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+
+.cenario-card:hover {
+    transform: translateX(5px);
+    border-color: #3b82f6;
+    box-shadow: 7px 7px 0 #0a1640, 0 0 22px rgba(59, 130, 246, 0.2);
+}
+
+.cenario-info strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #60a5fa;
+    margin-bottom: 5px;
+}
+
+.cenario-desc {
+    font-size: 0.85rem;
+    color: #6480b4;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+/* ═══════════════════════════════
+   PERSONAGENS & VILÕES
+═══════════════════════════════ */
+.veiculos-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.veiculo-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(135deg, #0d0d2b 60%, #0a1628);
+    border-radius: 20px;
+    border: 2.5px solid #1e3a8a;
+    padding: 14px 20px;
+    box-shadow: 5px 5px 0 #0a1640;
+    transition: transform 0.18s, border-color 0.18s;
+}
+
+/* personagens → roxo ao hover */
+.veiculo-card:hover {
+    transform: translateX(5px);
+    border-color: #7c3aed;
+    box-shadow: 5px 5px 0 #190a40;
+}
+
+/* vilões (perigo) → usa classe .perigo já nos cards de vilão; senão vermelho no hover */
+.veiculo-card.perigo:hover {
+    border-color: #ef4444;
+    box-shadow: 5px 5px 0 #3b0a0a;
+}
+
+.veiculo-img {
+    width: 56px;
+    height: 56px;
+    background: #070714;
+    border-radius: 14px;
+    border: 2px solid #1e40af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.veiculo-img img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.veiculo-info strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #a78bfa;
+    margin-bottom: 5px;
+}
+
+.veiculo-desc {
+    font-size: 0.86rem;
+    color: #6480b4;
+    line-height: 1.5;
+}
+
+/* ═══════════════════════════════
+   HABILIDADES ESPECIAIS
+═══════════════════════════════ */
+.coletaveis-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.coletavel-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #0d0d2b 60%, #071a20);
+    border-radius: 20px;
+    border: 2.5px solid #164e63;
+    padding: 14px 16px;
+    box-shadow: 5px 5px 0 #04141a;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+
+.coletavel-card:hover {
+    transform: translateY(-4px);
+    border-color: #06b6d4;
+    box-shadow: 5px 5px 0 #04141a, 0 0 18px rgba(6, 182, 212, 0.2);
+}
+
+.coletavel-img {
+    width: 54px;
+    height: 54px;
+    background: #060f14;
+    border-radius: 12px;
+    border: 2px solid #155e75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.coletavel-img img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.coletavel-info strong {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #22d3ee;
+    margin-bottom: 4px;
+}
+
+.coletavel-desc {
+    font-size: 0.83rem;
+    color: #4a8a98;
+    line-height: 1.5;
+}
+
+/* ═══════════════════════════════
+   BOTÃO VOLTAR
+═══════════════════════════════ */
+.back-button-container {
+    text-align: center;
+    margin-top: 3.5rem;
+}
+
+.btn-voltar {
+    display: inline-block;
+    background: transparent;
+    color: #60a5fa;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.68rem;
+    padding: 0.85rem 2rem;
+    border-radius: 10px;
+    border: 2px solid #3b82f6;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 #1e3a8a;
+    letter-spacing: 1px;
+    transition: all 0.18s ease;
+}
+
+.btn-voltar:hover {
+    background: rgba(59, 130, 246, 0.14);
+    color: #fff;
+    box-shadow: 6px 6px 0 #1e3a8a, 0 0 16px rgba(59, 130, 246, 0.35);
+    transform: translate(-2px, -2px);
+}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer {
+    background: linear-gradient(90deg, #0d0d2b, #0a1220);
+    border-top: 3px solid #1d4ed8;
+    text-align: center;
+    padding: 1.5rem;
+    color: #3b82f6;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 -4px 24px rgba(29, 78, 216, 0.25);
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 20px;
+
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.rem;
+
+    z-index: 9999;
+}
