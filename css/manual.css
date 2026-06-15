@@ -211,7 +211,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
 }
 
 /* ═══════════════════════════════
-<<<<<<< HEAD:css/manual.css
    CONTROLES (teclas)
 ═══════════════════════════════ */
 .tecla {
@@ -228,8 +227,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
 }
 
 /* ═══════════════════════════════
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
    CENÁRIOS
 ═══════════════════════════════ */
 .cenarios-lista {
@@ -468,6 +465,7 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     box-shadow: 6px 6px 0 #1e3a8a, 0 0 16px rgba(59, 130, 246, 0.35);
     transform: translate(-2px, -2px);
 }
+
 
 /* ═══════════════════════════════
    FOOTER

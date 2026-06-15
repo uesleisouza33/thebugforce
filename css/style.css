@@ -15,6 +15,7 @@ body {
     overflow: hidden;
     background-size: contain;
     background-color: #000;
+    position: relative;
 }
 
 
@@ -29,6 +30,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 22px;
+
+    z-index: 20;
 }
 
 /* ── < dos botões ── */
@@ -178,4 +181,127 @@ footer {
     60% {
         filter: brightness(1);
     }
+}
+
+/* ═══════════════════════════════
+   TOOLTIP DE HABILIDADES (hover)
+═══════════════════════════════ */
+.veiculo-card {
+    position: relative;
+}
+
+.skill-tooltip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    width: 240px;
+    background: rgba(7, 7, 20, 0.97);
+    border: 2.5px solid #3b82f6;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 6px 6px 0 #0a1640, 0 0 22px rgba(59, 130, 246, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 50;
+}
+
+.skill-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #3b82f6;
+}
+
+.veiculo-card:hover .skill-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.skill-tooltip-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    color: #60a5fa;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+    border-bottom: 1px solid #1e3a8a;
+    padding-bottom: 8px;
+}
+
+.skill-tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.skill-tooltip-icon {
+    width: 28px;
+    height: 28px;
+    background: #070714;
+    border: 2px solid #1e40af;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    font-size: 1rem;
+}
+
+.skill-tooltip-icon img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.skill-tooltip-info strong {
+    display: block;
+    font-size: 0.78rem;
+    color: #a78bfa;
+    font-weight: 800;
+}
+
+.skill-tooltip-info span {
+    font-size: 0.74rem;
+    color: #6480b4;
+    line-height: 1.4;
+}
+
+/* ═══════════════════════════════
+   HOTSPOTS DOS PERSONAGENS (tela inicial)
+   Áreas invisíveis posicionadas sobre os 4
+   personagens da imagem de fundo. Ao passar o
+   mouse, mostram a mesma "carta" de habilidade
+   usada no .skill-tooltip.
+═══════════════════════════════ */
+.personagens-hotspots {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    pointer-events: none; /* a camada não bloqueia cliques nos botões */
+}
+
+.personagem-hotspot {
+    position: absolute;
+    pointer-events: auto; /* só a área do personagem responde ao mouse */
+    cursor: pointer;
+    /* descomente a linha abaixo para visualizar/ajustar as áreas */
+    /* outline: 1px dashed #ff00ff; */
+}
+
+.personagem-hotspot:hover .skill-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
