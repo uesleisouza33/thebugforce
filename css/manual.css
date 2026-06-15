@@ -15,10 +15,7 @@ body {
     background-size: 44px 44px;
     color: #c4c4e8;
     min-height: 100vh;
-<<<<<<< HEAD:css/manual.css
     padding-bottom: 60px;
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 }
 
 /* ═══════════════════════════════
@@ -33,10 +30,6 @@ header {
     overflow: hidden;
 }
 
-<<<<<<< HEAD:css/manual.css
-=======
-/* linha de scan sutil */
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 header::after {
     content: '';
     position: absolute;
@@ -82,7 +75,6 @@ header nav ul li a:hover {
 }
 
 /* ═══════════════════════════════
-<<<<<<< HEAD:css/manual.css
    TÍTULO PRINCIPAL DO MANUAL
 ═══════════════════════════════ */
 .page-title {
@@ -106,8 +98,6 @@ header nav ul li a:hover {
 }
 
 /* ═══════════════════════════════
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
    ANIMAÇÃO DE ENTRADA
 ═══════════════════════════════ */
 @keyframes scaleInCenter {
@@ -267,7 +257,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     box-shadow: 7px 7px 0 #0a1640, 0 0 22px rgba(59, 130, 246, 0.2);
 }
 
-<<<<<<< HEAD:css/manual.css
 .cenario-icon {
     width: 56px;
     height: 56px;
@@ -283,8 +272,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     color: #60a5fa;
 }
 
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 .cenario-info strong {
     display: block;
     font-size: 1rem;
@@ -322,20 +309,12 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     transition: transform 0.18s, border-color 0.18s;
 }
 
-<<<<<<< HEAD:css/manual.css
-=======
-/* personagens → roxo ao hover */
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 .veiculo-card:hover {
     transform: translateX(5px);
     border-color: #7c3aed;
     box-shadow: 5px 5px 0 #190a40;
 }
 
-<<<<<<< HEAD:css/manual.css
-=======
-/* vilões (perigo) → usa classe .perigo já nos cards de vilão; senão vermelho no hover */
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 .veiculo-card.perigo:hover {
     border-color: #ef4444;
     box-shadow: 5px 5px 0 #3b0a0a;
@@ -352,7 +331,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
-<<<<<<< HEAD:css/manual.css
     font-family: 'Press Start 2P', cursive;
     font-size: 1.4rem;
     color: #a78bfa;
@@ -361,8 +339,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
 .veiculo-card.perigo .veiculo-img {
     border-color: #7f1d1d;
     color: #f87171;
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 }
 
 .veiculo-img img {
@@ -380,13 +356,10 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     margin-bottom: 5px;
 }
 
-<<<<<<< HEAD:css/manual.css
 .veiculo-card.perigo .veiculo-info strong {
     color: #f87171;
 }
 
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 .veiculo-desc {
     font-size: 0.86rem;
     color: #6480b4;
@@ -394,11 +367,7 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
 }
 
 /* ═══════════════════════════════
-<<<<<<< HEAD:css/manual.css
    HABILIDADES ESPECIAIS / DICAS
-=======
-   HABILIDADES ESPECIAIS
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 ═══════════════════════════════ */
 .coletaveis-lista {
     list-style: none;
@@ -436,12 +405,9 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
-<<<<<<< HEAD:css/manual.css
     font-family: 'Press Start 2P', cursive;
     font-size: 1.2rem;
     color: #22d3ee;
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 }
 
 .coletavel-img img {
@@ -465,7 +431,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     line-height: 1.5;
 }
 
-<<<<<<< HEAD:css/manual.css
 @media (max-width: 600px) {
     .coletaveis-lista {
         grid-template-columns: 1fr;
@@ -473,8 +438,6 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     .page-title { font-size: 1.05rem; }
 }
 
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 /* ═══════════════════════════════
    BOTÃO VOLTAR
 ═══════════════════════════════ */
@@ -496,10 +459,7 @@ section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p st
     box-shadow: 4px 4px 0 #1e3a8a;
     letter-spacing: 1px;
     transition: all 0.18s ease;
-<<<<<<< HEAD:css/manual.css
     cursor: pointer;
-=======
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
 }
 
 .btn-voltar:hover {
@@ -522,7 +482,6 @@ footer {
     letter-spacing: 2px;
     text-transform: uppercase;
     box-shadow: 0 -4px 24px rgba(29, 78, 216, 0.25);
-<<<<<<< HEAD:css/manual.css
 
     position: fixed;
     bottom: 0;
@@ -540,21 +499,3 @@ footer {
 
     z-index: 9999;
 }
-=======
-}
-
-footer strong {
-    color: #60a5fa;
-}
-
-footer a {
-    color: #a78bfa;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.2s;
-}
-
-footer a:hover {
-    color: #60a5fa;
-}
->>>>>>> f2a2ec14180342079f52cdeea4b4a8f3e770336f:assets/css/manual.css
