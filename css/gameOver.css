@@ -1,0 +1,298 @@
+/* ========================================================
+   RESET BÁSICO
+   ======================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+  body {
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #canvas {
+            background-color: #000; /* Fundo preto caso a imagem demore a carregar */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+#cont {
+    z-index: 20;
+    position: relative;
+    color: #ff0000;
+    font-size: 1.0rem;
+    transform: translateY(-90px);
+    font-family: "Press Start 2P", monospace;
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 2px #ff0000,
+        0 0 5px #ff0000,
+        0 0 10px #ff0000,
+        0 0 20px #ff0000;
+
+    animation: neon-pulse-vermelho 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse-vermelho {
+    from {
+        text-shadow:
+            0 0 2px #ff0000,
+            0 0 5px #ff0000,
+            0 0 10px #ff0000,
+            0 0 20px #ff0000;
+    }
+    to {
+        text-shadow:
+            0 0 2px #ff0000,
+            0 0 3px #ff0000,
+            0 0 5px #ff0000,
+            0 0 10px #ff0000;
+    }
+}
+
+#conter {
+    z-index: 20;
+    position: relative;
+    color: #00a2ff;
+    font-size: 1.2rem;
+    transform: translateY(-130px);
+    font-family: "Press Start 2P", monospace;
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 2px #44ddff,
+        0 0 5px #44ddff,
+        0 0 10px #44ddff,
+        0 0 20px #44ddff;
+
+    animation: neon-pulse-azul 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse-azul {
+    from {
+        text-shadow:
+            0 0 2px #44ddff,
+            0 0 5px #44ddff,
+            0 0 10px #44ddff,
+            0 0 20px #44ddff;
+    }
+    to {
+        text-shadow:
+            0 0 2px #44ddff,
+            0 0 3px #44ddff,
+            0 0 5px #44ddff,
+            0 0 10px #44ddff;
+    }
+}
+
+/* ========================================================
+   CONTAINER DO GAME OVER
+   ======================================================== */
+.game-over-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background-color: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ========================================================
+   CONTEÚDO CENTRAL (Título e Pontuação)
+   ======================================================== */
+.game-over-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.title-image {
+  width: 600px; /* ajuste o valor que quiser */
+  height: auto;
+  transform: translateY(-20px);
+}
+
+.score-container {
+  z-index: 20;
+    position: relative;
+    color: #ff0000;
+    font-size: 1.0rem;
+    transform: translateY(-130px);
+    font-family: "Press Start 2P", monospace;
+    text-transform: uppercase;
+    top: 175px;
+    font-size: 1.2rem;
+    
+
+    text-shadow:
+        0 0 2px #ff0000,
+        0 0 5px #ff0000,
+        0 0 10px #ff0000,
+        0 0 20px #ff0000;
+
+    animation: neon-pulse-vermelho 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse-vermelho2 {
+    from {
+        text-shadow:
+            0 0 2px #ff0000,
+            0 0 5px #ff0000,
+            0 0 10px #ff0000,
+            0 0 20px #ff0000;
+    }
+    to {
+        text-shadow:
+            0 0 2px #ff0000,
+            0 0 3px #ff0000,
+            0 0 5px #ff0000,
+            0 0 10px #ff0000;
+    }
+    
+}
+
+/* ========================================================
+   NOVO DESIGN DOS BOTÕES (Estilo Arcade / Neon)
+   ======================================================== */
+.botoes {
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  z-index: 20;
+}
+
+/* ── < dos botões ── */
+.btn::before {
+  content: "▶";
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.btn:hover::before {
+  opacity: 1;
+  left: -25px;
+}
+
+.game-over-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* 1. CORREÇÃO DO Z-INDEX: Alta prioridade para ficar na frente de tudo */
+    z-index: 9999; 
+    
+    /* 2. REMOÇÃO DO ESCURECIMENTO:
+       Tirei a cor de fundo preta. Agora o overlay é totalmente transparente.
+       Você verá o jogo por trás. */
+    background-color: transparent; /* Antes era rgba(0,0,0,0.85) */
+    
+    /* Se você preferir usar uma IMAGEM ESPECÍFICA de fundo (que não o jogo), 
+       descomente as linhas abaixo e defina sua imagem: */
+    background-image: url('../assets/img/game/fundo_gameOver.png'); 
+     background-size: cover; 
+     background-position: center; 
+    background-repeat: no-repeat;
+}
+
+/* ── Botão base ── */
+.btn {
+  /* IMPORTANTE: position relative adicionado para a setinha não escapar do botão */
+  position: relative;
+  cursor: pointer; /* Garante a mãozinha ao passar o mouse */
+
+  font-family:
+    "Press Start 2P", monospace; /* Lembre-se de importar essa fonte no HTML/CSS se já não estiver */
+  font-size: 1rem;
+  width: 370px;
+  padding: 20px 0;
+  color: white; /* Cor base garantida */
+
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  border: 3px solid;
+  border-radius: 3px;
+
+  background: rgba(0, 0, 0, 0.7);
+  display: block;
+
+  transition:
+    transform 0.08s ease,
+    background 0.12s ease;
+}
+
+.btn:hover {
+  transform: translateX(6px) scale(1.04);
+}
+
+/* ── Cores individuais ── */
+.btn-ciano {
+  color: #44ddff;
+  border-color: #00ccff;
+  box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
+  top: 3px; /* Move para cima sem usar transform */
+}
+.btn-ciano:hover {
+  background: rgba(0, 200, 255, 0.15);
+}
+
+.btn-verde {
+  color: #33ff77;
+  border-color: #22dd55;
+  box-shadow: 0 0 8px rgba(34, 221, 85, 0.5);
+  top: -84px
+}
+.btn-verde:hover {
+  background: rgba(34, 221, 85, 0.15);
+}
+
+.btn-amarelo {
+  color: #ffcc22;
+  border-color: #ddaa00;
+  box-shadow: 0 0 8px rgba(221, 170, 0, 0.5);
+}
+.btn-amarelo:hover {
+  background: rgba(221, 170, 0, 0.15);
+}
+
+.btn-roxo {
+  color: #cc88ff;
+  border-color: #aa44ff;
+  box-shadow: 0 0 8px rgba(170, 68, 255, 0.5);
+}
+.btn-roxo:hover {
+  background: rgba(170, 68, 255, 0.15);
+}

@@ -1,0 +1,434 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', Arial, sans-serif;
+    background-color: #0a0806;
+    /* Grade enferrujada */
+    background-image:
+        linear-gradient(rgba(180, 60, 20, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180, 60, 20, 0.08) 1px, transparent 1px);
+    background-size: 44px 44px;
+    color: #d4c5b0;
+    min-height: 100vh;
+}
+
+/* ═══════════════════════════════
+   HEADER / NAV
+═══════════════════════════════ */
+header {
+    background: linear-gradient(160deg, #1a0a05, #0d0505);
+    border-bottom: 3px solid #8b0000;
+    padding: 1.2rem 2rem;
+    box-shadow: 0 4px 24px rgba(139, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Linha de varredura vermelha (sangue/ferrugem) */
+header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 60, 60, 0.08), transparent);
+    animation: headerScan 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes headerScan {
+    0% {
+        left: -60%;
+    }
+
+    100% {
+        left: 140%;
+    }
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+header nav ul li a {
+    color: #d4a373;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.82rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 0.5rem 1.3rem;
+    border-radius: 8px;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+header nav ul li a:hover {
+    color: #fff;
+    border-color: #b22222;
+    background: rgba(178, 34, 34, 0.25);
+    box-shadow: 0 0 14px rgba(178, 34, 34, 0.6);
+}
+
+/* ═══════════════════════════════
+   ANIMAÇÃO DE ENTRADA (inalterada)
+═══════════════════════════════ */
+@keyframes scaleInCenter {
+    0% {
+        transform: scale(0.96);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.scale-in-center {
+    animation: scaleInCenter 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ═══════════════════════════════
+   MAIN
+═══════════════════════════════ */
+main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ═══════════════════════════════
+   SEÇÕES
+═══════════════════════════════ */
+section {
+    margin-bottom: 0;
+}
+
+/* parágrafo de introdução */
+section>p {
+    background: rgba(20, 5, 5, 0.9);
+    border: 2px solid #5c0a0a;
+    border-left: 4px solid #b22222;
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #d4c5b0;
+    box-shadow: 4px 4px 0 #2a0a0a;
+}
+
+section>p strong {
+    color: #ff6666;
+}
+
+/* ═══════════════════════════════
+   TÍTULOS DE SEÇÃO
+═══════════════════════════════ */
+section h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.82rem;
+    color: #ff9999;
+    margin: 48px 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 12px rgba(255, 80, 80, 0.7);
+}
+
+section h1::before {
+    content: '>';
+    color: #ef4444;
+    font-size: 1rem;
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.9);
+    flex-shrink: 0;
+}
+
+section h1::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(to right, #8b0000, transparent);
+}
+
+/* ═══════════════════════════════
+   SEPARADOR HR
+═══════════════════════════════ */
+hr {
+    border: none;
+    border-top: 1px solid #4a2020;
+    margin: 6px 0;
+}
+
+/* ═══════════════════════════════
+   LISTAS GENÉRICAS (Objetivo + Controles)
+═══════════════════════════════ */
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    background: rgba(20, 5, 5, 0.9);
+    border: 2px solid #5c0a0a;
+    border-radius: 20px;
+    padding: 1.2rem 1.6rem;
+    box-shadow: 5px 5px 0 #2a0a0a;
+}
+
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p {
+    font-size: 0.95rem;
+    color: #e0c8a0;
+    padding: 0.7rem 0;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p strong {
+    color: #ffaa88;
+}
+
+/* ═══════════════════════════════
+   CENÁRIOS
+═══════════════════════════════ */
+.cenarios-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cenario-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #1a0a05 60%, #0d0805);
+    border-radius: 20px;
+    border: 2.5px solid #6b2020;
+    padding: 16px 20px;
+    box-shadow: 5px 5px 0 #2a0a0a, 0 0 16px rgba(139, 0, 0, 0.15);
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+
+.cenario-card:hover {
+    transform: translateX(5px);
+    border-color: #b22222;
+    box-shadow: 7px 7px 0 #2a0a0a, 0 0 22px rgba(178, 34, 34, 0.5);
+}
+
+.cenario-info strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #ff7070;
+    margin-bottom: 5px;
+}
+
+.cenario-desc {
+    font-size: 0.85rem;
+    color: #b8927a;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+/* ═══════════════════════════════
+   PERSONAGENS & VILÕES
+═══════════════════════════════ */
+.personagens-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.personagens-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(135deg, #1a0a05 60%, #0d0805);
+    border-radius: 20px;
+    border: 2.5px solid #6b2020;
+    padding: 14px 20px;
+    box-shadow: 5px 5px 0 #2a0a0a;
+    transition: transform 0.18s, border-color 0.18s;
+}
+
+.personagens-card:hover {
+    transform: translateX(5px);
+    border-color: #ff4500;
+    box-shadow: 5px 5px 0 #3b0a0a, 0 0 14px rgba(255, 69, 0, 0.4);
+}
+
+/* Vilões (classe .perigo) mantêm destaque de perigo */
+.personagens-card.perigo:hover {
+    border-color: #ef4444;
+    box-shadow: 5px 5px 0 #3b0a0a, 0 0 16px rgba(239, 68, 68, 0.6);
+}
+
+.personagens-img {
+    width: 56px;
+    height: 56px;
+    background: #120505;
+    border-radius: 14px;
+    border: 2px solid #8b0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.personagens-img img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.personagens-info strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #ff6666;
+    margin-bottom: 5px;
+}
+
+.personagens-desc {
+    font-size: 0.86rem;
+    color: #b8927a;
+    line-height: 1.5;
+}
+
+/* ═══════════════════════════════
+   HABILIDADES ESPECIAIS
+═══════════════════════════════ */
+.coletaveis-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.coletavel-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #1a0a05 60%, #0a1210);
+    border-radius: 20px;
+    border: 2.5px solid #8b4513;
+    padding: 14px 16px;
+    box-shadow: 5px 5px 0 #2a0a0a;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+
+.coletavel-card:hover {
+    transform: translateY(-4px);
+    border-color: #ff4500;
+    box-shadow: 5px 5px 0 #2a0a0a, 0 0 18px rgba(255, 69, 0, 0.3);
+}
+
+.coletavel-img {
+    width: 54px;
+    height: 54px;
+    background: #120505;
+    border-radius: 12px;
+    border: 2px solid #8b0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.coletavel-img img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.coletavel-info strong {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #ff8c00;
+    margin-bottom: 4px;
+}
+
+.coletavel-desc {
+    font-size: 0.83rem;
+    color: #b08060;
+    line-height: 1.5;
+}
+
+/* ═══════════════════════════════
+   BOTÃO VOLTAR
+═══════════════════════════════ */
+.back-button-container {
+    text-align: center;
+    margin-top: 3.5rem;
+}
+
+.btn-voltar {
+    display: inline-block;
+    background: transparent;
+    color: #ff7070;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.68rem;
+    padding: 0.85rem 2rem;
+    border-radius: 10px;
+    border: 2px solid #b22222;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 #5c0a0a;
+    letter-spacing: 1px;
+    transition: all 0.18s ease;
+}
+
+.btn-voltar:hover {
+    background: rgba(178, 34, 34, 0.2);
+    color: #fff;
+    box-shadow: 6px 6px 0 #5c0a0a, 0 0 16px rgba(178, 34, 34, 0.6);
+    transform: translate(-2px, -2px);
+}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer {
+    background: linear-gradient(90deg, #1a0a05, #0d0805);
+    border-top: 3px solid #8b0000;
+    text-align: center;
+    padding: 1.5rem;
+    color: #b22222;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 -4px 24px rgba(139, 0, 0, 0.4);
+}
+
+footer strong {
+    color: #ff7070;
+}
+
+footer a {
+    color: #ffaa88;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: #ff7070;
+}

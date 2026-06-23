@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Over</title>
+    <link  href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/gameOver.css" />
+  </head>
+  <body>
+    <canvas id="canvas" width="1300" height="600"></canvas>
+    <div id="game-over-screen" class="game-over-overlay hidden">
+      <div class="game-over-content">
+        <img  id="game-over-title"class="title-image"   src="../assets/img/game/titulo_gameOver.png" alt="GAME OVER"  />
+        <div id="cont">
+          <h1>continue?</h1>
+        </div>
+         <div class="score-container">
+          <p>Pontuação Final: <span id="conter">0</span></p>
+        </div>
+         <div class="botoes">
+          <button id="restart-btn" class="btn btn-ciano">Yes</button>
+        </div>
+        <button id="back-btn" class="btn btn-verde">No</button>
+      </div>
+    </div>
+    <script src="../js/objetos.js"></script>
+    <script src="../js/avatar.js"></script>
+     <script src="../js/GameOver.js"></script>
+  </body>
+</html>
