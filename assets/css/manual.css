@@ -34,8 +34,7 @@ header {
 header::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
+    top: 0; left: -100%;
     width: 60%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 60, 60, 0.08), transparent);
@@ -44,13 +43,8 @@ header::after {
 }
 
 @keyframes headerScan {
-    0% {
-        left: -60%;
-    }
-
-    100% {
-        left: 140%;
-    }
+    0%   { left: -60%; }
+    100% { left: 140%; }
 }
 
 header nav ul {
@@ -72,7 +66,7 @@ header nav ul li a {
     border: 1.5px solid transparent;
     transition: all 0.2s ease;
     font-family: 'Press Start 2P', cursive;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 0 4px rgba(0,0,0,0.6);
 }
 
 header nav ul li a:hover {
@@ -86,15 +80,8 @@ header nav ul li a:hover {
    ANIMAÇÃO DE ENTRADA (inalterada)
 ═══════════════════════════════ */
 @keyframes scaleInCenter {
-    0% {
-        transform: scale(0.96);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+    0%   { transform: scale(0.96); opacity: 0; }
+    100% { transform: scale(1);    opacity: 1; }
 }
 
 .scale-in-center {
@@ -118,7 +105,7 @@ section {
 }
 
 /* parágrafo de introdução */
-section>p {
+section > p {
     background: rgba(20, 5, 5, 0.9);
     border: 2px solid #5c0a0a;
     border-left: 4px solid #b22222;
@@ -130,7 +117,7 @@ section>p {
     box-shadow: 4px 4px 0 #2a0a0a;
 }
 
-section>p strong {
+section > p strong {
     color: #ff6666;
 }
 
@@ -177,7 +164,7 @@ hr {
 /* ═══════════════════════════════
    LISTAS GENÉRICAS (Objetivo + Controles)
 ═══════════════════════════════ */
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) {
+section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -188,7 +175,7 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) {
     box-shadow: 5px 5px 0 #2a0a0a;
 }
 
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p {
+section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p {
     font-size: 0.95rem;
     color: #e0c8a0;
     padding: 0.7rem 0;
@@ -196,7 +183,7 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     line-height: 1.55;
 }
 
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p strong {
+section ul:not(.cenarios-lista):not(.veiculos-lista):not(.coletaveis-lista) p strong {
     color: #ffaa88;
 }
 
@@ -246,14 +233,14 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
 /* ═══════════════════════════════
    PERSONAGENS & VILÕES
 ═══════════════════════════════ */
-.personagens-lista {
+.veiculos-lista {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.personagens-card {
+.veiculo-card {
     display: flex;
     align-items: center;
     gap: 18px;
@@ -265,19 +252,19 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     transition: transform 0.18s, border-color 0.18s;
 }
 
-.personagens-card:hover {
+.veiculo-card:hover {
     transform: translateX(5px);
     border-color: #ff4500;
     box-shadow: 5px 5px 0 #3b0a0a, 0 0 14px rgba(255, 69, 0, 0.4);
 }
 
 /* Vilões (classe .perigo) mantêm destaque de perigo */
-.personagens-card.perigo:hover {
+.veiculo-card.perigo:hover {
     border-color: #ef4444;
     box-shadow: 5px 5px 0 #3b0a0a, 0 0 16px rgba(239, 68, 68, 0.6);
 }
 
-.personagens-img {
+.veiculo-img {
     width: 56px;
     height: 56px;
     background: #120505;
@@ -290,14 +277,14 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     overflow: hidden;
 }
 
-.personagens-img img {
+.veiculo-img img {
     width: 80%;
     height: 80%;
     object-fit: contain;
     image-rendering: pixelated;
 }
 
-.personagens-info strong {
+.veiculo-info strong {
     display: block;
     font-size: 1rem;
     font-weight: 800;
@@ -305,7 +292,7 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     margin-bottom: 5px;
 }
 
-.personagens-desc {
+.veiculo-desc {
     font-size: 0.86rem;
     color: #b8927a;
     line-height: 1.5;
@@ -402,7 +389,6 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     box-shadow: 6px 6px 0 #5c0a0a, 0 0 16px rgba(178, 34, 34, 0.6);
     transform: translate(-2px, -2px);
 }
-
 
 /* ═══════════════════════════════
    FOOTER
