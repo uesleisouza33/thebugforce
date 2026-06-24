@@ -51,19 +51,58 @@
         <br><br>
         <section>
             <h1>Controles</h1>
-            <ul>
-                → Seta direita / D — Mover para a direita
-                <hr>
-                ← Seta esquerda / A — Mover para a esquerda
-                <hr>
-                ↑ Seta cima / W — Mover para cima
-                <hr>
-                ↓ Seta baixo / S — Mover para baixo
-                <hr>
-                🖱 Clique / Espaço — Disparar código binário
-                <hr>
-                Q — Acionar habilidade especial
-            </ul>
+        
+            <div class="controls-layout">
+        
+                <!-- Movimento -->
+                <div class="control-group">
+                    <div class="wasd">
+                        <div></div>
+                        <div class="key">W</div>
+                        <div></div>
+        
+                        <div class="key">A</div>
+                        <div class="key">S</div>
+                        <div class="key">D</div>
+                    </div>
+        
+                    <span>Movimentação</span>
+                </div>
+        
+                <!-- Mouse -->
+                <div class="control-group">
+                    <div class="mouse">
+                        <div class="mouse-click"></div>
+                    </div>
+        
+                    <span>Mirar</span>
+                </div>
+        
+                <!-- Habilidade -->
+                <div class="control-group">
+                    <div class="key large">E</div>
+                    <span>Habilidade Especial</span>
+                </div>
+        
+                <!-- Trocar Arma -->
+                <div class="control-group">
+                    <div class="key large">Q</div>
+                    <span>Trocar Arma</span>
+                </div>
+        
+                <!-- Pausa -->
+                <div class="control-group">
+                    <div class="key large">ESC</div>
+                    <span>Pausar</span>
+                </div>
+        
+                <!-- Pulo -->
+                <div class="control-group">
+                    <div class="space-key">SPACE</div>
+                    <span>Pular</span>
+                </div>
+        
+            </div>
         </section>
         <br><br>
         <section>
@@ -71,8 +110,8 @@
             <ul class="cenarios-lista">
                 <div class="cenario-card">
                     <div class="cenario-info">
-                        <strong>Fase 1 — Apocalipse nos Corredores</strong>
-                        <span class="cenario-desc">Local: Corredores da Escola — Inimigos genéricos corrompidos |
+                        <strong>Fase 1 — A Escola Silenciosa</strong>
+                        <span class="cenario-desc">Local: Entrada do SENAI — Corrompidos recém-infectados |
                             Dificuldade moderada</span>
                     </div>
                 </div>
@@ -80,7 +119,7 @@
                 <div class="cenario-card">
                     <div class="cenario-info">
                         <strong>Fase 2 — O Professor Possuído</strong>
-                        <span class="cenario-desc">Local: Sala dos Professores — Chefe: Prof. Carlos Possuído |
+                        <span class="cenario-desc">Local: Corredores da Escola — Chefe: Prof. Carlos Possuído |
                             Dificuldade intensa</span>
                     </div>
                 </div>
@@ -88,7 +127,7 @@
                 <div class="cenario-card">
                     <div class="cenario-info">
                         <strong>Fase 3 — Confronto Final</strong>
-                        <span class="cenario-desc">Local: Núcleo Digital — Chefes: Isabella Varella + Vilão Master |
+                        <span class="cenario-desc">Local: Núcleo Digital — Chefes: Vera a Rainha dos Bugs |
                             Dificuldade muito intensa</span>
                     </div>
                 </div>
@@ -97,208 +136,283 @@
         <br><br>
         <section>
             <h1>Personagens Disponiveis</h1>
-            <ul class="personagens-lista">
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/img/manuel/larissa.png" alt="Larissa">
-                    </div>
-                    <div class="personagens-info">
-                        <strong>Larissa — Líder</strong>
-                        <span class="personagens-desc">Uma das quatro protagonistas principais da equipe Bug
-                            Force.</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/img/manuel/ueslei.png" alt="Ueslei"></div>
-                    <div class="personagens-info">
-                        <strong>Ueslei — Atirador</strong>
-                        <span class="personagens-desc">Membro principal da equipe, especialista em precisão.</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/img/manuel/jair.png" alt="Jair">
-                    </div>
-                    <div class="personagens-info">
-                        <strong>Jair — Força</strong>
-                        <span class="personagens-desc">Combatente com grande poder ofensivo na equipe.</span>
+            <div class="character-select">
+
+                <!-- Larissa -->
+                <div class="char-card">
+                    <img src="../assets/img/manuel/larissa.png" alt="Larissa">
+
+                    <div class="char-tooltip">
+                        <h3>Larissa</h3>
+
+                        <p><strong>Classe:</strong> Líder</p>
+
+                        <p><strong>Habilidade:</strong>
+                            Convoca um aliado para ajudar na batalha.
+                        </p>
+
+                        <p class="forte">
+                            <strong>Ponto Forte:</strong>
+                            Comando em Equipe
+                        </p>
+
+                        <p class="fraco">
+                            <strong>Ponto Fraco:</strong>
+                            Dano Individual Baixo
+                        </p>
                     </div>
                 </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/img/manuel/eliel.png" alt="Eliel"></div>
-                    <div class="personagens-info">
-                        <strong>Eliel — Área</strong>
-                        <span class="personagens-desc">Especialista em ataques que atingem múltiplos inimigos.</span>
+
+                <!-- Ueslei -->
+                <div class="char-card">
+                    <img src="../assets/img/manuel/ueslei.png" alt="Ueslei">
+
+                    <div class="char-tooltip">
+                        <h3>Ueslei</h3>
+
+                        <p><strong>Classe:</strong> Atirador</p>
+
+                        <p><strong>Habilidade:</strong>
+                            Precisão de Tiro
+                        </p>
+
+                        <p class="forte">
+                            <strong>Ponto Forte:</strong>
+                            Acertos Críticos
+                        </p>
+
+                        <p class="fraco">
+                            <strong>Ponto Fraco:</strong>
+                            Vida Baixa
+                        </p>
                     </div>
                 </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/img/manuel/sandra.png" alt="Sandra"></div>
-                    <div class="personagens-info">
-                        <strong>Sandra — Desbloqueável</strong>
-                        <span class="personagens-desc">Desbloqueada ao acumular pontos suficientes durante as
-                            fases.</span>
+
+                <!-- Jair -->
+                <div class="char-card">
+                    <img src="../assets/img/manuel/jair.png" alt="Jair">
+
+                    <div class="char-tooltip">
+                        <h3>Jair</h3>
+
+                        <p><strong>Classe:</strong> Força</p>
+
+                        <p><strong>Habilidade:</strong>
+                            Super Dano
+                        </p>
+
+                        <p class="forte">
+                            <strong>Ponto Forte:</strong>
+                            Alto Dano
+                        </p>
+
+                        <p class="fraco">
+                            <strong>Ponto Fraco:</strong>
+                            Velocidade Reduzida
+                        </p>
                     </div>
                 </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/img/manuel/janice.png" alt="Janice"></div>
-                    <div class="personagens-info">
-                        <strong>Janice — Desbloqueável</strong>
-                        <span class="personagens-desc">Desbloqueada ao acumular pontos suficientes durante as
-                            fases.</span>
+
+                <!-- Eliel -->
+                <div class="char-card">
+                    <img src="../assets/img/manuel/eliel.png" alt="Eliel">
+
+                    <div class="char-tooltip">
+                        <h3>Eliel</h3>
+
+                        <p><strong>Classe:</strong> Área</p>
+
+                        <p><strong>Habilidade:</strong>
+                            Chicotada
+                        </p>
+
+                        <p class="forte">
+                            <strong>Ponto Forte:</strong>
+                            Dano em Área
+                        </p>
+
+                        <p class="fraco">
+                            <strong>Ponto Fraco:</strong>
+                            Recarga Longa
+                        </p>
                     </div>
                 </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/img/manuel/iza.png" alt="Iza"></div>
-                    <div class="personagens-info">
-                        <strong>Iza — Desbloqueável</strong>
-                        <span class="personagens-desc">Desbloqueada ao acumular pontos suficientes durante as
-                            fases.</span>
+
+                <!-- Sandra -->
+                <div class="char-card">
+                    <img src="../assets/img/manuel/sandra.png" alt="Sandra">
+
+                    <div class="char-tooltip">
+                        <h3>Sandra</h3>
+
+                        <p><strong>Classe:</strong> Suporte</p>
+
+                        <p><strong>Habilidade:</strong> Chuva Gramatical</p>
+
+                        <p class="forte">
+                            <strong>Ponto Forte:</strong>
+                            Atinge vários inimigos simultaneamente.
+                        </p>
+
+                        <p class="fraco">
+                            <strong>Ponto Fraco:</strong>
+                            Tempo de recarga elevado.
+                        </p>
+
+                        <p>
+                            🔒 Desbloqueável por pontuação.
+                        </p>
                     </div>
                 </div>
-            </ul>
+                <!-- Janice -->
+                <div class="char-card">
+                    <img src="../assets/img/manuel/janice.png" alt="Janice">
+
+                    <div class="char-tooltip">
+                        <h3>Janice</h3>
+
+                        <p><strong>Classe:</strong> Lutadora</p>
+
+                        <p><strong>Habilidade:</strong> Super Soco</p>
+
+                        <p class="forte">
+                            <strong>Ponto Forte:</strong>
+                            Alto dano em alvo único.
+                        </p>
+
+                        <p class="fraco">
+                            <strong>Ponto Fraco:</strong>
+                            Alcance reduzido.
+                        </p>
+
+                        <p>
+                            🔒 Desbloqueável por pontuação.
+                        </p>
+                    </div>
+                </div>
+                <!-- Iza -->
+                <div class="char-card">
+                    <img src="../assets/img/manuel/iza.png" alt="Iza">
+
+                    <div class="char-tooltip">
+                        <h3>Iza</h3>
+
+                        <p><strong>Classe:</strong> Curandeira</p>
+
+                        <p><strong>Habilidade:</strong> Poder da Cura</p>
+
+                        <p class="forte">
+                            <strong>Ponto Forte:</strong>
+                            Recupera vida dos aliados.
+                        </p>
+
+                        <p class="fraco">
+                            <strong>Ponto Fraco:</strong>
+                            Baixo dano ofensivo.
+                        </p>
+
+                        <p>
+                            🔒 Desbloqueável por pontuação.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <br><br>
+        </section>
+        <section>
+            <section>
+                <h1>VILÕES</h1>
+            
+                <div class="villains-select">
+            
+                    <!-- Vera -->
+                    <div class="char-card boss-card">
+                        <img src="../assets/images/viloes/vera.png" alt="Vera">
+            
+                        <div class="char-tooltip">
+                            <h3>Vera</h3>
+            
+                            <p><strong>Título:</strong> Rainha dos Bugs</p>
+            
+                            <p>Principal antagonista do jogo.</p>
+            
+                            <p class="forte">
+                                <strong>Poder:</strong>
+                                Possui professores e controla bugs digitais.
+                            </p>
+                        </div>
+                    </div>
+            
+                    <!-- Carlos -->
+                    <div class="char-card boss-card">
+                        <img src="../assets/images/viloes/prof_carlos.png" alt="Carlos">
+            
+                        <div class="char-tooltip">
+                            <h3>Prof. Carlos</h3>
+            
+                            <p><strong>Tipo:</strong> Chefe da Fase 2</p>
+            
+                            <p>Ataques fortes e padrões complexos.</p>
+                        </div>
+                    </div>
+            
+                    <!-- Duds -->
+                    <div class="char-card boss-card">
+                        <img src="../assets/images/viloes/prof_duds.png" alt="Duds">
+            
+                        <div class="char-tooltip">
+                            <h3>Prof. Duds</h3>
+            
+                            <p><strong>Tipo:</strong> Corrompido</p>
+            
+                            <p>Inimigo genérico da Fase 1.</p>
+                        </div>
+                    </div>
+            
+                    <!-- Josi -->
+                    <div class="char-card boss-card">
+                        <img src="../assets/images/viloes/prof_josi.png" alt="Josi">
+            
+                        <div class="char-tooltip">
+                            <h3>Prof. Josi</h3>
+            
+                            <p><strong>Tipo:</strong> Corrompida</p>
+            
+                            <p>Inimiga genérica da Fase 1.</p>
+                        </div>
+                    </div>
+            
+                    <!-- Wendel -->
+                    <div class="char-card boss-card">
+                        <img src="../assets/images/viloes/prof_wendel.png" alt="Wendel">
+            
+                        <div class="char-tooltip">
+                            <h3>Prof. Wendel</h3>
+            
+                            <p><strong>Tipo:</strong> Corrompido</p>
+            
+                            <p>Guardião da escola dominado pelos bugs.</p>
+                        </div>
+                    </div>
+            
+                    <!-- Diretora Ju -->
+                    <div class="char-card boss-card">
+                        <img src="../assets/images/viloes/diretora_ju.png" alt="Diretora Ju">
+            
+                        <div class="char-tooltip">
+                            <h3>Diretora Ju</h3>
+            
+                            <p><strong>Tipo:</strong> Corrompida</p>
+            
+                            <p>Lidera os professores possuídos.</p>
+                        </div>
+                    </div>
+            
+                </div>
+            </section>
         </section>
         <br><br>
-        <section>
-            <h1>Viloes</h1>
-            <ul class="personagens-lista">
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagenso-img"><img src="../assets/images/viloes/vera.png" alt="Vera"></div>
-                    <div class="personagens-info">
-                        <strong>Vera — A Rainha dos Bugs</strong>
-                        <span class="personagens-desc">Principal antagonista. Usa seu espírito maligno para possuir
-                            professores e aprisionou o Prof. Carlos.</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/images/viloes/prof_carlos.png" alt="Prof. Carlos">
-                    </div>
-                    <div class="personagens-info">
-                        <strong>Prof. Carlos (Possuído)</strong>
-                        <span class="personagens-desc">Chefe da Fase 2 — Ataques mais fortes e padrões de movimento
-                            complexos.</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/images/viloes/prof_duds.png" alt="Prof. Duds">
-                    </div>
-                    <div class="personagens-info">
-                        <strong>Prof. Duds (Possuído)</strong>
-                        <span class="personagens-desc">Inimigo genérico da Fase 1 — corrompido pelo vírus
-                            digital.</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/images/viloes/prof_josi.png" alt="Prof. Josi">
-                    </div>
-                    <div class="personagens-info">
-                        <strong>Prof. Josi (Possuída)</strong>
-                        <span class="personagens-desc">Inimiga genérica da Fase 1 — corrompida pelo vírus
-                            digital.</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/images/viloes/prof_wendel.png" alt="Prof. Wendel">
-                    </div>
-                    <div class="personagens-info">
-                        <strong>Prof. Wendel (Possuído)</strong>
-                        <span class="personagens-desc">Inimigo genérico da Fase 1 — corrompido pelo vírus
-                            digital.</span>
-                    </div>
-                </div>
-                <hr>
-                <div class="personagens-card">
-                    <div class="personagens-img"><img src="../assets/images/viloes/diretora_ju.png" alt="Diretora Ju">
-                    </div>
-                    <div class="personagens-info">
-                        <strong>Diretora Ju (Possuída)</strong>
-                        <span class="personagens-desc">Inimiga genérica da Fase 1 — corrompida pelo vírus
-                            digital.</span>
-                    </div>
-                </div>
-            </ul>
-        </section>
-        <br><br>
-        <section>
-            <h1>Habilidades Especiais</h1>
-            <ul class="coletaveis-lista">
-                <div class="coletavel-card">
-                    <div class="coletavel-img">
-                        <img src="../assets/images/habilidades/lideranca.png" alt="Poder da Liderança">
-                    </div>
-                    <div class="coletavel-info">
-                        <strong>Larissa — Poder da Liderança</strong>
-                        <span class="coletavel-desc">Chama um dos outros personagens para ajudar na batalha.</span>
-                    </div>
-                </div>
-                <div class="coletavel-card">
-                    <div class="coletavel-img">
-                        <img src="../assets/images/habilidades/chicotada.png" alt="Chicotada">
-                    </div>
-                    <div class="coletavel-info">
-                        <strong>Eliel — Chicotada</strong>
-                        <span class="coletavel-desc">Derrota mais de um inimigo de uma só vez com um único golpe.</span>
-                    </div>
-                </div>
-                <div class="coletavel-card">
-                    <div class="coletavel-img">
-                        <img src="../assets/images/habilidades/precisao.png" alt="Precisão de Tiro">
-                    </div>
-                    <div class="coletavel-info">
-                        <strong>Ueslei — Precisão de Tiro</strong>
-                        <span class="coletavel-desc">Aumenta a precisão dos disparos, garantindo mais acertos
-                            críticos.</span>
-                    </div>
-                </div>
-                <div class="coletavel-card">
-                    <div class="coletavel-img">
-                        <img src="../assets/images/habilidades/super_danos.png" alt="Super Danos">
-                    </div>
-                    <div class="coletavel-info">
-                        <strong>Jair — Super Danos</strong>
-                        <span class="coletavel-desc">Adquire mais força temporariamente, causando dano aumentado nos
-                            inimigos.</span>
-                    </div>
-                </div>
-                <div class="coletavel-card">
-                    <div class="coletavel-img">
-                        <img src="../assets/images/habilidades/super_soco.png" alt="Super Soco">
-                    </div>
-                    <div class="coletavel-info">
-                        <strong>Janice — Super Soco</strong>
-                        <span class="coletavel-desc">Um poderoso soco disparado da mão de Janice atinge o inimigo com
-                            grande força.</span>
-                    </div>
-                </div>
-                <div class="coletavel-card">
-                    <div class="coletavel-img">
-                        <img src="../assets/images/habilidades/chuva_gramatical.png" alt="Chuva Gramatical">
-                    </div>
-                    <div class="coletavel-info">
-                        <strong>Sandra — Chuva Gramatical</strong>
-                        <span class="coletavel-desc">Quando acionado, chove livros sobre os inimigos.</span>
-                    </div>
-                </div>
-                <div class="coletavel-card">
-                    <div class="coletavel-img">
-                        <img src="../assets/images/habilidades/poder_cura.png" alt="Poder da Cura">
-                    </div>
-                    <div class="coletavel-info">
-                        <strong>Iza — Poder da Cura</strong>
-                        <span class="coletavel-desc">Ao ser acionado, Iza cura os aliados próximos.</span>
-                    </div>
-                </div>
-            </ul>
-        </section>
 
         <div class="back-button-container">
             <a href="../index.html" class="btn-voltar">← VOLTAR</a>
@@ -308,9 +422,8 @@
 
     <footer>
         <span class="footer-ver">VER 1.0.0</span>
-
         <span class="footer-copy">
-            @ SENAI DIGITAL STUDIOS 2026
+            &copy; THE BUGS STUDIOS 2026
         </span>
     </footer>
 </body>
