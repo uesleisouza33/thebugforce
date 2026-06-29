@@ -4,8 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../assets/images/game/fav_game.png" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/sobreGame.css">
+    <link rel="stylesheet" href="../css/sobreGame.css">
+    <link rel="icon" href="../assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="./assets/favicon/site.webmanifest">
+    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#d10000">
+    <!-- ⬇️ CORRIGIDO: aspa fechada em referrerpolicy -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
     <title>The Bug Force</title>
 </head>
 
@@ -36,41 +46,87 @@
         </section>
 
         <section class="nossa-equipe">
+            <h2>Professor / Orientador</h2>
+            <hr>
+            <ul class="orientador-lista">
+                <li>
+                    <div class="orientador-img">
+                        <img src="../assets/img/manuel/carlos.png" alt="Carlos Roberto">
+                    </div>
+                    <p class="orientador-desc">Product Owner do projeto — responsável pelos requisitos,
+                        testes e validação da experiência do jogador.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="nossa-equipe">
             <h2>Nossa Equipe</h2>
             <hr>
             <p>Conheça os profissionais que desenvolveram o jogo:</p>
             <ul class="time-lista">
                 <li>
                     <div class="time-img">
-                        <img src="../assets/images/game/ueslei.png" alt="Ueslei Carvalho">
+                        <img src="../assets/img/manuel/ueslei.png" alt="Ueslei Carvalho">
                     </div>
                     <strong>Ueslei Carvalho</strong>
                     <p class="time-desc">Product Owner do projeto — responsável pelos requisitos,
                         testes e validação da experiência do jogador.</p>
+                    <div class="button-icons">
+                        <a href="https://www.instagram.com/ucarvalhof/" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-square-instagram"></i> Insta: @ucarvalhof
+                        </a>
+                        <a href="https://github.com/uesleisouza33" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-github"></i> GitHub: uesleisouza33
+                        </a>
+                    </div>
                 </li>
                 <li>
                     <div class="time-img">
-                        <img src="../assets/images/game/larissa.png" alt="Larissa Bernardi">
+                        <img src="../assets/img/manuel/larissa.png" alt="Larissa Bernardi">
                     </div>
                     <strong>Larissa Bernardi</strong>
                     <p class="time-desc">Scrum Master e Dev do projeto — responsável pelo desenvolvimento
                         do jogo, mecânicas, cenários e código.</p>
+                    <div class="button-icons">
+                        <a href="https://www.instagram.com/bernardi7072/" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-square-instagram"></i> Insta: @bernardi7072
+                        </a>
+                        <a href="https://github.com/larssia" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-github"></i> GitHub: larssia
+                        </a>
+                    </div>
                 </li>
                 <li>
                     <div class="time-img">
-                        <img src="../assets/images/game/eliel.png" alt="Eliel Bernardi">
+                        <img src="../assets/img/manuel/eliel.png" alt="Eliel Bernardi">
                     </div>
                     <strong>Eliel Bernardi</strong>
                     <p class="time-desc">Scrum Master e Dev do projeto — responsável pelo desenvolvimento
                         do jogo, mecânicas, cenários e código.</p>
+                    <div class="button-icons">
+                        <a href="https://www.instagram.com/elielbrnrd/" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-square-instagram"></i> Insta: @elielbrnrd
+                        </a>
+                        <a href="https://github.com/eli-bernardi" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-github"></i> GitHub: eli-bernardi
+                        </a>
+                    </div>
                 </li>
                 <li>
                     <div class="time-img">
-                        <img src="../assets/images/game/jair.png" alt="Jair da Silva">
+                        <img src="../assets/img/manuel/jair.png" alt="Jair da Silva">
                     </div>
                     <strong>Jair Hyan da Silva</strong>
                     <p class="time-desc">Scrum Master e Dev do projeto — responsável pelo desenvolvimento
                         do jogo, mecânicas, cenários e código.</p>
+                    <div class="button-icons">
+                        <a href="https://www.instagram.com/jairjjk/" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-square-instagram"></i> Insta: @jairhy
+                        </a>
+                        <a href="https://github.com/jairhy" target="_blank" class="btn-social">
+                            <i class="fa-brands fa-github"></i> GitHub: jairhy
+                        </a>
+                    </div>
                 </li>
             </ul><br>
             <div class="back-button-container">
@@ -78,9 +134,11 @@
             </div>
         </section>
     </main>
-    <footer><strong>VER 1.0.0</strong>
-        &nbsp; @ SENAI DIGITAL STUDIOS 2026
-        &nbsp; <strong>>>>PRESS START<<<< </strong>
+    <footer>
+        <span class="footer-ver">VER 1.0.0</span>
+        <span class="footer-copy">
+            &copy; THE BUGS STUDIOS 2026
+        </span>
     </footer>
 </body>
 

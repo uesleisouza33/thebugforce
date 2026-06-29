@@ -1,8 +1,14 @@
 /**
  * GameOverScreen
  * Gerencia a exibição e ocultação da tela de Game Over no HTML.
+ *
+ * @param {Object} elements - Seletores CSS dos elementos da tela.
+ * @param {string} elements.container    - Seletor do overlay principal.
+ * @param {string} elements.scoreDisplay - Seletor do <span> de pontuação.
+ * @param {string} elements.restartBtn   - Seletor do botão "Yes".
+ * @param {string} elements.backBtn      - Seletor do botão "Menu".
  */
-export default class GameOverScreen {
+class GameOverScreen {
     constructor(elements) {
         this.container    = document.querySelector(elements.container);
         this.scoreDisplay = document.querySelector(elements.scoreDisplay);
@@ -19,29 +25,22 @@ export default class GameOverScreen {
         if (this.scoreDisplay) {
             this.scoreDisplay.textContent = score;
         }
-        if (this.container) {
-            this.container.classList.remove('hidden');
-        }
+        this.container.classList.remove('hidden');
     }
 
     /** Oculta a tela de Game Over. */
     hide() {
-        if (this.container) {
-            this.container.classList.add('hidden');
-        }
+        this.container.classList.add('hidden');
     }
 
     /**
      * Registra o callback executado ao clicar em "Yes".
      * A tela é ocultada automaticamente antes de chamar o callback.
+     *
+     * @param {Function} callback
      */
     onRestart(callback) {
         if (this.restartBtn) {
-            // Remove ouvintes antigos clonando o botão (evita múltiplos cliques acumulados)
-            const novoBotao = this.restartBtn.cloneNode(true);
-            this.restartBtn.parentNode.replaceChild(novoBotao, this.restartBtn);
-            this.restartBtn = novoBotao;
-
             this.restartBtn.addEventListener('click', () => {
                 this.hide();
                 callback();
@@ -51,6 +50,9 @@ export default class GameOverScreen {
 
     /**
      * Registra o callback executado ao clicar em "Menu".
+     * A tela é ocultada automaticamente antes de chamar o callback.
+     *
+     * @param {Function} callback
      */
     onBack(callback) {
         if (this.backBtn) {
@@ -63,9 +65,10 @@ export default class GameOverScreen {
 }
 
 /* ============================================================
-   INSTÂNCIA EXPORTADA
+   INSTÂNCIA
    ============================================================ */
-export const gameOverUI = new GameOverScreen({
+
+const gameOverUI = new GameOverScreen({
     container:    '#game-over-screen',
     scoreDisplay: '#conter',
     restartBtn:   '#restart-btn',
@@ -73,8 +76,22 @@ export const gameOverUI = new GameOverScreen({
 });
 
 /* ============================================================
-   AÇÃO PADRÃO DO BOTÃO "MENU" (NO) — volta para a tela inicial
+   AÇÃO DO BOTÃO "YES" — reinicia o jogo
    ============================================================ */
+
+gameOverUI.onRestart(() => {
+    if (typeof gameOver !== 'undefined' && typeof gameOver.limpa_cena === 'function') {
+        gameOver.limpa_cena();
+    }
+    if (typeof mudaCena === 'function' && typeof menu !== 'undefined') {
+        mudaCena(menu);
+    }
+});
+
+/* ============================================================
+   AÇÃO DO BOTÃO "MENU" — volta para a tela inicial
+   ============================================================ */
+
 gameOverUI.onBack(() => {
     window.location.href = '../index.html';
 });

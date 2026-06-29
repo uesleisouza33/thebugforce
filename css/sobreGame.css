@@ -134,9 +134,10 @@ section>p strong {
 }
 
 /* ═══════════════════════════════
-   TÍTULOS DE SEÇÃO
+   TÍTULOS DE SEÇÃO (h1 e h2)
 ═══════════════════════════════ */
-section h1 {
+section h1,
+section h2 {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.82rem;
     color: #d4a0ff;
@@ -149,7 +150,8 @@ section h1 {
     letter-spacing: 1.5px;
 }
 
-section h1::before {
+section h1::before,
+section h2::before {
     content: '>';
     color: #aa44ff;
     font-size: 1rem;
@@ -157,7 +159,8 @@ section h1::before {
     flex-shrink: 0;
 }
 
-section h1::after {
+section h1::after,
+section h2::after {
     content: '';
     flex: 1;
     height: 1.5px;
@@ -173,8 +176,10 @@ hr {
     margin: 6px 0;
 }
 
-/* Regras genéricas mantidas */
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) {
+/* ═══════════════════════════════
+   LISTAS GENÉRICAS (Objetivo + Controles)
+═══════════════════════════════ */
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista):not(.time-lista) {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -185,7 +190,7 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) {
     box-shadow: 5px 5px 0 #2a1a4a;
 }
 
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p {
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista):not(.time-lista) p {
     font-size: 0.95rem;
     color: #cfc0f0;
     padding: 0.7rem 0;
@@ -193,119 +198,8 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     line-height: 1.55;
 }
 
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p strong {
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista):not(.time-lista) p strong {
     color: #cc88ff;
-}
-
-/* section controller */
-.controls-layout{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:40px;
-
-    margin-top:30px;
-    padding:30px;
-
-    background:rgba(20,8,38,.95);
-    border:2px solid #6a2eb8;
-    border-radius:20px;
-
-    box-shadow:5px 5px 0 #2a1a4a;
-}
-
-.control-group{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:15px;
-}
-
-.control-group span{
-    color:#d4a0ff;
-    font-weight:700;
-    text-align:center;
-}
-
-/* tecla padrão */
-
-.key{
-    width:55px;
-    height:55px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:#120825;
-
-    border:2px solid #aa44ff;
-    border-radius:10px;
-
-    color:#fff;
-    font-family:'Press Start 2P';
-    font-size:.8rem;
-
-    box-shadow:0 0 10px rgba(170,68,255,.4);
-}
-
-.large{
-    width:80px;
-}
-
-/* WASD */
-
-.wasd{
-    display:grid;
-    grid-template-columns:repeat(3,55px);
-    gap:8px;
-}
-
-/* SPACE */
-
-.space-key{
-    width:180px;
-    height:55px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:#120825;
-
-    border:2px solid #aa44ff;
-    border-radius:10px;
-
-    color:#fff;
-    font-family:'Press Start 2P';
-    font-size:.7rem;
-}
-
-/* Mouse */
-
-.mouse{
-    width:70px;
-    height:110px;
-
-    border:3px solid #aa44ff;
-    border-radius:40px;
-
-    position:relative;
-}
-
-.mouse-click{
-    position:absolute;
-
-    width:12px;
-    height:25px;
-
-    background:#aa44ff;
-
-    top:12px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    border-radius:10px;
 }
 
 /* ═══════════════════════════════
@@ -351,149 +245,72 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     line-height: 1.45;
 }
 
-/* ==================================
-   CHARACTER SELECT
-================================== */
-
-.character-select{
-    display:grid;
-    grid-template-columns:repeat(3, 180px);
-
-    justify-content:center;
-
-    gap:35px 45px;
-
-    margin-top:30px;
+/* ═══════════════════════════════
+   PERSONAGENS & VILÕES
+═══════════════════════════════ */
+.personagens-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.villains-select{
-    display:grid;
-
-    grid-template-columns:repeat(3, 180px);
-
-    justify-content:center;
-
-    gap:35px 45px;
-
-    margin-top:30px;
+.personagens-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(135deg, #1a0d30 60%, #0d0620);
+    border-radius: 20px;
+    border: 2.5px solid #6a2eb8;
+    padding: 14px 20px;
+    box-shadow: 5px 5px 0 #2a1a4a;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
 }
 
-/* Iza centralizada na terceira linha */
-.character-select .char-card:nth-child(7){
-    grid-column:2;
+.personagens-card:hover {
+    transform: translateX(5px);
+    border-color: #aa44ff;
+    box-shadow: 5px 5px 0 #2a1a4a, 0 0 18px rgba(170, 68, 255, 0.4);
 }
 
-.char-card{
-    position:relative;
-    width:180px;
-    height:180px;
-    margin:auto;
-    cursor:pointer;
+/* Vilões (classe .perigo) com destaque mais intenso */
+.personagens-card.perigo:hover {
+    border-color: #cc44ff;
+    box-shadow: 5px 5px 0 #3a1a6a, 0 0 22px rgba(204, 68, 255, 0.6);
 }
 
-.char-card img{
-    width:100%;
-    height:100%;
-    object-fit:contain; /* mostra o personagem inteiro */
-    padding:8px;
-
-    border:3px solid #aa44ff;
-    border-radius:10px;
-
-    background:#120825;
-    transition:.2s;
+.personagens-img {
+    width: 56px;
+    height: 56px;
+    background: #120825;
+    border-radius: 14px;
+    border: 2px solid #6a2eb8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
-.char-card:hover img{
-    transform:scale(1.08);
-
-    border-color:#d4a0ff;
-
-    box-shadow:
-        0 0 10px #aa44ff,
-        0 0 20px #aa44ff,
-        0 0 35px rgba(170,68,255,.7);
+.personagens-img img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 
-/* tooltip */
-
-.char-tooltip{
-    position:absolute;
-
-    top:50%;
-    left:130%;
-
-    transform:translateY(-50%);
-
-    width:280px;
-
-    background:#120825;
-
-    border:2px solid #aa44ff;
-
-    border-radius:14px;
-
-    padding:15px;
-
-    opacity:0;
-    visibility:hidden;
-
-    transition:.2s;
-
-    z-index:999;
+.personagens-info strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #d4a0ff;
+    margin-bottom: 5px;
 }
 
-.char-card:hover .char-tooltip{
-    opacity:1;
-    visibility:visible;
-}
-
-.char-tooltip h3{
-    font-family:'Press Start 2P';
-    font-size:.8rem;
-
-    color:#d4a0ff;
-
-    margin-bottom:15px;
-}
-
-.char-tooltip p{
-    color:#d8c4ff;
-    font-size:.85rem;
-    line-height:1.5;
-    margin-bottom:8px;
-}
-
-.char-tooltip strong{
-    color:#cc88ff;
-}
-
-.forte{
-    color:#4ade80;
-}
-
-.fraco{
-    color:#f87171;
-}
-
-/* aparencia especial */
-.boss-card img{
-    border-color:#ff4da6;
-}
-
-.boss-card:hover img{
-    transform:scale(1.08);
-
-    border-color:#ff8bc5;
-
-    box-shadow:
-        0 0 15px #ff4da6,
-        0 0 30px #ff4da6,
-        0 0 50px rgba(255,77,166,.7);
-}
-
-.boss-card .char-tooltip{
-    border-color:#ff4da6;
+.personagens-desc {
+    font-size: 0.86rem;
+    color: #b8a0d8;
+    line-height: 1.5;
 }
 
 /* ═══════════════════════════════
@@ -559,11 +376,171 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
 }
 
 /* ═══════════════════════════════
+   NOSSA EQUIPE (NOVO)
+═══════════════════════════════ */
+.nossa-equipe>p {
+    background: rgba(20, 8, 38, 0.95);
+    border: 2px solid #6a2eb8;
+    border-left: 4px solid #aa44ff;
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #cfc0f0;
+    box-shadow: 4px 4px 0 #2a1a4a;
+    margin-bottom: 1.5rem;
+}
+
+.time-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0;
+}
+
+.time-lista li {
+    background: linear-gradient(135deg, #1a0d30 60%, #0d0620);
+    border-radius: 20px;
+    border: 2.5px solid #6a2eb8;
+    padding: 20px 16px;
+    box-shadow: 5px 5px 0 #2a1a4a;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.time-lista li:hover {
+    transform: translateY(-6px);
+    border-color: #aa44ff;
+    box-shadow: 5px 5px 0 #2a1a4a, 0 0 24px rgba(170, 68, 255, 0.4);
+}
+
+.time-img {
+    width: 100px;
+    /* antes era 80px */
+    height: 100px;
+    /* antes era 80px */
+    border-radius: 50%;
+    background: #120825;
+    border: 3px solid #6a2eb8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.time-lista li:hover .time-img {
+    border-color: #aa44ff;
+    box-shadow: 0 0 20px rgba(170, 68, 255, 0.5);
+}
+
+.time-img img {
+    width: 85%;
+    /* ocupa 85% do container, antes era 100% */
+    height: 85%;
+    object-fit: contain;
+    /* mantém proporção sem cortar */
+    image-rendering: pixelated;
+    /* preserva a nitidez do pixel art */
+}
+
+.time-lista li strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #d4a0ff;
+    margin-bottom: 6px;
+    text-shadow: 0 0 8px rgba(170, 68, 255, 0.3);
+}
+
+.time-desc {
+    font-size: 0.85rem;
+    color: #b8a0d8;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.orientador-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0;
+}
+
+.orientador-lista li {
+    background: linear-gradient(135deg, #1a0d30 60%, #0d0620);
+    border-radius: 20px;
+    border: 2.5px solid #6a2eb8;
+    padding: 20px 16px;
+    box-shadow: 5px 5px 0 #2a1a4a;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.orientador-lista li:hover {
+    transform: translateY(-6px);
+    border-color: #aa44ff;
+    box-shadow: 5px 5px 0 #2a1a4a, 0 0 24px rgba(170, 68, 255, 0.4);
+}
+
+/* ⬇️ Aumentado de 80px para 100px */
+.orientador-img {
+    width: 210px !important;
+    height: 210px !important;
+    border-radius: 100% !important;
+    background: #120825;
+    border: 3px solid #6a2eb8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.orientador-lista li:hover .orientador-img {
+    border-color: #aa44ff;
+    box-shadow: 0 0 20px rgba(170, 68, 255, 0.5);
+}
+
+/* ⬇️ Ajuste interno para melhor aproveitamento */
+.orientador-img img {
+    width: 85% !important;
+    height: 85% !important;
+    object-fit: contain !important;
+}
+
+.orientador-lista li strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #d4a0ff;
+    margin-bottom: 6px;
+    text-shadow: 0 0 8px rgba(170, 68, 255, 0.3);
+}
+
+.orientador-desc {
+    font-size: 0.85rem;
+    color: #b8a0d8;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ═══════════════════════════════
    BOTÃO VOLTAR
 ═══════════════════════════════ */
 .back-button-container {
     text-align: center;
-    margin-top: 3.5rem;
+    margin-top: 2rem;
 }
 
 .btn-voltar {
@@ -602,7 +579,7 @@ footer {
     letter-spacing: 2px;
     text-transform: uppercase;
     box-shadow: 0 -4px 24px rgba(106, 46, 184, 0.4);
-    
+
     position: fixed;
     bottom: 0;
     left: 0;
@@ -633,4 +610,65 @@ footer a {
 
 footer a:hover {
     color: #d4a0ff;
+}
+
+/* ═══════════════════════════════
+   BOTÕES SOCIAIS (INSTA + GITHUB)
+═══════════════════════════════ */
+.button-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.btn-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: #cc88ff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.62rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    border: 2px solid #aa44ff;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 #3a1a6a;
+    letter-spacing: 1px;
+    transition: all 0.18s ease;
+    text-shadow: 0 0 8px rgba(170, 68, 255, 0.4);
+}
+
+.btn-social i {
+    font-size: 1.2rem;
+    color: #d4a0ff;
+    transition: color 0.3s ease;
+}
+
+.btn-social:hover {
+    background: rgba(170, 68, 255, 0.15);
+    color: #ffffff;
+    box-shadow: 6px 6px 0 #3a1a6a, 0 0 24px rgba(170, 68, 255, 0.7);
+    transform: translate(-2px, -2px);
+}
+
+.btn-social:hover i {
+    color: #ffffff;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .button-icons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-social {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.55rem;
+        padding: 0.6rem 1rem;
+    }
 }
