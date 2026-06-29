@@ -3,13 +3,13 @@
     "development"
   ],
   "hints": {
-    "no-inline-styles": "off",
-    "axe/parsing": [
+    "compat-api/html": [
       "default",
       {
-        "duplicate-id-active": "off"
+        "ignore": [
+          "meta[name=theme-color]"
+        ]
       }
-    ],
-    "meta-viewport": "off"
+    ]
   }
 }

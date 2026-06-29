@@ -25,8 +25,8 @@
     z-index: 20;
     position: relative;
     color: #ff0000;
-    font-size: 1.0rem;
-    transform: translateY(-90px);
+    font-size: 1.5rem;
+    transform: translateY(-140px);
     font-family: "Press Start 2P", monospace;
     text-transform: uppercase;
 
@@ -60,7 +60,7 @@
     z-index: 20;
     position: relative;
     color: #00a2ff;
-    font-size: 1.2rem;
+    font-size: 2.2rem;
     transform: translateY(-130px);
     font-family: "Press Start 2P", monospace;
     text-transform: uppercase;
@@ -119,11 +119,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 65px;
 }
 
 .title-image {
-  width: 600px; /* ajuste o valor que quiser */
+  width: 900px; /* ajuste o valor que quiser */
   height: auto;
   transform: translateY(-20px);
 }
@@ -132,12 +132,11 @@
   z-index: 20;
     position: relative;
     color: #ff0000;
-    font-size: 1.0rem;
     transform: translateY(-130px);
     font-family: "Press Start 2P", monospace;
     text-transform: uppercase;
     top: 175px;
-    font-size: 1.2rem;
+    font-size: 2.0rem;
     
 
     text-shadow:
@@ -273,7 +272,7 @@
   color: #33ff77;
   border-color: #22dd55;
   box-shadow: 0 0 8px rgba(34, 221, 85, 0.5);
-  top: -84px
+  top: -178px
 }
 .btn-verde:hover {
   background: rgba(34, 221, 85, 0.15);
