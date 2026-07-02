@@ -3,39 +3,38 @@ import Animacao from "./animacao.js";
 
 export default class Inimigo extends Entidade {
 
-    constructor(canvasWidth, canvasHeight, spriteSheet) {
+    constructor(x, y, config) {
 
         super(
-            canvasWidth + 100,
-            canvasHeight - 220,
-            90,
-            170,
-            spriteSheet
+            x,
+            y,
+            config.width,
+            config.height,
+            config.image
         );
+
+        this.config = config;
 
         this.velocidade = 2;
-        this.derrotado = false;
 
         this.animacao = new Animacao(
-            spriteSheet,
-            370,
-            695
+            config.image,
+            config.frameWidth,
+            config.frameHeight
         );
 
-        this.animacao.adicionar("walk", {
-            row: 0,
-            frames: 4,
-            speed: 200
+        // Carrega todas as animações do sprites.js
+        Object.entries(config.animations).forEach(([nome, dados]) => {
+
+            this.animacao.adicionar(nome, dados);
+
         });
 
-        this.animacao.adicionar("hurt", {
-            row: 1,
-            frames: 4,
-            speed: 100,
-            loop: false
-        });
+        // Animação inicial
+        if (config.animations.walk) {
+            this.animacao.tocar("walk");
+        }
 
-        this.animacao.tocar("walk");
     }
 
     update(deltaTime) {
@@ -43,12 +42,6 @@ export default class Inimigo extends Entidade {
         this.x -= this.velocidade;
 
         this.animacao.update(deltaTime);
-
-    }
-
-    receberDano() {
-
-        this.animacao.tocar("hurt");
 
     }
 
