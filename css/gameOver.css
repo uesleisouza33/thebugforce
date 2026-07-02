@@ -219,7 +219,7 @@
     
     /* Se você preferir usar uma IMAGEM ESPECÍFICA de fundo (que não o jogo), 
        descomente as linhas abaixo e defina sua imagem: */
-    background-image: url('../assets/img/game/fundo_gameOver.png'); 
+    background-image: url('../assets/game/backgrounds/gameOverFundo.png'); 
      background-size: cover; 
      background-position: center; 
     background-repeat: no-repeat;

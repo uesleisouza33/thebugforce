@@ -88,10 +88,22 @@ gameOverUI.onRestart(() => {
     }
 });
 
-/* ============================================================
-   AÇÃO DO BOTÃO "MENU" — volta para a tela inicial
-   ============================================================ */
+// /* ============================================================
+//    AÇÃO DO BOTÃO "MENU" — volta para a tela inicial
+//    ============================================================ */
 
-gameOverUI.onBack(() => {
-    window.location.href = '../index.html';
-});
+// gameOverUI.onBack(() => {
+//     window.location.href = '../index.html';
+// });
+
+// /* ============================================================
+//    BOTÃO DE TESTE — exibe a tela de Game Over manualmente
+//    ============================================================ */
+// const testBtn = document.querySelector('#test-game-over-btn');
+// if (testBtn) {
+//     testBtn.addEventListener('click', () => {
+//         gameOverUI.show(1234); // pontuação de exemplo
+//     });
+// } else {
+//     console.error('Botão de teste não encontrado no HTML.');
+// }
