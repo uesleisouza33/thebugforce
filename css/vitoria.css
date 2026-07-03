@@ -1,0 +1,276 @@
+/* ========================================================
+   RESET BÁSICO
+   ======================================================== */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: "Press Start 2P", monospace;
+}
+
+/* ========================================================
+   OVERLAY / FUNDO
+   ======================================================== */
+.victory-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: url("../assets/img/fundoVitoria.png") center center no-repeat;
+    background-size: cover;
+
+    z-index: 9999;
+
+    font-family: "Press Start 2P", monospace;
+}
+
+.victory-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    padding: 30px;
+}
+
+/* ========================================================
+   TÍTULO
+   ======================================================== */
+.title-image {
+    width: 650px;
+    max-width: 50vw;
+    height: auto;
+    animation: flutuar 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 25px rgba(255, 170, 0, 0.45));
+}
+
+@keyframes flutuar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.subtitulo {
+    color: #ffffff;
+    font-size: 18px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-shadow:
+        0 0 8px #000,
+        0 0 14px #000;
+}
+
+
+
+/* ========================================================
+   CAIXA DE PONTUAÇÃO
+   ======================================================== */
+.score-box {
+    width: 500px;
+    max-width: 90vw;
+    padding: 22px 25px;
+
+    border: 3px solid #ff3030;
+    background: rgba(0, 0, 0, .75);
+    box-shadow: 0 0 20px rgba(255, 0, 0, .35);
+
+    text-align: center;
+}
+
+.score-box h2 {
+    color: #ff4040;
+    font-size: 16px;
+    margin-bottom: 16px;
+    text-shadow:
+        0 0 5px #ff0000,
+        0 0 12px #ff0000;
+}
+
+.score-linha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+.score-linha img{
+    width: 45px;
+    height: auto;
+}
+
+.pote {
+    font-size: 26px;
+    filter: drop-shadow(0 0 6px #ffb020);
+}
+
+#contador-vitoria {
+    color: #44ddff;
+    font-size: 34px;
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 4px #44ddff,
+        0 0 10px #44ddff,
+        0 0 22px #44ddff;
+    animation: neon-pulse-azul 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse-azul {
+    from {
+        text-shadow:
+            0 0 4px #44ddff,
+            0 0 10px #44ddff,
+            0 0 22px #44ddff;
+    }
+    to {
+        text-shadow:
+            0 0 2px #44ddff,
+            0 0 6px #44ddff,
+            0 0 14px #44ddff;
+    }
+}
+
+/* ========================================================
+   BOTÕES ESTILO ARCADE / NEON
+   ======================================================== */
+.botoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.btn {
+    text-decoration: none;
+    width: 420px;
+    max-width: 85vw;
+    padding: 18px 22px;
+    cursor: pointer;
+    border: none;
+    font-family: "Press Start 2P", monospace;
+    font-size: 15px;
+    color: white;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    transition: .25s;
+}
+
+.btn:hover {
+    transform: translateX(6px) scale(1.04);
+    background: #1b1b1b;
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+.btn-blue {
+    border: 3px solid #00d0ff;
+    color: #00d0ff;
+    box-shadow: 0 0 18px rgba(0, 208, 255, .45);
+}
+
+.btn-green {
+    text-decoration: none;
+    border: 3px solid #2cff62;
+    color: #2cff62;
+    box-shadow: 0 0 18px rgba(44, 255, 98, .35);
+}
+
+a{
+    color: #2cff62;
+    text-decoration: none;
+}
+
+/* ========================================================
+   DICA
+   ======================================================== */
+.dica {
+    color: #ffffff;
+    font-size: 12px;
+    font-family: "Press Start 2P", monospace;
+    line-height: 1.8;
+    max-width: 480px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+}
+
+.dica-lampada {
+    font-size: 16px;
+    filter: drop-shadow(0 0 6px #f0c830);
+}
+
+.dica strong {
+    color: #f0c830;
+    text-shadow: 0 0 6px #f0c830;
+}
+
+/* ========================================================
+   FOOTER
+   ======================================================== */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 20px;
+
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.5rem;
+
+    z-index: 9999;
+}
+
+.footer-ver {
+    color: #888;
+}
+
+.footer-press {
+    color: #f0c830;
+    text-shadow:
+        0 0 5px #f0c830,
+        0 0 10px #f0c830,
+        0 0 20px #f0c830;
+    animation: arcadeLed 2s infinite;
+}
+
+@keyframes arcadeLed {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.35;
+    }
+}
+
+.footer-copy {
+    color: rgba(255, 255, 255, 0.5);
+}

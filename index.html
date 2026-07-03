@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="./assets/favicon/site.webmanifest">
+    <script src="./js/index.js"defer></script>
+    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#d10000">
+    <title>The Bug Force</title>
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════
+         ÁREAS DE HOVER SOBRE OS PERSONAGENS
+         As posições (data-x/data-y/data-w/data-h) são em
+         PORCENTAGEM da imagem fundo_inicio.png (1874x839).
+         O script no fim do arquivo recalcula a posição real
+         na tela considerando o "background-size: contain".
+    ═══════════════════════════════ -->
+    <div class="personagens-hotspots">
+
+        <!-- Larissa - Líder -->
+        <div class="personagem-hotspot" data-x="23" data-y="58" data-w="9.5" data-h="37">
+            <div class="skill-tooltip">
+                <div class="skill-tooltip-title">Larissa</div>
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">👑</div>
+                    <div class="skill-tooltip-info">
+                        <strong>Líder · Poder da Liderança</strong>
+                        <span>Convoca um dos outros personagens para ajudar na batalha.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-divider"></div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⭐</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="forte">Ponto Forte: Comando em Equipe</strong>
+                        <span>Fortalece e coordena os aliados, aumentando a eficiência do grupo.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⚠️</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="fraco">Ponto Fraco: Missão? Depois do Almoço</strong>
+                        <span>Se sentir cheiro de comida, a batalha entra em pausa imediatamente.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Eliel - Área  -->
+        <div class="personagem-hotspot" data-x="31" data-y="58" data-w="8.5" data-h="37">
+            <div class="skill-tooltip">
+                <div class="skill-tooltip-title">Eliel</div>
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⚡</div>
+                    <div class="skill-tooltip-info">
+                        <strong>Área · Chicotada</strong>
+                        <span>Derrota mais de um inimigo de uma só vez com um único golpe.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-divider"></div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⭐</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="forte">Ponto Forte: Dano em Área</strong>
+                        <span>Atinge vários inimigos ao mesmo tempo com um único disparo.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⚠️</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="fraco">Ponto Fraco: O Último Romântico</strong>
+                        <span>Mulheres aplicam dano crítico na sua concentração.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jair - Força  -->
+        <div class="personagem-hotspot"  data-x="59" data-y="58.5" data-w="9.5" data-h="39.5">
+            <div class="skill-tooltip">
+                <div class="skill-tooltip-title">Jair</div>
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">💪</div>
+                    <div class="skill-tooltip-info">
+                        <strong>Força · Super Dano</strong>
+                        <span>Aumenta temporariamente o dano causado aos inimigos.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-divider"></div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⭐</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="forte">Ponto Forte: Poder de Fogo</strong>
+                        <span>Causa o maior dano por disparo entre todos os personagens.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⚠️</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="fraco">Ponto Fraco: Pudim Master</strong>
+                        <span>Troca qualquer luta por um bom pudim.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ueslei - Atirador  -->
+        <div class="personagem-hotspot" data-x="67" data-y="59" data-w="8.3" data-h="34.5">
+            <div class="skill-tooltip">
+                <div class="skill-tooltip-title">Ueslei</div>
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">🎯</div>
+                    <div class="skill-tooltip-info">
+                        <strong>Atirador · Precisão de Tiro</strong>
+                        <span>Aumenta a precisão dos disparos, garantindo mais acertos críticos.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-divider"></div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⭐</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="forte">Ponto Forte: Precisão Letal</strong>
+                        <span>Altíssima chance de acerto crítico em alvos distantes.</span>
+                    </div>
+                </div>
+
+                <div class="skill-tooltip-row">
+                    <div class="skill-tooltip-icon">⚠️</div>
+                    <div class="skill-tooltip-info">
+                        <strong class="fraco">Ponto Fraco: Fatality Romântico</strong>
+                        <span>Um simples "amor" é suficiente para cancelar qualquer missão.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <main>
+        <section class="botoes">
+            <a href="./html/jogarSolo.html" class="btn btn-ciano">JOGAR</a>
+
+            <a href="./html/manual.html" class="btn btn-verde">MANUAL</a>
+
+            <a href="./html/sobre.html" class="btn btn-amarelo">
+                SOBRE O JOGO
+            </a>
+
+            <span class="footer-press">
+                >>> PRESS START <<< </span>
+        </section>
+    </main>
+    <br>
+    <footer>
+        <span class="footer-ver">VER 1.0.0</span>
+        <span class="footer-copy">
+            &copy; THE BUGS STUDIOS 2026
+        </span>
+    </footer>
+
+    <audio src="./assets/audio/music/BugForce_telaInicial.mp3" loop autoplay></audio>
+</body>
+
+</html>
