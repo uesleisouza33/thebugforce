@@ -1,31 +1,36 @@
-import Jogador from "./jogador.js";
-import Inimigo from "./inimigo.js";
+import SPRITES from "./sprites.js";
+
+import PlayerSpawner from "./playerspawn.js";
+import EnemySpawner from "./enemyspawn.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-const fundoFase1 = new Image();
-fundoFase1.src = "../assets/game/backgrounds/fase1.webp";
-
 ctx.imageSmoothingEnabled = false;
 
 // =====================
-// Sprites
+// Background
 // =====================
 
-const spriteJogador = new Image();
-spriteJogador.src = "../assets/game/personagens/larissa.png";
+const fundoFase1 = new Image();
+fundoFase1.src = "../assets/game/backgrounds/fase1.webp";
 
-const spriteInimigo = new Image();
-// spriteInimigo.src = "../assets/game/inimigos/prof_edu/prof_edu_walk.png";
-spriteInimigo.src = "../assets/game/inimigos/prof_edu/teste.png";
+// =====================
+// Carrega todos os sprites
+// =====================
+
+Object.values(SPRITES).forEach(sprite => {
+    sprite.image = new Image();
+    sprite.image.src = sprite.src;
+});
 
 // =====================
 // Objetos
 // =====================
 
 let jogador;
-let inimigo;
+let playerSpawner;
+let enemySpawner;
 
 const teclas = {};
 
@@ -34,15 +39,19 @@ const teclas = {};
 // =====================
 
 window.addEventListener("keydown", (e) => {
+
     teclas[e.key.toLowerCase()] = true;
 
-    if (e.key === "h") {
+    if (e.key.toLowerCase() === "h") {
         jogador.receberDano();
     }
+
 });
 
 window.addEventListener("keyup", (e) => {
+
     teclas[e.key.toLowerCase()] = false;
+
 });
 
 // =====================
@@ -51,15 +60,27 @@ window.addEventListener("keyup", (e) => {
 
 function iniciar() {
 
-    jogador = new Jogador(spriteJogador);
-
-    inimigo = new Inimigo(
-        canvas.width - 150,
-        canvas.height,
-        spriteInimigo
+    playerSpawner = new PlayerSpawner(
+        SPRITES.larissa
     );
 
+    jogador = playerSpawner.spawn();
+
+    enemySpawner = new EnemySpawner(
+
+        [
+            SPRITES.profEdu
+            // SPRITES.larissa
+        ],
+
+        canvas
+
+    );
+
+    enemySpawner.spawn(1100);
+
     requestAnimationFrame(loop);
+
 }
 
 // =====================
@@ -72,7 +93,16 @@ function atualizar(deltaTime) {
 
     jogador.update(deltaTime);
 
-    inimigo.update(deltaTime);
+    enemySpawner.update(deltaTime);
+
+
+    const inimigo = enemySpawner.verificarColisao(jogador);
+
+    if (inimigo) {
+
+        jogador.receberDano(10);
+
+    }
 
 }
 
@@ -99,41 +129,62 @@ function desenhar() {
 
     jogador.draw(ctx);
 
-    inimigo.draw(ctx);
+    enemySpawner.draw(ctx);
+
+    ctx.fillStyle = "#222";
+    ctx.fillRect(20, 20, 200, 20);
+
+    ctx.fillStyle = "#00ff00";
+    ctx.fillRect(
+        20,
+        20,
+        (jogador.vida / jogador.vidaMaxima) * 200,
+        20
+    );
+
+    ctx.strokeStyle = "#fff";
+    ctx.strokeRect(20, 20, 200, 20);
+
 }
 
-    // =====================
-    // Loop
-    // =====================
+// =====================
+// Loop
+// =====================
 
-    let ultimoTempo = 0;
+let ultimoTempo = 0;
 
-    function loop(tempoAtual) {
+function loop(tempoAtual) {
 
-        const deltaTime =
-            tempoAtual - ultimoTempo;
+    const deltaTime = tempoAtual - ultimoTempo;
 
-        ultimoTempo = tempoAtual;
+    ultimoTempo = tempoAtual;
 
-        atualizar(deltaTime);
+    atualizar(deltaTime);
 
-        desenhar();
+    desenhar();
 
-        requestAnimationFrame(loop);
-    }
+    requestAnimationFrame(loop);
 
-    // =====================
-    // Carregamento
-    // =====================
+}
 
-    Promise.all([
+// =====================
+// Carregamento
+// =====================
+
+Promise.all([
+
+    new Promise(resolve => {
+        fundoFase1.onload = resolve;
+    }),
+
+    ...Object.values(SPRITES).map(sprite =>
+
         new Promise(resolve => {
-            spriteJogador.onload = resolve;
-        }),
-        new Promise(resolve => {
-            spriteInimigo.onload = resolve;
-        }),
-        new Promise(resolve => {
-            fundoFase1.onload = resolve;
+
+            sprite.image.onload = resolve;
+
         })
-    ]).then(iniciar);
+
+    )
+
+]).then(iniciar);
