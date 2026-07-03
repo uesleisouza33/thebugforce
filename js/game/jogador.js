@@ -26,6 +26,14 @@ export default class Jogador extends Entidade {
             config.frameHeight
         );
 
+        this.vidaMaxima = 100;
+        this.vida = this.vidaMaxima;
+
+        this.invencivel = false;
+        this.tempoInvencivel = 1000; // 1 segundo
+
+        this.morto = false;
+
         Object.entries(config.animations).forEach(([nome, dados]) => {
 
             this.animacao.adicionar(nome, dados);
@@ -41,13 +49,32 @@ export default class Jogador extends Entidade {
 
     update(deltaTime) {
 
+        if (this.morto)
+            return;
+
         if (this.movendo) {
             this.animacao.update(deltaTime);
+        }
+
+        if (this.invencivel) {
+
+            this.tempoInvencivel -= deltaTime;
+
+            if (this.tempoInvencivel <= 0) {
+
+                this.invencivel = false;
+                this.tempoInvencivel = 1000;
+
+            }
+
         }
 
     }
 
     mover(teclas) {
+
+        if (this.morto)
+            return;
 
         this.movendo = false;
 
@@ -90,11 +117,37 @@ export default class Jogador extends Entidade {
         }
     }
 
-    receberDano() {
+    receberDano(dano = 10) {
+
+        if (this.invencivel || this.morto)
+            return;
+
+        this.vida -= dano;
+
+        if (this.vida < 0)
+            this.vida = 0;
+
+        this.invencivel = true;
 
         if (this.config.animations.hurt) {
-
             this.animacao.tocar("hurt");
+        }
+
+        if (this.vida <= 0) {
+
+            this.morto = true;
+
+        }
+
+    }
+
+    curar(valor = 20) {
+
+        this.vida += valor;
+
+        if (this.vida > this.vidaMaxima) {
+
+            this.vida = this.vidaMaxima;
 
         }
 
@@ -110,6 +163,13 @@ export default class Jogador extends Entidade {
             this.altura,
             this.direcao === -1
         );
+
+        if (this.invencivel) {
+
+            if (Math.floor(Date.now() / 80) % 2 === 0)
+                return;
+
+        }
 
     }
 

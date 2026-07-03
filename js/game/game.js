@@ -95,13 +95,12 @@ function atualizar(deltaTime) {
 
     enemySpawner.update(deltaTime);
 
+
     const inimigo = enemySpawner.verificarColisao(jogador);
 
     if (inimigo) {
 
-        jogador.receberDano();
-
-        console.log("COLIDIU");
+        jogador.receberDano(10);
 
     }
 
@@ -131,6 +130,20 @@ function desenhar() {
     jogador.draw(ctx);
 
     enemySpawner.draw(ctx);
+
+    ctx.fillStyle = "#222";
+    ctx.fillRect(20, 20, 200, 20);
+
+    ctx.fillStyle = "#00ff00";
+    ctx.fillRect(
+        20,
+        20,
+        (jogador.vida / jogador.vidaMaxima) * 200,
+        20
+    );
+
+    ctx.strokeStyle = "#fff";
+    ctx.strokeRect(20, 20, 200, 20);
 
 }
 
