@@ -26,7 +26,7 @@
     position: relative;
     color: #ff0000;
     font-size: 1.5rem;
-    transform: translateY(-140px);
+    transform: translateY(-170px);
     font-family: "Press Start 2P", monospace;
     text-transform: uppercase;
 
@@ -61,7 +61,7 @@
     position: relative;
     color: #00a2ff;
     font-size: 2.2rem;
-    transform: translateY(-130px);
+    transform: translateY(-140px);
     font-family: "Press Start 2P", monospace;
     text-transform: uppercase;
 
@@ -123,16 +123,16 @@
 }
 
 .title-image {
-  width: 900px; /* ajuste o valor que quiser */
+  width: 950px; /* ajuste o valor que quiser */
   height: auto;
-  transform: translateY(-20px);
+  transform: translateY(-55px);
 }
 
 .score-container {
   z-index: 20;
     position: relative;
     color: #ff0000;
-    transform: translateY(-130px);
+    transform: translateY(-200px);
     font-family: "Press Start 2P", monospace;
     text-transform: uppercase;
     top: 175px;
@@ -219,7 +219,7 @@
     
     /* Se você preferir usar uma IMAGEM ESPECÍFICA de fundo (que não o jogo), 
        descomente as linhas abaixo e defina sua imagem: */
-    background-image: url('../assets/game/backgrounds/gameOverFundo.png'); 
+    background-image: url('../assets/gameOverFundo.png'); 
      background-size: cover; 
      background-position: center; 
     background-repeat: no-repeat;
@@ -262,7 +262,7 @@
   color: #44ddff;
   border-color: #00ccff;
   box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
-  top: 3px; /* Move para cima sem usar transform */
+  top: 85px; /* Move para cima sem usar transform */
 }
 .btn-ciano:hover {
   background: rgba(0, 200, 255, 0.15);
@@ -272,7 +272,7 @@
   color: #33ff77;
   border-color: #22dd55;
   box-shadow: 0 0 8px rgba(34, 221, 85, 0.5);
-  top: -178px
+  top: 80px
 }
 .btn-verde:hover {
   background: rgba(34, 221, 85, 0.15);

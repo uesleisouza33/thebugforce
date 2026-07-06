@@ -11,19 +11,12 @@
     <link rel="stylesheet" href="../css/gameOver.css" />
   </head>
   <body>
-    <canvas id="canvas" width="1300" height="600"></canvas>
-    <!-- <button
-      id="test-game-over-btn"
-      style="position: fixed; top: 10px; left: 10px; z-index: 999"
-    >
-      Testar Game Over
-    </button> -->
-    <div id="game-over-screen" class="game-over-overlay hidden">
+    <div id="game-over-screen" class="game-over-overlay">
       <div class="game-over-content">
         <img
           id="game-over-title"
           class="title-image"
-          src="../assets/img/tituloGameOver.png"
+          src="../assets/tituloGameOver.png"
           alt="GAME OVER"
         />
         <div id="cont">
@@ -34,12 +27,11 @@
         </div>
         <div class="botoes">
           <button id="restart-btn" class="btn btn-ciano">Yes</button>
+          <button id="back-btn" class="btn btn-verde">No</button>
         </div>
-        <button id="back-btn" class="btn btn-verde">No</button>
       </div>
     </div>
-    <script src="../js/game/entidade.js"></script>
-    <script src="../js/game/jogador.js"></script>
-    <script src="../js/game/GameOver.js"></script>
+
+    <script src="../js/game/gameOver.js"></script>
   </body>
 </html>
