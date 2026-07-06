@@ -3,72 +3,153 @@ import Animacao from "./animacao.js";
 
 export default class Jogador extends Entidade {
 
-    constructor(spriteSheet) {
+    constructor(x, y, config) {
 
         super(
-            100,
-            400,
-            64,
-            64,
-            spriteSheet
+            x,
+            y,
+            config.width,
+            config.height,
+            config.image
         );
+
+        this.config = config;
 
         this.direcao = 1;
         this.velocidade = 5;
 
+        this.movendo = false;
+
         this.animacao = new Animacao(
-            spriteSheet,
-            64,
-            64
+            config.image,
+            config.frameWidth,
+            config.frameHeight
         );
 
-        this.animacao.adicionar("walk", {
-            row: 0,
-            frames: 4,
-            speed: 120
-        });
+        this.vidaMaxima = 100;
+        this.vida = this.vidaMaxima;
 
-        this.animacao.adicionar("hurt", {
-            row: 1,
-            frames: 4,
-            speed: 100,
-            loop: false
+        this.invencivel = false;
+        this.tempoInvencivel = 1000; // 1 segundo
+
+        this.morto = false;
+
+        Object.entries(config.animations).forEach(([nome, dados]) => {
+
+            this.animacao.adicionar(nome, dados);
+
         });
 
         this.animacao.tocar("walk");
+
+        // Começa parado no primeiro frame
+        this.animacao.parar();
+
     }
 
     update(deltaTime) {
 
-        this.animacao.update(deltaTime);
+        if (this.morto)
+            return;
+
+        if (this.movendo) {
+            this.animacao.update(deltaTime);
+        }
+
+        if (this.invencivel) {
+
+            this.tempoInvencivel -= deltaTime;
+
+            if (this.tempoInvencivel <= 0) {
+
+                this.invencivel = false;
+                this.tempoInvencivel = 1000;
+
+            }
+
+        }
 
     }
 
     mover(teclas) {
 
-        let movendo = false;
+        if (this.morto)
+            return;
+
+        this.movendo = false;
 
         if (teclas["a"]) {
             this.x -= this.velocidade;
-            this.direcao = -1;
-            movendo = true;
+            this.direcao = 1;
+            this.movendo = true;
         }
 
         if (teclas["d"]) {
             this.x += this.velocidade;
             this.direcao = 1;
-            movendo = true;
+            this.movendo = true;
         }
 
-        if (movendo) {
+        if (teclas["w"]) {
+            this.y -= this.velocidade;
+            this.direcao = 1;
+            this.movendo = true;
+        }
+
+        if (teclas["s"]) {
+            this.y += this.velocidade;
+            this.direcao = 1;
+            this.movendo = true;
+        }
+
+        // Limites da fase
+        // Limites da fase
+        this.x = Math.max(-5, this.x);
+        this.x = Math.min(400, this.x);
+
+        this.y = Math.max(355, this.y);
+        this.y = Math.min(600, this.y);
+
+        if (this.movendo) {
             this.animacao.tocar("walk");
+        } else {
+            this.animacao.parar();
+        }
+    }
+
+    receberDano(dano = 10) {
+
+        if (this.invencivel || this.morto)
+            return;
+
+        this.vida -= dano;
+
+        if (this.vida < 0)
+            this.vida = 0;
+
+        this.invencivel = true;
+
+        if (this.config.animations.hurt) {
+            this.animacao.tocar("hurt");
+        }
+
+        if (this.vida <= 0) {
+
+            this.morto = true;
+
         }
 
     }
 
-    receberDano() {
+    curar(valor = 20) {
 
-        this.animacao.tocar("hurt");
+        this.vida += valor;
+
+        if (this.vida > this.vidaMaxima) {
+
+            this.vida = this.vidaMaxima;
+
+        }
 
     }
 
@@ -83,5 +164,13 @@ export default class Jogador extends Entidade {
             this.direcao === -1
         );
 
+        if (this.invencivel) {
+
+            if (Math.floor(Date.now() / 80) % 2 === 0)
+                return;
+
+        }
+
     }
+
 }

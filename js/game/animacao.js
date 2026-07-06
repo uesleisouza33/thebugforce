@@ -28,6 +28,13 @@ export default class Animacao {
         }
     }
 
+    parar() {
+
+        this.frameAtual = 0;
+        this.frameTimer = 0;
+
+    }
+
     tocar(nome) {
 
         if (this.animacaoAtual === nome) return;
