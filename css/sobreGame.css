@@ -43,8 +43,13 @@ header::after {
 }
 
 @keyframes headerScan {
-    0% { left: -60%; }
-    100% { left: 140%; }
+    0% {
+        left: -60%;
+    }
+
+    100% {
+        left: 140%;
+    }
 }
 
 header nav ul {
@@ -84,6 +89,7 @@ header nav ul li a:hover {
         transform: scale(0.96);
         opacity: 0;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -111,7 +117,7 @@ section {
 }
 
 /* parágrafo de introdução */
-section > p {
+section>p {
     background: rgba(20, 8, 38, 0.95);
     border: 2px solid #6a2eb8;
     border-left: 4px solid #aa44ff;
@@ -123,14 +129,15 @@ section > p {
     box-shadow: 4px 4px 0 #2a1a4a;
 }
 
-section > p strong {
+section>p strong {
     color: #cc88ff;
 }
 
 /* ═══════════════════════════════
-   TÍTULOS DE SEÇÃO
+   TÍTULOS DE SEÇÃO (h1 e h2)
 ═══════════════════════════════ */
-section h1 {
+section h1,
+section h2 {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.82rem;
     color: #d4a0ff;
@@ -143,7 +150,8 @@ section h1 {
     letter-spacing: 1.5px;
 }
 
-section h1::before {
+section h1::before,
+section h2::before {
     content: '>';
     color: #aa44ff;
     font-size: 1rem;
@@ -151,7 +159,8 @@ section h1::before {
     flex-shrink: 0;
 }
 
-section h1::after {
+section h1::after,
+section h2::after {
     content: '';
     flex: 1;
     height: 1.5px;
@@ -170,7 +179,7 @@ hr {
 /* ═══════════════════════════════
    LISTAS GENÉRICAS (Objetivo + Controles)
 ═══════════════════════════════ */
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) {
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista):not(.time-lista) {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -181,7 +190,7 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) {
     box-shadow: 5px 5px 0 #2a1a4a;
 }
 
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p {
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista):not(.time-lista) p {
     font-size: 0.95rem;
     color: #cfc0f0;
     padding: 0.7rem 0;
@@ -189,7 +198,7 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
     line-height: 1.55;
 }
 
-section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p strong {
+section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista):not(.time-lista) p strong {
     color: #cc88ff;
 }
 
@@ -367,11 +376,171 @@ section ul:not(.cenarios-lista):not(.personagens-lista):not(.coletaveis-lista) p
 }
 
 /* ═══════════════════════════════
+   NOSSA EQUIPE (NOVO)
+═══════════════════════════════ */
+.nossa-equipe>p {
+    background: rgba(20, 8, 38, 0.95);
+    border: 2px solid #6a2eb8;
+    border-left: 4px solid #aa44ff;
+    border-radius: 16px;
+    padding: 1.2rem 1.6rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #cfc0f0;
+    box-shadow: 4px 4px 0 #2a1a4a;
+    margin-bottom: 1.5rem;
+}
+
+.time-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0;
+}
+
+.time-lista li {
+    background: linear-gradient(135deg, #1a0d30 60%, #0d0620);
+    border-radius: 20px;
+    border: 2.5px solid #6a2eb8;
+    padding: 20px 16px;
+    box-shadow: 5px 5px 0 #2a1a4a;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.time-lista li:hover {
+    transform: translateY(-6px);
+    border-color: #aa44ff;
+    box-shadow: 5px 5px 0 #2a1a4a, 0 0 24px rgba(170, 68, 255, 0.4);
+}
+
+.time-img {
+    width: 100px;
+    /* antes era 80px */
+    height: 100px;
+    /* antes era 80px */
+    border-radius: 50%;
+    background: #120825;
+    border: 3px solid #6a2eb8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.time-lista li:hover .time-img {
+    border-color: #aa44ff;
+    box-shadow: 0 0 20px rgba(170, 68, 255, 0.5);
+}
+
+.time-img img {
+    width: 85%;
+    /* ocupa 85% do container, antes era 100% */
+    height: 85%;
+    object-fit: contain;
+    /* mantém proporção sem cortar */
+    image-rendering: pixelated;
+    /* preserva a nitidez do pixel art */
+}
+
+.time-lista li strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #d4a0ff;
+    margin-bottom: 6px;
+    text-shadow: 0 0 8px rgba(170, 68, 255, 0.3);
+}
+
+.time-desc {
+    font-size: 0.85rem;
+    color: #b8a0d8;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.orientador-lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0;
+}
+
+.orientador-lista li {
+    background: linear-gradient(135deg, #1a0d30 60%, #0d0620);
+    border-radius: 20px;
+    border: 2.5px solid #6a2eb8;
+    padding: 20px 16px;
+    box-shadow: 5px 5px 0 #2a1a4a;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.orientador-lista li:hover {
+    transform: translateY(-6px);
+    border-color: #aa44ff;
+    box-shadow: 5px 5px 0 #2a1a4a, 0 0 24px rgba(170, 68, 255, 0.4);
+}
+
+/* ⬇️ Aumentado de 80px para 100px */
+.orientador-img {
+    width: 210px !important;
+    height: 210px !important;
+    border-radius: 100% !important;
+    background: #120825;
+    border: 3px solid #6a2eb8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.orientador-lista li:hover .orientador-img {
+    border-color: #aa44ff;
+    box-shadow: 0 0 20px rgba(170, 68, 255, 0.5);
+}
+
+/* ⬇️ Ajuste interno para melhor aproveitamento */
+.orientador-img img {
+    width: 85% !important;
+    height: 85% !important;
+    object-fit: contain !important;
+}
+
+.orientador-lista li strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #d4a0ff;
+    margin-bottom: 6px;
+    text-shadow: 0 0 8px rgba(170, 68, 255, 0.3);
+}
+
+.orientador-desc {
+    font-size: 0.85rem;
+    color: #b8a0d8;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ═══════════════════════════════
    BOTÃO VOLTAR
 ═══════════════════════════════ */
 .back-button-container {
     text-align: center;
-    margin-top: 3.5rem;
+    margin-top: 2rem;
 }
 
 .btn-voltar {
@@ -410,6 +579,22 @@ footer {
     letter-spacing: 2px;
     text-transform: uppercase;
     box-shadow: 0 -4px 24px rgba(106, 46, 184, 0.4);
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 20px;
+
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+
+    z-index: 9999;
 }
 
 footer strong {
@@ -425,4 +610,65 @@ footer a {
 
 footer a:hover {
     color: #d4a0ff;
+}
+
+/* ═══════════════════════════════
+   BOTÕES SOCIAIS (INSTA + GITHUB)
+═══════════════════════════════ */
+.button-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.btn-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: #cc88ff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.62rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    border: 2px solid #aa44ff;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 #3a1a6a;
+    letter-spacing: 1px;
+    transition: all 0.18s ease;
+    text-shadow: 0 0 8px rgba(170, 68, 255, 0.4);
+}
+
+.btn-social i {
+    font-size: 1.2rem;
+    color: #d4a0ff;
+    transition: color 0.3s ease;
+}
+
+.btn-social:hover {
+    background: rgba(170, 68, 255, 0.15);
+    color: #ffffff;
+    box-shadow: 6px 6px 0 #3a1a6a, 0 0 24px rgba(170, 68, 255, 0.7);
+    transform: translate(-2px, -2px);
+}
+
+.btn-social:hover i {
+    color: #ffffff;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .button-icons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-social {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.55rem;
+        padding: 0.6rem 1rem;
+    }
 }
