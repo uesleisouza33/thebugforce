@@ -32,6 +32,10 @@ let jogador;
 let playerSpawner;
 let enemySpawner;
 
+let estadoJogo = "jogando"; // "jogando" | "gameover"
+let pontuacao = 0;
+let tempoSobrevivido = 0;
+
 const teclas = {};
 
 // =====================
@@ -42,7 +46,7 @@ window.addEventListener("keydown", (e) => {
 
     teclas[e.key.toLowerCase()] = true;
 
-    if (e.key.toLowerCase() === "h") {
+    if (e.key.toLowerCase() === "h" && jogador) {
         jogador.receberDano();
     }
 
@@ -84,6 +88,21 @@ function iniciar() {
 }
 
 // =====================
+// Fim de jogo
+// =====================
+
+function finalizarJogo() {
+
+    estadoJogo = "gameover";
+
+    // Salva a pontuação para a tela de Game Over ler
+    sessionStorage.setItem("pontuacaoFinal", pontuacao);
+
+    window.location.href = "gameOver.html";
+
+}
+
+// =====================
 // Update
 // =====================
 
@@ -101,6 +120,18 @@ function atualizar(deltaTime) {
     if (inimigo) {
 
         jogador.receberDano(10);
+
+    }
+
+    // Pontuação: 1 ponto por segundo sobrevivido.
+    // Ajuste essa conta se preferir pontuar de outra forma
+    // (ex: por inimigo desviado).
+    tempoSobrevivido += deltaTime;
+    pontuacao = Math.floor(tempoSobrevivido / 1000);
+
+    if (jogador.morto && estadoJogo === "jogando") {
+
+        finalizarJogo();
 
     }
 
@@ -145,6 +176,10 @@ function desenhar() {
     ctx.strokeStyle = "#fff";
     ctx.strokeRect(20, 20, 200, 20);
 
+    ctx.fillStyle = "#fff";
+    ctx.font = "16px sans-serif";
+    ctx.fillText("Pontos: " + pontuacao, 20, 62);
+
 }
 
 // =====================
@@ -159,9 +194,13 @@ function loop(tempoAtual) {
 
     ultimoTempo = tempoAtual;
 
-    atualizar(deltaTime);
+    if (estadoJogo === "jogando") {
 
-    desenhar();
+        atualizar(deltaTime);
+
+        desenhar();
+
+    }
 
     requestAnimationFrame(loop);
 
