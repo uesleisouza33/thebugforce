@@ -2,11 +2,11 @@ import Jogador from "./jogador.js";
 
 export default class PlayerSpawner {
 
-    constructor(config) {
+    constructor(spriteConfig, characterConfig) {
 
-        this.config = config;
+        this.spriteConfig = spriteConfig;
+        this.characterConfig = characterConfig;
 
-        // Spawn padrão
         this.spawnX = 100;
         this.spawnY = 400;
 
@@ -17,7 +17,8 @@ export default class PlayerSpawner {
         return new Jogador(
             this.spawnX,
             this.spawnY,
-            this.config
+            this.spriteConfig,
+            this.characterConfig
         );
 
     }
@@ -29,7 +30,7 @@ export default class PlayerSpawner {
 
     }
 
-    
+
 
     getSpawn() {
 

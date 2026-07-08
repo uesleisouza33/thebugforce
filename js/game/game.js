@@ -1,4 +1,7 @@
 import SPRITES from "./sprites.js";
+import CHARACTERS from "./characters.js";
+
+
 
 import PlayerSpawner from "./playerspawn.js";
 import EnemySpawner from "./enemyspawn.js";
@@ -58,6 +61,18 @@ window.addEventListener("keyup", (e) => {
 
 });
 
+window.addEventListener("keydown", (e) => {
+
+    teclas[e.key.toLowerCase()] = true;
+
+    if (e.code === "Space") {
+
+        jogador.atacar();
+
+    }
+
+});
+
 // =====================
 // Inicialização
 // =====================
@@ -65,7 +80,8 @@ window.addEventListener("keyup", (e) => {
 function iniciar() {
 
     playerSpawner = new PlayerSpawner(
-        SPRITES.larissa
+        SPRITES.larissa,
+        CHARACTERS.larissa
     );
 
     jogador = playerSpawner.spawn();
@@ -74,7 +90,6 @@ function iniciar() {
 
         [
             SPRITES.profEdu
-            // SPRITES.larissa
         ],
 
         canvas

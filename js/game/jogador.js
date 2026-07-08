@@ -1,50 +1,61 @@
 import Entidade from "./entidade.js";
 import Animacao from "./animacao.js";
+import Attack from "./combat/attack.js";
 
 export default class Jogador extends Entidade {
 
-    constructor(x, y, config) {
+    constructor(
+        x,
+        y,
+        spriteConfig,
+        characterConfig
+    ) {
 
         super(
             x,
             y,
-            config.width,
-            config.height,
-            config.image
+            spriteConfig.width,
+            spriteConfig.height,
+            spriteConfig.image
         );
 
-        this.config = config;
+        // Configurações
+        this.spriteConfig = spriteConfig;
+        this.characterConfig = characterConfig;
 
+        // Gameplay
         this.direcao = 1;
-        this.velocidade = 5;
-
         this.movendo = false;
+        this.morto = false;
+        this.primaryAttack =
+            new Attack(
+                characterConfig.ataquePrimario
+            );
 
-        this.animacao = new Animacao(
-            config.image,
-            config.frameWidth,
-            config.frameHeight
-        );
+        this.specialAbility =
+            characterConfig.habilidadeEspecial;
 
-        this.vidaMaxima = 100;
+        this.velocidade = characterConfig.velocidade;
+
+        this.vidaMaxima = characterConfig.vida;
         this.vida = this.vidaMaxima;
 
         this.invencivel = false;
-        this.tempoInvencivel = 1000; // 1 segundo
+        this.tempoInvencivel = 1000;
 
-        this.morto = false;
+        // Animação
+        this.animacao = new Animacao(
+            spriteConfig.image,
+            spriteConfig.frameWidth,
+            spriteConfig.frameHeight
+        );
 
-        Object.entries(config.animations).forEach(([nome, dados]) => {
-
+        Object.entries(spriteConfig.animations).forEach(([nome, dados]) => {
             this.animacao.adicionar(nome, dados);
-
         });
 
         this.animacao.tocar("walk");
-
-        // Começa parado no primeiro frame
         this.animacao.parar();
-
     }
 
     update(deltaTime) {
@@ -71,6 +82,16 @@ export default class Jogador extends Entidade {
 
     }
 
+    atacar() {
+
+        if (this.morto)
+            return;
+
+        console.log(this.primaryAttack);
+        this.primaryAttack.executar(this);
+
+    }
+
     mover(teclas) {
 
         if (this.morto)
@@ -79,30 +100,35 @@ export default class Jogador extends Entidade {
         this.movendo = false;
 
         if (teclas["a"]) {
+
             this.x -= this.velocidade;
-            this.direcao = 1;
+            this.direcao = -1;
             this.movendo = true;
+
         }
 
         if (teclas["d"]) {
+
             this.x += this.velocidade;
             this.direcao = 1;
             this.movendo = true;
+
         }
 
         if (teclas["w"]) {
+
             this.y -= this.velocidade;
-            this.direcao = 1;
             this.movendo = true;
+
         }
 
         if (teclas["s"]) {
+
             this.y += this.velocidade;
-            this.direcao = 1;
             this.movendo = true;
+
         }
 
-        // Limites da fase
         // Limites da fase
         this.x = Math.max(-5, this.x);
         this.x = Math.min(400, this.x);
@@ -111,10 +137,15 @@ export default class Jogador extends Entidade {
         this.y = Math.min(600, this.y);
 
         if (this.movendo) {
+
             this.animacao.tocar("walk");
+
         } else {
+
             this.animacao.parar();
+
         }
+
     }
 
     receberDano(dano = 10) {
@@ -129,8 +160,10 @@ export default class Jogador extends Entidade {
 
         this.invencivel = true;
 
-        if (this.config.animations.hurt) {
+        if (this.spriteConfig.animations.hurt) {
+
             this.animacao.tocar("hurt");
+
         }
 
         if (this.vida <= 0) {
@@ -155,6 +188,14 @@ export default class Jogador extends Entidade {
 
     draw(ctx) {
 
+        // Pisca quando está invencível
+        if (this.invencivel) {
+
+            if (Math.floor(Date.now() / 80) % 2 === 0)
+                return;
+
+        }
+
         this.animacao.draw(
             ctx,
             this.x,
@@ -163,13 +204,6 @@ export default class Jogador extends Entidade {
             this.altura,
             this.direcao === -1
         );
-
-        if (this.invencivel) {
-
-            if (Math.floor(Date.now() / 80) % 2 === 0)
-                return;
-
-        }
 
     }
 
