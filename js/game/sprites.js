@@ -20,6 +20,16 @@ const SPRITES = {
                 row: 1,
                 frames: 5,
                 speed: 150
+            },
+
+            shoot: {
+                row: 2,
+                frames: 5,
+                speed: 90,
+                loop: false,
+                events: {
+                    3: "shoot"
+                }
             }
             // ,
 

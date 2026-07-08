@@ -2,6 +2,7 @@ import SPRITES from "./sprites.js";
 
 import PlayerSpawner from "./playerspawn.js";
 import EnemySpawner from "./enemyspawn.js";
+import ProjectileSpawner from "./projectilespawn.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -31,6 +32,7 @@ Object.values(SPRITES).forEach(sprite => {
 let jogador;
 let playerSpawner;
 let enemySpawner;
+let projectileSpawner;
 
 const teclas = {};
 
@@ -38,9 +40,22 @@ const teclas = {};
 // Input
 // =====================
 
+function solicitarTiro() {
+
+    if (!jogador) return;
+
+    jogador.atirar();
+
+}
+
 window.addEventListener("keydown", (e) => {
 
     teclas[e.key.toLowerCase()] = true;
+
+    if (e.code === "Space") {
+        e.preventDefault();
+        solicitarTiro();
+    }
 
     if (e.key.toLowerCase() === "h") {
         jogador.receberDano();
@@ -51,6 +66,14 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
 
     teclas[e.key.toLowerCase()] = false;
+
+});
+
+canvas.addEventListener("mousedown", (e) => {
+
+    if (e.button === 0) {
+        solicitarTiro();
+    }
 
 });
 
@@ -65,6 +88,8 @@ function iniciar() {
     );
 
     jogador = playerSpawner.spawn();
+
+    projectileSpawner = new ProjectileSpawner(canvas);
 
     enemySpawner = new EnemySpawner(
 
@@ -92,6 +117,14 @@ function atualizar(deltaTime) {
     jogador.mover(teclas);
 
     jogador.update(deltaTime);
+
+    jogador.consumirSolicitacoesTiro().forEach(solicitacao => {
+
+        projectileSpawner.criar(solicitacao);
+
+    });
+
+    projectileSpawner.update(deltaTime);
 
     enemySpawner.update(deltaTime);
 
@@ -128,6 +161,8 @@ function desenhar() {
     );
 
     jogador.draw(ctx);
+
+    projectileSpawner.draw(ctx);
 
     enemySpawner.draw(ctx);
 

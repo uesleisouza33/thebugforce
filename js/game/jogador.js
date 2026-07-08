@@ -1,6 +1,14 @@
 import Entidade from "./entidade.js";
 import Animacao from "./animacao.js";
 
+const ESTADOS_JOGADOR = {
+    IDLE: "IDLE",
+    WALK: "WALK",
+    SHOOT: "SHOOT",
+    HURT: "HURT",
+    DEAD: "DEAD"
+};
+
 export default class Jogador extends Entidade {
 
     constructor(x, y, config) {
@@ -19,6 +27,8 @@ export default class Jogador extends Entidade {
         this.velocidade = 5;
 
         this.movendo = false;
+        this.estado = ESTADOS_JOGADOR.IDLE;
+        this.solicitacoesTiro = [];
 
         this.animacao = new Animacao(
             config.image,
@@ -52,8 +62,14 @@ export default class Jogador extends Entidade {
         if (this.morto)
             return;
 
-        if (this.movendo) {
+        if (this.estado === ESTADOS_JOGADOR.SHOOT || this.movendo) {
             this.animacao.update(deltaTime);
+        }
+
+        this.processarEventosAnimacao();
+
+        if (this.estado === ESTADOS_JOGADOR.SHOOT && this.animacao.terminou()) {
+            this.finalizarTiro();
         }
 
         if (this.invencivel) {
@@ -73,14 +89,14 @@ export default class Jogador extends Entidade {
 
     mover(teclas) {
 
-        if (this.morto)
+        if (this.morto || this.estado === ESTADOS_JOGADOR.SHOOT)
             return;
 
         this.movendo = false;
 
         if (teclas["a"]) {
             this.x -= this.velocidade;
-            this.direcao = 1;
+            this.direcao = -1;
             this.movendo = true;
         }
 
@@ -92,13 +108,11 @@ export default class Jogador extends Entidade {
 
         if (teclas["w"]) {
             this.y -= this.velocidade;
-            this.direcao = 1;
             this.movendo = true;
         }
 
         if (teclas["s"]) {
             this.y += this.velocidade;
-            this.direcao = 1;
             this.movendo = true;
         }
 
@@ -111,8 +125,11 @@ export default class Jogador extends Entidade {
         this.y = Math.min(600, this.y);
 
         if (this.movendo) {
+            this.definirEstado(ESTADOS_JOGADOR.WALK);
             this.animacao.tocar("walk");
         } else {
+            this.definirEstado(ESTADOS_JOGADOR.IDLE);
+            this.animacao.tocar("walk");
             this.animacao.parar();
         }
     }
@@ -129,13 +146,16 @@ export default class Jogador extends Entidade {
 
         this.invencivel = true;
 
+        this.definirEstado(ESTADOS_JOGADOR.HURT);
+
         if (this.config.animations.hurt) {
-            this.animacao.tocar("hurt");
+            this.animacao.tocar("hurt", true);
         }
 
         if (this.vida <= 0) {
 
             this.morto = true;
+            this.definirEstado(ESTADOS_JOGADOR.DEAD);
 
         }
 
@@ -150,6 +170,79 @@ export default class Jogador extends Entidade {
             this.vida = this.vidaMaxima;
 
         }
+
+    }
+
+    atirar() {
+
+        if (
+            this.morto ||
+            this.estado === ESTADOS_JOGADOR.SHOOT ||
+            !this.config.animations.shoot
+        ) {
+            return;
+        }
+
+        this.definirEstado(ESTADOS_JOGADOR.SHOOT);
+        this.animacao.tocar("shoot", true);
+
+    }
+
+    processarEventosAnimacao() {
+
+        const eventos = this.animacao.consumirEventos();
+
+        eventos.forEach(evento => {
+
+            if (evento.nome === "shoot") {
+                this.solicitacoesTiro.push(this.criarDadosTiro());
+            }
+
+        });
+
+    }
+
+    consumirSolicitacoesTiro() {
+
+        const solicitacoes = [...this.solicitacoesTiro];
+
+        this.solicitacoesTiro = [];
+
+        return solicitacoes;
+
+    }
+
+    criarDadosTiro() {
+
+        const x = this.direcao === 1
+            ? this.x + this.largura
+            : this.x - 18;
+
+        return {
+            x,
+            y: this.y + (this.altura * 0.45),
+            direcao: this.direcao
+        };
+
+    }
+
+    finalizarTiro() {
+
+        if (this.movendo) {
+            this.definirEstado(ESTADOS_JOGADOR.WALK);
+            this.animacao.tocar("walk", true);
+            return;
+        }
+
+        this.definirEstado(ESTADOS_JOGADOR.IDLE);
+        this.animacao.tocar("walk");
+        this.animacao.parar();
+
+    }
+
+    definirEstado(estado) {
+
+        this.estado = estado;
 
     }
 
