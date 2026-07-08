@@ -21,7 +21,7 @@ body {
 /* ========================================================
    OVERLAY / FUNDO
    ======================================================== */
-.game-over-overlay {
+.victory-overlay {
     position: fixed;
     inset: 0;
 
@@ -38,7 +38,7 @@ body {
     font-family: "Press Start 2P", monospace;
 }
 
-.game-over-content {
+.victory-content {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -121,7 +121,7 @@ body {
     filter: drop-shadow(0 0 6px #ffb020);
 }
 
-#contador-gameOver {
+#contador-vitoria {
     color: #44ddff;
     font-size: 34px;
     letter-spacing: 4px;
