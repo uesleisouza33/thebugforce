@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('../assets/img/fundo_inicio.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    background-size: contain;
+    background-color: #000;
+    position: relative;
+}
+
+
+/* ── Bloco de botões centralizado ── */
+.botoes {
+    position: absolute;
+    top: 72%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+
+    z-index: 20;
+}
+
+/* ── < dos botões ── */
+.btn::before {
+    content: "▶";
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: white;
+    font-size: 1.5rem;
+
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.btn:hover::before {
+    opacity: 1;
+    left: -25px;
+}
+
+/* ── Botão base ── */
+.btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+
+    width: 370px;
+    padding: 20px 0;
+
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    text-align: center;
+    border: 3px solid;
+    border-radius: 3px;
+
+    background: rgba(0, 0, 0, 0.70);
+    display: block;
+
+    transition: transform 0.08s ease, background 0.12s ease;
+}
+.btn:hover {
+    transform: translateX(6px) scale(1.04);
+}
+
+/* ── Cores individuais ── */
+.btn-ciano {
+    color: #44ddff;
+    border-color: #00ccff;
+    box-shadow: 0 0 8px rgba(0, 200, 255, 0.50);
+}
+
+.btn-ciano:hover {
+    background: rgba(0, 200, 255, 0.15);
+}
+
+.btn-verde {
+    color: #33ff77;
+    border-color: #22dd55;
+    box-shadow: 0 0 8px rgba(34, 221, 85, 0.50);
+}
+
+.btn-verde:hover {
+    background: rgba(34, 221, 85, 0.15);
+}
+
+.btn-amarelo {
+    color: #ffcc22;
+    border-color: #ddaa00;
+    box-shadow: 0 0 8px rgba(221, 170, 0, 0.50);
+}
+
+.btn-amarelo:hover {
+    background: rgba(221, 170, 0, 0.15);
+}
+
+.btn-roxo {
+    color: #cc88ff;
+    border-color: #aa44ff;
+    box-shadow: 0 0 8px rgba(170, 68, 255, 0.50);
+}
+
+.btn-roxo:hover {
+    background: rgba(170, 68, 255, 0.15);
+}
+
+/* ── Footer fixo embaixo ── */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 20px;
+
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+
+    z-index: 9999;
+}
+
+.footer-ver {
+    color: #888;
+}
+
+.footer-copy {
+    color: rgba(255,255,255,0.5);
+}
+
+.footer-press {
+    color: #f0c830;
+    text-shadow:
+        0 0 5px #f0c830,
+        0 0 10px #f0c830,
+        0 0 20px #f0c830;
+
+    animation: arcadeLed 2s infinite;
+}
+
+@keyframes arcadeLed {
+    0%, 100% {
+        filter: brightness(1);
+    }
+
+    48% {
+        filter: brightness(1.6);
+    }
+
+    50% {
+        filter: brightness(2);
+    }
+
+    52% {
+        filter: brightness(1.4);
+    }
+
+    55% {
+        filter: brightness(1.8);
+    }
+
+    60% {
+        filter: brightness(1);
+    }
+}
+
+/* ═══════════════════════════════
+   TOOLTIP DE HABILIDADES (hover)
+═══════════════════════════════ */
+.veiculo-card {
+    position: relative;
+}
+
+.skill-tooltip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    width: 240px;
+    background: rgba(7, 7, 20, 0.97);
+    border: 2.5px solid #3b82f6;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 6px 6px 0 #0a1640, 0 0 22px rgba(59, 130, 246, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 50;
+}
+
+.skill-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #3b82f6;
+}
+
+.veiculo-card:hover .skill-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.skill-tooltip-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    color: #60a5fa;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+    border-bottom: 1px solid #1e3a8a;
+    padding-bottom: 8px;
+}
+
+.skill-tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.skill-tooltip-icon {
+    width: 28px;
+    height: 28px;
+    background: #070714;
+    border: 2px solid #1e40af;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    font-size: 1rem;
+}
+
+.skill-tooltip-icon img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.skill-tooltip-info strong {
+    display: block;
+    font-size: 1rem;
+    color: #a78bfa;
+    font-weight: 800;
+}
+
+.skill-tooltip-info span {
+    font-size: 0.95rem;
+    color: #6480b4;
+    line-height: 1.4;
+}
+
+/* ── Divisor entre habilidade e atributos (forte/fraco) ── */
+.skill-tooltip-divider {
+    border-top: 1px solid #1e3a8a;
+    margin: 8px 0;
+}
+
+/* ── Cores para ponto forte / ponto fraco ── */
+.skill-tooltip-info strong.forte {
+    color: #4ade80;
+    text-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+}
+
+.skill-tooltip-info strong.fraco {
+    color: #f87171;
+    text-shadow: 0 0 6px rgba(248, 113, 113, 0.5);
+}
+
+/* ═══════════════════════════════
+   HOTSPOTS DOS PERSONAGENS (tela inicial)
+   Áreas invisíveis posicionadas sobre os 4
+   personagens da imagem de fundo. Ao passar o
+   mouse, mostram a mesma "carta" de habilidade
+   usada no .skill-tooltip.
+═══════════════════════════════ */
+.personagens-hotspots {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    pointer-events: none; /* a camada não bloqueia cliques nos botões */
+}
+
+.personagem-hotspot {
+    position: absolute;
+    pointer-events: auto; /* só a área do personagem responde ao mouse */
+    cursor: pointer;
+    /* descomente a linha abaixo para visualizar/ajustar as áreas */
+    /* outline: 1px dashed #ff00ff; */
+}
+
+.personagem-hotspot:hover .skill-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}

@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
+
+body {
+    /* 1. Coloque o link ou caminho da sua imagem aqui embaixo */
+    background-image: url('../assets/img/fundoEscolha.png');
+    
+    /* 2. Faz a imagem cobrir a tela inteira sem achatar ou distorcer */
+    background-size: cover;
+    
+    /* 3. Mantém a imagem sempre centralizada */
+    background-position: center;
+    
+    /* 4. Evita que a imagem crie um "mosaico" se a tela for muito grande */
+    background-repeat: no-repeat;
+    
+    /* 5. Fixa a imagem no fundo (ela não rola junto com o texto) */
+    background-attachment: fixed;
+    
+    /* Estilos básicos para a página */
+    margin: 0;
+    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
+}
+
+#imagem-central {
+    /* 1. Desprende a imagem do fluxo normal da página */
+    position: absolute;
+    
+    /* 2. Empurra a imagem para a metade exata da tela (vertical e horizontal) */
+    top: 50%;
+    left: 50%;
+    
+    /* 3. Puxa a imagem de volta pela metade do PRÓPRIO tamanho dela, para ficar perfeitamente no centro */
+    transform: translate(-50%, -50%);
+    width: 930px;
+  
+    
+    /* Opcional: Coloca uma sombrinha para destacar a imagem do fundo */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px; /* Arredonda as bordas se quiser */
+}
+
+#icon{
+    position: absolute;
+     top:  257px;
+    left: 832px;
+    width: 240px;
+}
+
+#ueslei{
+    position: absolute;
+      top:  272px;
+    left: 568px;
+    width: 135px;
+}
+
+#jair{
+   position: absolute;
+      top:  280px;
+    left: 720px;
+    width: 120px;
+}
+
+#titulo{
+     position: absolute;
+      top:  40px;
+        left: 470px;
+    width: 940px;
+}
+
+#larissa{
+   position: absolute;
+      top:  278px;
+    left: 1060px;
+    width: 127px;
+}
+
+
+#eliel{
+  position: absolute;
+      top:  280px;
+    left: 1200px;
+    width: 122px;
+}
+
+#blok{
+      position: absolute;
+      top:  435px;
+    left: 613px;
+    width: 297px;
+}
+
+#blok2{
+   position: absolute;
+      top:  435px;
+    left: 799px;
+    width: 297px;
+}
+
+#blok3{
+      position: absolute;
+      top:  435px;
+    left: 987px;
+   width: 297px;
+}
+
+.modo-jogo{
+    position:absolute;
+
+    top:185px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+    gap:20px;
+
+    z-index:100;
+}
+
+.modo-jogo button{
+
+    width:170px;
+    height:50px;
+
+    border:2px solid #00d9ff;
+    border-radius:8px;
+
+    background:rgba(0,0,0,.55);
+
+    color:white;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.modo-jogo button:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 15px #00d9ff;
+
+}
+
+.modo-jogo button.ativo{
+
+    background:#00d9ff;
+    color:#07111d;
+
+    box-shadow:0 0 20px #00d9ff;
+
+}
+
+
+/* ═══════════════════════════════
+   SELEÇÃO DE PERSONAGEM - HOVER E CLIQUE
+   ═══════════════════════════════ */
+
+/* Todos os slots de personagem jogável recebem cursor de "clicável"
+   e uma transição suave para a animação de hover */
+.personagem-slot {
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    /* garante que o transform/scale não bagunce o alinhamento dos outros elementos */
+    transform-origin: center bottom;
+}
+
+/* Efeito ao passar o mouse: o personagem "levanta" e brilha */
+.personagem-slot:hover {
+    transform: scale(1.08) translateY(-6px);
+    filter: drop-shadow(0 0 12px #00eaff) drop-shadow(0 0 22px #00eaff);
+    animation: pulsarSlot 0.9s ease-in-out infinite;
+}
+
+@keyframes pulsarSlot {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 18px #00eaff);
+    }
+    50% {
+        filter: drop-shadow(0 0 18px #00eaff) drop-shadow(0 0 30px #00eaff);
+    }
+}
+
+/* Personagem escolhido pelo Jogador 1 (contorno azul) */
+.personagem-slot.selecionado-p1 {
+    transform: scale(1.1) translateY(-6px);
+    filter: drop-shadow(0 0 14px #00aaff) drop-shadow(0 0 26px #00aaff);
+    animation: none;
+}
+
+/* Personagem escolhido pelo Jogador 2 (contorno vermelho/rosa) */
+.personagem-slot.selecionado-p2 {
+    transform: scale(1.1) translateY(-6px);
+    filter: drop-shadow(0 0 14px #ff2d55) drop-shadow(0 0 26px #ff2d55);
+    animation: none;
+}
+
+/* Depois de escolhido, tira o hover extra pra não conflitar com a seleção */
+.personagem-slot.selecionado-p1:hover,
+.personagem-slot.selecionado-p2:hover {
+    animation: none;
+}
+
+/* Slots bloqueados não reagem ao mouse */
+.bloqueado {
+    cursor: not-allowed;
+    filter: grayscale(0.6) brightness(0.7);
+}
+
+/* Texto de status (de quem é a vez de escolher) */
+#status-selecao {
+    position: absolute;
+    top: 760px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px #00eaff, 0 0 14px #00eaff;
+    text-align: center;
+    width: 100%;
+}
+
+/* ═══════════════════════════════
+   BOTÃO DE CONFIRMAR (mesmo estilo "vazado" dos botões
+   JOGAR / MANUAL / SOBRE O JOGO da tela inicial)
+   ═══════════════════════════════ */
+#btn-confirmar {
+    position: absolute;
+    top: 815px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Controlado pela verificação do JS */
+    
+    /* Espaçamento interno e largura (mesmo padrão do menu inicial) */
+    width: 370px;
+    padding: 18px 0;
+    
+    /* ── Tipografia idêntica aos botões da tela inicial ── */
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    color: #00eaff;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 8px #00eaff, 0 0 16px rgba(0, 234, 255, 0.6);
+    
+    /* Mesmo "quadrado vazado": fundo escuro translúcido + borda neon,
+       em vez do preenchimento sólido que tinha antes */
+    background: rgba(4, 12, 22, 0.55);
+    
+    /* Borda neon ciano e cantos levemente arredondados, igual aos da tela inicial */
+    border: 2px solid #00eaff;
+    border-radius: 10px;
+    cursor: pointer;
+    
+    /* Brilho neon por fora e por dentro, igual aos botões JOGAR/MANUAL/SOBRE */
+    box-shadow: 0 0 16px rgba(0, 234, 255, 0.6), inset 0 0 14px rgba(0, 234, 255, 0.12);
+    
+    /* Transições de movimento rápidas e responsivas */
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+/* Efeito ao passar o mouse por cima do Confirmar */
+#btn-confirmar:hover {
+    transform: translateX(-50%) scale(1.04);
+    background: rgba(0, 234, 255, 0.14);
+    box-shadow: 0 0 26px rgba(0, 234, 255, 0.9), inset 0 0 18px rgba(0, 234, 255, 0.2);
+}
+
+/* Efeito rápido de clique pressionado */
+#btn-confirmar:active {
+    transform: translateX(-50%) scale(0.98);
+}
+
+/* ═══════════════════════════════
+   PREVIEW DO PERSONAGEM (aparece ao lado do slot no hover)
+   ═══════════════════════════════ */
+
+#preview-personagem {
+    position: absolute;
+    display: none; /* o JS troca pra "block" quando tem que aparecer */
+    bottom: 130px;
+    left: 100px;
+    width: 420px;
+    pointer-events: none;
+    z-index: 5;
+    filter: drop-shadow(0 0 10px #00eaff);
+}
+
+/* ═══════════════════════════════
+   IMAGEM DO PERSONAGEM ESCOLHIDO (desliza pra tela)
+   ═══════════════════════════════ */
+
+.imagem-jogador {
+    position: absolute;
+    display: none; /* o JS muda pra "block" no momento da escolha */
+    z-index: 6;
+    height: 650px;
+    width: auto;
+    bottom: 130px;
+}
+
+/* Jogador 1: entra vindo da esquerda */
+#img-p1 {
+    left: 80px;
+}
+
+/* Jogador 2: entra vindo da direita */
+#img-p2 {
+    right: 130px;
+    left: auto;
+}
+
+/* Classes adicionadas pelo JS na hora do clique, disparam a animação */
+.entrada-esquerda {
+    display: block;
+    animation: entrarEsquerda 0.6s ease-out forwards;
+}
+
+.entrada-direita {
+    display: block;
+    animation: entrarDireita 0.6s ease-out forwards;
+}
+
+@keyframes entrarEsquerda {
+    0% {
+        transform: translateX(-120vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes entrarDireita {
+    0% {
+        transform: translateX(120vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

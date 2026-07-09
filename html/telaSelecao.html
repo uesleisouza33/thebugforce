@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/escolhaSelecao.css">
+    <title>Document</title>
+</head>
+<body>
+    <img src="../assets/img/slots/painel.png" alt="Imagem no centro" id="imagem-central">
+    <img src="../assets/img/slots/iconbugForce.png" alt="" id="icon" >
+    <img src="../assets/img/slots/tituloEscolha.png" alt="titulo" id="titulo"> 
+
+    <div class="modo-jogo">
+
+        <button id="btnSolo" class="ativo">
+            SOLO
+        </button>
+
+        <button id="btnDupla">
+            DUPLA
+        </button>
+
+    </div>
+   
+   
+      <div> <!--  slots dos personagens estão nessa div -->
+     <img src="../assets/img/slots/uesleiSlot.png" alt="Ueslei" id="ueslei" class="personagem-slot"
+        data-nome="Ueslei"
+        data-preview="../assets/img/manuel/ueslei.png"
+        data-imagem="../assets/img/manuel/ueslei.png">
+
+    <img src="../assets/img/slots/jairSlot.png" alt="Jair" id="jair" class="personagem-slot"
+        data-nome="Jair"
+        data-preview="../assets/img/manuel/jair.png"
+        data-imagem="../assets/img/manuel/jair.png">
+
+    <img src="../assets/img/slots/LarissaSlot.png" alt="Larissa" id="larissa" class="personagem-slot"
+        data-nome="Larissa"
+        data-preview="../assets/img/manuel/larissa.png"
+        data-imagem="../assets/img/manuel/larissa.png">
+
+    <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok" class="bloqueado">
+    <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok2" class="bloqueado">
+    <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok3" class="bloqueado">
+
+     <img src="../assets/img/slots/ElielSlot.png" alt="Eliel" id="eliel" class="personagem-slot"
+        data-nome="Eliel"
+        data-preview="../assets/img/manuel/eliel.png"
+        data-imagem="../assets/img/manuel/eliel.png">
+    </div>
+
+    <!-- Imagem que aparece ao lado do slot quando o mouse passa por cima (preview) -->
+    <img id="preview-personagem" src="" alt="">
+
+    <!-- Imagens que deslizam pra tela quando um personagem é escolhido -->
+    <img id="img-p1" class="imagem-jogador" src="" alt="Personagem Jogador 1">
+    <img id="img-p2" class="imagem-jogador" src="" alt="Personagem Jogador 2">
+
+    <!-- Status da seleção (jogador da vez / confirmação) -->
+    <div id="status-selecao">Jogador 1, escolha seu personagem</div>
+
+    <button id="btn-confirmar">CONFIRMAR</button>
+
+    <script src="../js/game/seelectPer.js" defer></script>
+</body>
+</html>
