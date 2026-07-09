@@ -65,6 +65,16 @@ body {
       top:  40px;
         left: 470px;
     width: 940px;
+    animation: flutuarTitulo 3.5s ease-in-out infinite;
+}
+
+@keyframes flutuarTitulo {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 #larissa{
@@ -164,15 +174,46 @@ body {
     top: 760px;
     left: 50%;
     transform: translateX(-50%);
-    color: #ffffff;
-    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    text-shadow: 0 0 8px #00eaff, 0 0 14px #00eaff;
     text-align: center;
     width: 100%;
+    
+    /* ── CONFIGURAÇÕES DO BRILHO NEON RETRO ── */
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    
+    /* Centro da letra claro simula a forte intensidade da lâmpada acesa */
+    color: #e6ffff; 
+    
+    /* Camadas iniciais fortes + rastro largo borrado de luz ciano no fundo */
+    text-shadow: 
+        0 0 4px #ffffff,
+        0 0 8px #33ecff,
+        0 0 18px #33ecff,
+        0 0 35px #00aaff;
+        
+    /* Adiciona a animação de pulsação suave */
+    animation: brilharStatus 1.5s infinite alternate ease-in-out;
+}
+
+/* Animação que altera a intensidade das camadas de sombra */
+@keyframes brilharStatus {
+    0% {
+        text-shadow: 
+            0 0 4px #ffffff,
+            0 0 8px #33ecff,
+            0 0 15px #33ecff,
+            0 0 25px #00aaff;
+    }
+    100% {
+        text-shadow: 
+            0 0 6px #ffffff,
+            0 0 14px #33ecff,
+            0 0 26px #33ecff,
+            0 0 45px #00aaff,
+            0 0 65px #00aaff;
+    }
 }
 
 /* ═══════════════════════════════
@@ -201,8 +242,7 @@ body {
     text-decoration: none;
     text-shadow: 0 0 8px #00eaff, 0 0 16px rgba(0, 234, 255, 0.6);
     
-    /* Mesmo "quadrado vazado": fundo escuro translúcido + borda neon,
-       em vez do preenchimento sólido que tinha antes */
+    /* Mesmo "quadrado vazado": fundo escuro translúcido + borda neon */
     background: rgba(4, 12, 22, 0.55);
     
     /* Borda neon ciano e cantos levemente arredondados, igual aos da tela inicial */
@@ -232,7 +272,6 @@ body {
 /* ═══════════════════════════════
    PREVIEW DO PERSONAGEM (aparece ao lado do slot no hover)
    ═══════════════════════════════ */
-
 #preview-personagem {
     position: absolute;
     display: none; /* o JS troca pra "block" quando tem que aparecer */
@@ -247,7 +286,6 @@ body {
 /* ═══════════════════════════════
    IMAGEM DO PERSONAGEM ESCOLHIDO (desliza pra tela)
    ═══════════════════════════════ */
-
 .imagem-jogador {
     position: absolute;
     display: none; /* o JS muda pra "block" no momento da escolha */

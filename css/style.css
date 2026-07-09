@@ -1,296 +1,324 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
 
-body {
-    /* 1. Coloque o link ou caminho da sua imagem aqui embaixo */
-    background-image: url('../assets/img/fundoEscolha.png');
-    
-    /* 2. Faz a imagem cobrir a tela inteira sem achatar ou distorcer */
-    background-size: cover;
-    
-    /* 3. Mantém a imagem sempre centralizada */
-    background-position: center;
-    
-    /* 4. Evita que a imagem crie um "mosaico" se a tela for muito grande */
-    background-repeat: no-repeat;
-    
-    /* 5. Fixa a imagem no fundo (ela não rola junto com o texto) */
-    background-attachment: fixed;
-    
-    /* Estilos básicos para a página */
+* {
     margin: 0;
-    font-family: 'Press Start 2P', monospace;
+    padding: 0;
 }
 
-#imagem-central {
-    /* 1. Desprende a imagem do fluxo normal da página */
+body {
+    background-image: url('../assets/img/fundo_inicio.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    background-size: contain;
+    background-color: #000;
+    position: relative;
+}
+
+
+/* ── Bloco de botões centralizado ── */
+.botoes {
     position: absolute;
-    
-    /* 2. Empurra a imagem para a metade exata da tela (vertical e horizontal) */
-    top: 50%;
+    top: 72%;
     left: 50%;
-    
-    /* 3. Puxa a imagem de volta pela metade do PRÓPRIO tamanho dela, para ficar perfeitamente no centro */
     transform: translate(-50%, -50%);
-    width: 930px;
-  
-    
-    /* Opcional: Coloca uma sombrinha para destacar a imagem do fundo */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-    border-radius: 10px; /* Arredonda as bordas se quiser */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+
+    z-index: 20;
 }
 
-#icon{
+/* ── < dos botões ── */
+.btn::before {
+    content: "▶";
     position: absolute;
-     top:  257px;
-    left: 832px;
-    width: 240px;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: white;
+    font-size: 1.5rem;
+
+    opacity: 0;
+    transition: 0.2s;
 }
 
-#ueslei{
-    position: absolute;
-      top:  272px;
-    left: 568px;
-    width: 135px;
+.btn:hover::before {
+    opacity: 1;
+    left: -25px;
 }
 
-#jair{
-   position: absolute;
-      top:  280px;
-    left: 720px;
-    width: 120px;
-}
-
-#titulo{
-     position: absolute;
-      top:  40px;
-        left: 470px;
-    width: 940px;
-}
-
-#larissa{
-   position: absolute;
-      top:  278px;
-    left: 1060px;
-    width: 127px;
-}
-
-
-#eliel{
-  position: absolute;
-      top:  280px;
-    left: 1200px;
-    width: 122px;
-}
-
-#blok{
-      position: absolute;
-      top:  435px;
-    left: 613px;
-    width: 297px;
-}
-
-#blok2{
-   position: absolute;
-      top:  435px;
-    left: 799px;
-    width: 297px;
-}
-
-#blok3{
-      position: absolute;
-      top:  435px;
-    left: 987px;
-   width: 297px;
-}
-
-/* ═══════════════════════════════
-   SELEÇÃO DE PERSONAGEM - HOVER E CLIQUE
-   ═══════════════════════════════ */
-
-/* Todos os slots de personagem jogável recebem cursor de "clicável"
-   e uma transição suave para a animação de hover */
-.personagem-slot {
-    cursor: pointer;
-    transition: transform 0.25s ease, filter 0.25s ease;
-    /* garante que o transform/scale não bagunce o alinhamento dos outros elementos */
-    transform-origin: center bottom;
-}
-
-/* Efeito ao passar o mouse: o personagem "levanta" e brilha */
-.personagem-slot:hover {
-    transform: scale(1.08) translateY(-6px);
-    filter: drop-shadow(0 0 12px #00eaff) drop-shadow(0 0 22px #00eaff);
-    animation: pulsarSlot 0.9s ease-in-out infinite;
-}
-
-@keyframes pulsarSlot {
-    0%, 100% {
-        filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 18px #00eaff);
-    }
-    50% {
-        filter: drop-shadow(0 0 18px #00eaff) drop-shadow(0 0 30px #00eaff);
-    }
-}
-
-/* Personagem escolhido pelo Jogador 1 (contorno azul) */
-.personagem-slot.selecionado-p1 {
-    transform: scale(1.1) translateY(-6px);
-    filter: drop-shadow(0 0 14px #00aaff) drop-shadow(0 0 26px #00aaff);
-    animation: none;
-}
-
-/* Personagem escolhido pelo Jogador 2 (contorno vermelho/rosa) */
-.personagem-slot.selecionado-p2 {
-    transform: scale(1.1) translateY(-6px);
-    filter: drop-shadow(0 0 14px #ff2d55) drop-shadow(0 0 26px #ff2d55);
-    animation: none;
-}
-
-/* Depois de escolhido, tira o hover extra pra não conflitar com a seleção */
-.personagem-slot.selecionado-p1:hover,
-.personagem-slot.selecionado-p2:hover {
-    animation: none;
-}
-
-/* Slots bloqueados não reagem ao mouse */
-.bloqueado {
-    cursor: not-allowed;
-    filter: grayscale(0.6) brightness(0.7);
-}
-
-/* Texto de status (de quem é a vez de escolher) */
-#status-selecao {
-    position: absolute;
-    top: 760px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ffffff;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px #00eaff, 0 0 14px #00eaff;
-    text-align: center;
-    width: 100%;
-}
-
-/* ═══════════════════════════════
-   BOTÃO DE CONFIRMAR (Estilo idêntico à imagem enviada)
-   ═══════════════════════════════ */
-#btn-confirmar {
-    position: absolute;
-    top: 815px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none; /* Controlado pela verificação do JS */
-    
-    /* Espaçamento interno e largura (baseado no design do menu original) */
-    width: 370px;
-    padding: 20px 0;
-    
-    /* ── Tipografia idêntica à tela inicial ── */
+/* ── Botão base ── */
+.btn {
     font-family: 'Press Start 2P', monospace;
     font-size: 1rem;
-    letter-spacing: 0.05em;
-    color: #ffffff;
-    text-transform: uppercase;
-    text-align: center;
+
+    width: 370px;
+    padding: 20px 0;
+
     text-decoration: none;
-    
-    /* Gradiente Vertical Exato: Ciano vivo para Azul Turquesa escuro */
-    background: linear-gradient(180deg, #00e5ff 0%, #008fa8 100%);
-    
-    /* Borda sólida branca e cantos levemente arredondados */
-    border: 3px solid #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    text-align: center;
+    border: 3px solid;
     border-radius: 3px;
-    cursor: pointer;
-    
-    /* Brilho Neon Externo (Glow) */
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.85);
-    
-    /* Transições de movimento rápidas e responsivas */
-    transition: transform 0.08s ease, box-shadow 0.12s ease, filter 0.12s ease;
+
+    background: rgba(0, 0, 0, 0.70);
+    display: block;
+
+    transition: transform 0.08s ease, background 0.12s ease;
+}
+.btn:hover {
+    transform: translateX(6px) scale(1.04);
 }
 
-/* Efeito ao passar o mouse por cima do Confirmar */
-#btn-confirmar:hover {
-    transform: translateX(-50%) scale(1.04);
-    box-shadow: 0 0 30px rgba(0, 229, 255, 1);
-    filter: brightness(1.1);
+/* ── Cores individuais ── */
+.btn-ciano {
+    color: #44ddff;
+    border-color: #00ccff;
+    box-shadow: 0 0 8px rgba(0, 200, 255, 0.50);
 }
 
-/* Efeito rápido de clique pressionado */
-#btn-confirmar:active {
-    transform: translateX(-50%) scale(0.98);
+.btn-ciano:hover {
+    background: rgba(0, 200, 255, 0.15);
+}
+
+.btn-verde {
+    color: #33ff77;
+    border-color: #22dd55;
+    box-shadow: 0 0 8px rgba(34, 221, 85, 0.50);
+}
+
+.btn-verde:hover {
+    background: rgba(34, 221, 85, 0.15);
+}
+
+.btn-amarelo {
+    color: #ffcc22;
+    border-color: #ddaa00;
+    box-shadow: 0 0 8px rgba(221, 170, 0, 0.50);
+}
+
+.btn-amarelo:hover {
+    background: rgba(221, 170, 0, 0.15);
+}
+
+.btn-roxo {
+    color: #cc88ff;
+    border-color: #aa44ff;
+    box-shadow: 0 0 8px rgba(170, 68, 255, 0.50);
+}
+
+.btn-roxo:hover {
+    background: rgba(170, 68, 255, 0.15);
+}
+
+/* ── Footer fixo embaixo ── */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 20px;
+
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+
+    z-index: 9999;
+}
+
+.footer-ver {
+    color: #888;
+}
+
+.footer-copy {
+    color: rgba(255,255,255,0.5);
+}
+
+.footer-press {
+    color: #f0c830;
+    text-shadow:
+        0 0 5px #f0c830,
+        0 0 10px #f0c830,
+        0 0 20px #f0c830;
+
+    animation: arcadeLed 2s infinite;
+}
+
+@keyframes arcadeLed {
+    0%, 100% {
+        filter: brightness(1);
+    }
+
+    48% {
+        filter: brightness(1.6);
+    }
+
+    50% {
+        filter: brightness(2);
+    }
+
+    52% {
+        filter: brightness(1.4);
+    }
+
+    55% {
+        filter: brightness(1.8);
+    }
+
+    60% {
+        filter: brightness(1);
+    }
 }
 
 /* ═══════════════════════════════
-   PREVIEW DO PERSONAGEM (aparece ao lado do slot no hover)
-   ═══════════════════════════════ */
+   TOOLTIP DE HABILIDADES (hover)
+═══════════════════════════════ */
+.veiculo-card {
+    position: relative;
+}
 
-#preview-personagem {
+.skill-tooltip {
     position: absolute;
-    display: none; /* o JS troca pra "block" quando tem que aparecer */
-    bottom: 130px;
-    left: 100px;
-    width: 420px;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    width: 240px;
+    background: rgba(7, 7, 20, 0.97);
+    border: 2.5px solid #3b82f6;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 6px 6px 0 #0a1640, 0 0 22px rgba(59, 130, 246, 0.35);
+    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    z-index: 5;
-    filter: drop-shadow(0 0 10px #00eaff);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 50;
+}
+
+.skill-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #3b82f6;
+}
+
+.veiculo-card:hover .skill-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.skill-tooltip-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    color: #60a5fa;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+    border-bottom: 1px solid #1e3a8a;
+    padding-bottom: 8px;
+}
+
+.skill-tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+}
+
+.skill-tooltip-icon {
+    width: 28px;
+    height: 28px;
+    background: #070714;
+    border: 2px solid #1e40af;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    font-size: 1rem;
+}
+
+.skill-tooltip-icon img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.skill-tooltip-info strong {
+    display: block;
+    font-size: 1rem;
+    color: #a78bfa;
+    font-weight: 800;
+}
+
+.skill-tooltip-info span {
+    font-size: 0.95rem;
+    color: #6480b4;
+    line-height: 1.4;
+}
+
+/* ── Divisor entre habilidade e atributos (forte/fraco) ── */
+.skill-tooltip-divider {
+    border-top: 1px solid #1e3a8a;
+    margin: 8px 0;
+}
+
+/* ── Cores para ponto forte / ponto fraco ── */
+.skill-tooltip-info strong.forte {
+    color: #4ade80;
+    text-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+}
+
+.skill-tooltip-info strong.fraco {
+    color: #f87171;
+    text-shadow: 0 0 6px rgba(248, 113, 113, 0.5);
 }
 
 /* ═══════════════════════════════
-   IMAGEM DO PERSONAGEM ESCOLHIDO (desliza pra tela)
-   ═══════════════════════════════ */
-
-.imagem-jogador {
+   HOTSPOTS DOS PERSONAGENS (tela inicial)
+   Áreas invisíveis posicionadas sobre os 4
+   personagens da imagem de fundo. Ao passar o
+   mouse, mostram a mesma "carta" de habilidade
+   usada no .skill-tooltip.
+═══════════════════════════════ */
+.personagens-hotspots {
     position: absolute;
-    display: none; /* o JS muda pra "block" no momento da escolha */
-    z-index: 6;
-    height: 650px;
-    width: auto;
-    bottom: 130px;
+    inset: 0;
+    z-index: 15;
+    pointer-events: none; /* a camada não bloqueia cliques nos botões */
 }
 
-/* Jogador 1: entra vindo da esquerda */
-#img-p1 {
-    left: 80px;
+.personagem-hotspot {
+    position: absolute;
+    pointer-events: auto; /* só a área do personagem responde ao mouse */
+    cursor: pointer;
+    /* descomente a linha abaixo para visualizar/ajustar as áreas */
+    /* outline: 1px dashed #ff00ff; */
 }
 
-/* Jogador 2: entra vindo da direita */
-#img-p2 {
-    right: 130px;
-    left: auto;
-}
-
-/* Classes adicionadas pelo JS na hora do clique, disparam a animação */
-.entrada-esquerda {
-    display: block;
-    animation: entrarEsquerda 0.6s ease-out forwards;
-}
-
-.entrada-direita {
-    display: block;
-    animation: entrarDireita 0.6s ease-out forwards;
-}
-
-@keyframes entrarEsquerda {
-    0% {
-        transform: translateX(-120vw);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes entrarDireita {
-    0% {
-        transform: translateX(120vw);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
+.personagem-hotspot:hover .skill-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
