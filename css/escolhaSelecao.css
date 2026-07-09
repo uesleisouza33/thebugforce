@@ -18,7 +18,7 @@ body {
     
     /* Estilos básicos para a página */
     margin: 0;
-    font-family: 'Press Start 2P', monospace;
+    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
 }
 
 #imagem-central {
@@ -165,16 +165,19 @@ body {
     left: 50%;
     transform: translateX(-50%);
     color: #ffffff;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
-    letter-spacing: 1px;
+    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
     text-shadow: 0 0 8px #00eaff, 0 0 14px #00eaff;
     text-align: center;
     width: 100%;
 }
 
 /* ═══════════════════════════════
-   BOTÃO DE CONFIRMAR (Estilo idêntico à imagem enviada)
+   BOTÃO DE CONFIRMAR (mesmo estilo "vazado" dos botões
+   JOGAR / MANUAL / SOBRE O JOGO da tela inicial)
    ═══════════════════════════════ */
 #btn-confirmar {
     position: absolute;
@@ -183,39 +186,42 @@ body {
     transform: translateX(-50%);
     display: none; /* Controlado pela verificação do JS */
     
-    /* Espaçamento interno e largura (baseado no design do menu original) */
+    /* Espaçamento interno e largura (mesmo padrão do menu inicial) */
     width: 370px;
-    padding: 20px 0;
+    padding: 18px 0;
     
-    /* ── Tipografia idêntica à tela inicial ── */
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    color: #ffffff;
+    /* ── Tipografia idêntica aos botões da tela inicial ── */
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    color: #00eaff;
     text-transform: uppercase;
     text-align: center;
     text-decoration: none;
+    text-shadow: 0 0 8px #00eaff, 0 0 16px rgba(0, 234, 255, 0.6);
     
-    /* Gradiente Vertical Exato: Ciano vivo para Azul Turquesa escuro */
-    background: linear-gradient(180deg, #00e5ff 0%, #008fa8 100%);
+    /* Mesmo "quadrado vazado": fundo escuro translúcido + borda neon,
+       em vez do preenchimento sólido que tinha antes */
+    background: rgba(4, 12, 22, 0.55);
     
-    /* Borda sólida branca e cantos levemente arredondados */
-    border: 3px solid #ffffff;
-    border-radius: 3px;
+    /* Borda neon ciano e cantos levemente arredondados, igual aos da tela inicial */
+    border: 2px solid #00eaff;
+    border-radius: 10px;
     cursor: pointer;
     
-    /* Brilho Neon Externo (Glow) */
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.85);
+    /* Brilho neon por fora e por dentro, igual aos botões JOGAR/MANUAL/SOBRE */
+    box-shadow: 0 0 16px rgba(0, 234, 255, 0.6), inset 0 0 14px rgba(0, 234, 255, 0.12);
     
     /* Transições de movimento rápidas e responsivas */
-    transition: transform 0.08s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
 }
 
 /* Efeito ao passar o mouse por cima do Confirmar */
 #btn-confirmar:hover {
     transform: translateX(-50%) scale(1.04);
-    box-shadow: 0 0 30px rgba(0, 229, 255, 1);
-    filter: brightness(1.1);
+    background: rgba(0, 234, 255, 0.14);
+    box-shadow: 0 0 26px rgba(0, 234, 255, 0.9), inset 0 0 18px rgba(0, 234, 255, 0.2);
 }
 
 /* Efeito rápido de clique pressionado */
