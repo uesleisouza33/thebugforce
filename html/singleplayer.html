@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/singleplayer.css">
+    <title>Document</title>
+</head>
+<body>
+    <img src="../assets/img/slots/painelBased.png" alt="" id="painelReta">
+    <img src="../assets/img/slots/tituloEscolha.png" alt="" id="TituloEscolha">
+    <img src="../assets/img/slots/plataBased.png" alt="" id="plataBased">
+
+    <img src="../assets/img/slots/uesleiSlot.png" alt="Ueslei" id="ueslei" class="personagem-slot"
+        data-nome="Ueslei"
+        data-preview="../assets/img/manuel/ueslei.png"
+        data-imagem="../assets/img/manuel/ueslei.png">
+
+    <img src="../assets/img/slots/jairSlot.png" alt="Jair" id="jair" class="personagem-slot"
+        data-nome="Jair"
+        data-preview="../assets/img/manuel/jair.png"
+        data-imagem="../assets/img/manuel/jair.png">
+
+    <img src="../assets/img/slots/ElielSlot.png" alt="Eliel" id="eliel" class="personagem-slot"
+        data-nome="Eliel"
+        data-preview="../assets/img/manuel/eliel.png"
+        data-imagem="../assets/img/manuel/eliel.png">
+
+    <img src="../assets/img/slots/LarissaSlot.png" alt="Larissa" id="larissa" class="personagem-slot"
+        data-nome="Larissa"
+        data-preview="../assets/img/manuel/larissa.png"
+        data-imagem="../assets/img/manuel/larissa.png">
+
+    <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok2" class="bloqueado">
+    <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok3" class="bloqueado">
+
+    <!-- Imagem que aparece ao lado do slot quando o mouse passa por cima (preview) -->
+    <img id="preview-personagem" src="" alt="">
+
+    <!-- Imagem do personagem escolhido, que desliza pra cima da plataforma -->
+    <img id="img-p1" class="imagem-jogador" src="" alt="Personagem escolhido">
+
+    <!-- Status da seleção (instrução / confirmação) -->
+    <div id="status-selecao">Escolha seu personagem</div>
+
+    <button id="btn-confirmar">CONFIRMAR</button>
+
+    <script src="../js/game/seelectPerSolo.js" defer></script>
+</body>
+</html>

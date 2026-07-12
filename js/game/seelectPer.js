@@ -18,14 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const preview = document.getElementById("preview-personagem");
     const imgP1 = document.getElementById("img-p1");
     const imgP2 = document.getElementById("img-p2");
-    const btnSolo = document.getElementById("btnSolo");
-    const btnDupla = document.getElementById("btnDupla");
 
     let jogadorAtual = 1; // 1 ou 2
     const escolhas = { 1: null, 2: null };
-    let modoJogo = 1; // 1 = Solo | 2 = Dupla
-
-    let personagemSelecionado = null;
 
     // ─────────────────────────────────────────────
     // PREVIEW NO HOVER
@@ -33,165 +28,49 @@ document.addEventListener("DOMContentLoaded", () => {
     slots.forEach((slot) => {
 
         slot.addEventListener("mouseenter", () => {
-    
-            if (modoJogo === 2) {
-    
-                const jaEscolhido =
-                    slot.classList.contains("selecionado-p1") ||
-                    slot.classList.contains("selecionado-p2");
-    
-                if (jaEscolhido) {
-                    preview.style.display = "none";
-                    return;
-                }
-            }
-    
-    
+
+            // se o personagem já foi escolhido, não mostra mais preview dele
+            const jaEscolhido =
+                slot.classList.contains("selecionado-p1") ||
+                slot.classList.contains("selecionado-p2");
+
+            if (jaEscolhido || jogadorAtual > 2) return;
+
+            // Atualiza a imagem do preview
             preview.src = slot.dataset.preview;
             preview.style.display = "block";
-    
-    
-            if (modoJogo === 1 || jogadorAtual === 1) {
-    
+
+            // Lógica para alternar o lado do preview dependendo do jogador
+            if (jogadorAtual === 1) {
+                // Preview do P1 na esquerda
                 preview.style.left = "100px";
                 preview.style.right = "auto";
-    
-            } else {
-    
+            } else if (jogadorAtual === 2) {
+                // Preview do P2 na direita
                 preview.style.left = "auto";
-                preview.style.right = "100px";
-    
+                preview.style.right = "100px"; // Ajuste este valor se precisar afastar da borda direita
             }
-    
+
         });
-    
-    
+
         slot.addEventListener("mouseleave", () => {
-    
+
             preview.style.display = "none";
-    
+            preview.src = "";
+
         });
-    
-    });
-
-    btnSolo.addEventListener("click", () => {
-
-        modoJogo = 1;
-
-        btnSolo.classList.add("ativo");
-        btnDupla.classList.remove("ativo");
-
-        jogadorAtual = 1;
-        escolhas[1] = null;
-        escolhas[2] = null;
-
-        // Limpa a seleção visual
-        slots.forEach(slot => {
-            slot.classList.remove("selecionado-p1");
-            slot.classList.remove("selecionado-p2");
-        });
-
-        // Limpa as imagens dos jogadores
-        imgP1.src = "";
-        imgP2.src = "";
-
-        // Esconde o botão novamente
-        btnConfirmar.style.display = "none";
-
-        resetarSelecao();
-
-        atualizarStatus();
 
     });
-
-    btnDupla.addEventListener("click", () => {
-
-        modoJogo = 2;
-
-        btnDupla.classList.add("ativo");
-        btnSolo.classList.remove("ativo");
-
-        jogadorAtual = 1;
-        escolhas[1] = null;
-        escolhas[2] = null;
-
-        // Limpa a seleção visual
-        slots.forEach(slot => {
-            slot.classList.remove("selecionado-p1");
-            slot.classList.remove("selecionado-p2");
-        });
-
-        // Limpa as imagens dos jogadores
-        imgP1.src = "";
-        imgP2.src = "";
-
-        // Esconde o botão novamente
-        btnConfirmar.style.display = "none";
-
-        resetarSelecao();
-
-        atualizarStatus();
-
-    });
-
-    function resetarSelecao() {
-
-        jogadorAtual = 1;
-    
-        escolhas[1] = null;
-        escolhas[2] = null;
-    
-    
-        slots.forEach(slot => {
-            slot.classList.remove("selecionado-p1");
-            slot.classList.remove("selecionado-p2");
-        });
-    
-    
-        imgP1.src = "";
-        imgP2.src = "";
-    
-        imgP1.style.display = "none";
-        imgP2.style.display = "none";
-    
-    
-        btnConfirmar.style.display = "none";
-    
-    }
 
     function atualizarStatus() {
 
-        if (modoJogo === 1) {
-
-            if (escolhas[1] == null) {
-
-                statusEl.textContent = "Escolha seu personagem";
-
-            } else {
-
-                statusEl.textContent = `Personagem: ${escolhas[1]}`;
-                btnConfirmar.style.display = "inline-block";
-
-            }
-
-            return;
-        }
-
-        // ---------- DUPLA ----------
-
         if (jogadorAtual === 1) {
-
             statusEl.textContent = "Jogador 1, escolha seu personagem";
-        
         } else if (jogadorAtual === 2) {
-        
             statusEl.textContent = "Jogador 2, escolha seu personagem";
-        
-        } else if (jogadorAtual === 3) {
-        
+        } else {
             statusEl.textContent =
-                `Prontos! ${escolhas[1]} e ${escolhas[2]}`;
-        
+                `Prontos! ${escolhas[1]} (Jogador 1) e ${escolhas[2]} (Jogador 2)`;
             btnConfirmar.style.display = "inline-block";
         }
 
@@ -210,19 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 slot.classList.contains("selecionado-p1") ||
                 slot.classList.contains("selecionado-p2");
 
-            if (jaEscolhido) {
-                preview.style.display = "none";
-                return;
-            }
+            if (jaEscolhido) return;
+
             const nomePersonagem = slot.dataset.nome;
-
-            if (modoJogo === 1) {
-
-                slots.forEach(s => {
-                    s.classList.remove("selecionado-p1");
-                });
-            
-            }
 
             // Marca visualmente com a cor do jogador da vez
             slot.classList.add(
@@ -255,15 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             escolhas[jogadorAtual] = nomePersonagem;
 
-            if (modoJogo === 1) {
-
-                btnConfirmar.style.display = "inline-block";
-
-            } else {
-
-                jogadorAtual++;
-
-            }
+            jogadorAtual++;
 
             atualizarStatus();
 
@@ -273,14 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnConfirmar.addEventListener("click", () => {
 
-        sessionStorage.setItem("modoJogo", modoJogo);
-
+        // Salva as escolhas para a tela/jogo seguinte ler
         sessionStorage.setItem("personagemP1", escolhas[1]);
+        sessionStorage.setItem("personagemP2", escolhas[2]);
 
-        if (modoJogo === 2) {
-            sessionStorage.setItem("personagemP2", escolhas[2]);
-        }
-
+        // Ajuste este caminho para a tela real de início do jogo
         window.location.href = "jogarSolo.html";
 
     });

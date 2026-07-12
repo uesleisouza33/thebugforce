@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
+
+/* ── Altura obrigatória de TODAS as imagens de personagem
+   (preview no hover + imagem escolhida na plataforma).
+   Muda o tamanho de tudo aqui, só nesse lugar. ── */
+:root {
+    --altura-personagem: 350px;
+}
+
+body {
+    /* 1. Coloque o link ou caminho da sua imagem aqui embaixo */
+    background-image: url('../assets/img/fundoEscolha.png');
+    
+    /* 2. Faz a imagem cobrir a tela inteira sem achatar ou distorcer */
+    background-size: cover;
+    
+    /* 3. Mantém a imagem sempre centralizada */
+    background-position: center;
+    
+    /* 4. Evita que a imagem crie um "mosaico" se a tela for muito grande */
+    background-repeat: no-repeat;
+    
+    /* 5. Fixa a imagem no fundo (ela não rola junto com o texto) */
+    background-attachment: fixed;
+    
+    /* Estilos básicos para a página */
+    margin: 0;
+    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
+}
+
+#painelReta{
+     position: absolute;
+      top:  1px;
+    left: 15px;
+    width: 430px;
+}
+
+#TituloEscolha{
+      position: absolute;
+      top:  -100px;
+    left: 400px;
+    width: 950px;
+     animation: flutuarTituloEscolha 3.5s ease-in-out infinite;
+}
+
+@keyframes flutuarTituloEscolha {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+#plataBased{
+          position: absolute;
+      top:   300px;
+    left: 650px;
+    width: 400px;
+}
+
+#ueslei{
+      position: absolute;
+      top:  50px;
+    left: 75px;
+    width: 130px;
+}
+
+#jair{
+       position: absolute;
+      top:  57px;
+    left: 250px;
+    width: 117px;
+}
+
+#eliel{
+     position: absolute;
+      top: 232px;
+    left: 85px;
+    width: 117px;
+}
+
+#larissa{
+    position: absolute;
+      top: 230px;
+    left: 245px;
+    width: 125px;
+}
+
+#blok2{
+    position: absolute;
+      top: 390px;
+    left: 195px;
+    width: 230px;
+}
+
+#blok3{
+    position: absolute;
+      top: 391px;
+    left: 30px;
+    width: 230px;
+}
+
+/* ═══════════════════════════════
+   SELEÇÃO DE PERSONAGEM - HOVER E CLIQUE
+   (mesma lógica do multiplayer, versão 1 jogador)
+   ═══════════════════════════════ */
+
+.personagem-slot {
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    transform-origin: center bottom;
+}
+
+.personagem-slot:hover {
+    transform: scale(1.08) translateY(-6px);
+    filter: drop-shadow(0 0 12px #00eaff) drop-shadow(0 0 22px #00eaff);
+    animation: pulsarSlot 0.9s ease-in-out infinite;
+}
+
+@keyframes pulsarSlot {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 18px #00eaff);
+    }
+    50% {
+        filter: drop-shadow(0 0 18px #00eaff) drop-shadow(0 0 30px #00eaff);
+    }
+}
+
+/* Personagem escolhido (contorno ciano, já que só tem 1 jogador) */
+.personagem-slot.selecionado-p1 {
+    transform: scale(1.1) translateY(-6px);
+    filter: drop-shadow(0 0 14px #00aaff) drop-shadow(0 0 26px #00aaff);
+    animation: none;
+}
+
+.personagem-slot.selecionado-p1:hover {
+    animation: none;
+}
+
+/* Slots bloqueados não reagem ao mouse */
+.bloqueado {
+    cursor: not-allowed;
+    filter: grayscale(0.6) brightness(0.7);
+}
+
+/* Slots desabilitados depois que o jogador já escolheu um personagem:
+   sem clique, sem hover, sem brilho — fica claro que não dá mais
+   pra escolher outro. */
+.personagem-slot.desabilitado {
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(0.7) brightness(0.55);
+    transform: none;
+    animation: none;
+}
+
+/* ═══════════════════════════════
+   PREVIEW DO PERSONAGEM (aparece ao lado do slot no hover)
+   ═══════════════════════════════ */
+#preview-personagem {
+    position: absolute;
+    display: none;
+    bottom: 200px;
+    left: 720px !important;
+    width: 230px;
+    pointer-events: none;
+
+    z-index: 5;
+    filter: drop-shadow(0 0 10px #00eaff);
+}
+
+/* ═══════════════════════════════
+   IMAGEM DO PERSONAGEM ESCOLHIDO
+   (aparece sobre a plataforma da direita - #plataBased)
+   Ajuste bottom/left abaixo até encaixar certinho em cima da plataforma
+   ═══════════════════════════════ */
+.imagem-jogador {
+    position: absolute;
+    display: none; /* o JS muda pra "block" no momento da escolha */
+    z-index: 3; /* fica atrás do plataBased (que não tem z-index definido, então
+                    se a imagem aparecer por cima da plataforma, aumente este valor) */
+    bottom: 200px;
+    left: 720px;
+    height: 350px;
+    width: auto;
+}
+
+/* Só esses personagens específicos ficam travados na mesma altura
+   (preview no hover + imagem escolhida na plataforma) */
+#preview-personagem[src*="ueslei.png"],
+.imagem-jogador[src*="ueslei.png"],
+#preview-personagem[src*="jair.png"],
+.imagem-jogador[src*="jair.png"],
+#preview-personagem[src*="eliel.png"],
+.imagem-jogador[src*="eliel.png"],
+#preview-personagem[src*="larissa.png"],
+.imagem-jogador[src*="larissa.png"] {
+    height: var(--altura-personagem) !important;
+    width: auto !important;
+}
+
+#img-p1 {
+    /* entra deslizando pela direita, pois a plataforma fica no lado direito */
+}
+
+/* ─────────────────────────────────────────────
+   ANIMAÇÃO DE ENTRADA DO PERSONAGEM ESCOLHIDO
+   ───────────────────────────────────────────── */
+.entrada-esquerda {
+    display: block;
+    animation: entrarNaPlataforma 0.6s ease-out forwards;
+}
+
+@keyframes entrarNaPlataforma {
+    0% {
+        transform: translateX(120vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ═══════════════════════════════
+   TEXTO DE STATUS (instrução / confirmação)
+   ═══════════════════════════════ */
+#status-selecao {
+    position: absolute;
+    top: 515px;
+    left: 63%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: #e6ffff;
+    text-shadow:
+        0 0 4px #ffffff,
+        0 0 8px #33ecff,
+        0 0 18px #33ecff,
+        0 0 35px #00aaff;
+
+    animation: brilharStatus 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes brilharStatus {
+    0% {
+        text-shadow:
+            0 0 4px #ffffff,
+            0 0 8px #33ecff,
+            0 0 15px #33ecff,
+            0 0 25px #00aaff;
+    }
+    100% {
+        text-shadow:
+            0 0 6px #ffffff,
+            0 0 14px #33ecff,
+            0 0 26px #33ecff,
+            0 0 45px #00aaff,
+            0 0 65px #00aaff;
+    }
+}
+
+/* ═══════════════════════════════
+   BOTÃO DE CONFIRMAR
+   ═══════════════════════════════ */
+#btn-confirmar {
+    position: absolute;
+    top: 555px;
+    left: 63%;
+    transform: translateX(-50%);
+    display: none; /* Controlado pelo JS */
+
+    width: 250px;
+    padding: 18px 0;
+
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    color: #00eaff;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 8px #00eaff, 0 0 16px rgba(0, 234, 255, 0.6);
+
+    background: rgba(4, 12, 22, 0.55);
+    border: 2px solid #00eaff;
+    border-radius: 10px;
+    cursor: pointer;
+
+    box-shadow: 0 0 16px rgba(0, 234, 255, 0.6), inset 0 0 14px rgba(0, 234, 255, 0.12);
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+#btn-confirmar:hover {
+    transform: translateX(-50%) scale(1.04);
+    background: rgba(0, 234, 255, 0.14);
+    box-shadow: 0 0 26px rgba(0, 234, 255, 0.9), inset 0 0 18px rgba(0, 234, 255, 0.2);
+}
+
+#btn-confirmar:active {
+    transform: translateX(-50%) scale(0.98);
+}
