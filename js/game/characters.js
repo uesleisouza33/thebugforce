@@ -15,7 +15,12 @@ const CHARACTERS = {
 
             cooldown: 500,
 
-            projetil: "codigoBinario"
+            projetil: "codigoBinario",
+
+            cor: "#00f5ff",
+            largura: 70,
+            altura: 18,
+            velocidade: 10
 
         },
 

@@ -2,9 +2,9 @@ import Inimigo from "./inimigo.js";
 
 export default class EnemySpawner {
 
-    constructor(configs, canvas) {
+    constructor(enemyConfigs, canvas) {
 
-        this.configs = configs;
+        this.enemyConfigs = enemyConfigs;
         this.canvas = canvas;
 
         this.inimigos = [];
@@ -28,8 +28,8 @@ export default class EnemySpawner {
 
         // Escolhe um personagem aleatório
         const config =
-            this.configs[
-            Math.floor(Math.random() * this.configs.length)
+            this.enemyConfigs[
+            Math.floor(Math.random() * this.enemyConfigs.length)
             ];
 
         // Posição X aleatória caso não seja informada
@@ -56,13 +56,16 @@ export default class EnemySpawner {
             new Inimigo(
                 x,
                 y,
-                config
+                config.spriteConfig,
+                config.enemyConfig
             )
         );
 
     }
 
-    update(deltaTime) {
+    update(deltaTime, jogador = null) {
+
+        let pontos = 0;
 
         if (this.ativo) {
 
@@ -90,16 +93,28 @@ export default class EnemySpawner {
 
         this.inimigos.forEach(inimigo => {
 
-            inimigo.update(deltaTime);
+            inimigo.update(deltaTime, jogador);
 
         });
 
         // Remove inimigos que saíram da tela
         this.inimigos = this.inimigos.filter(inimigo => {
 
-            return inimigo.x + inimigo.largura > -50;
+            if (inimigo.morto)
+                return false;
+
+            if (inimigo.x + inimigo.largura <= -50) {
+
+                pontos += inimigo.pontosAoPassar;
+                return false;
+
+            }
+
+            return true;
 
         });
+
+        return pontos;
 
     }
 
@@ -117,7 +132,7 @@ export default class EnemySpawner {
 
         for (const inimigo of this.inimigos) {
 
-            if (jogador.colideCom(inimigo)) {
+            if (inimigo.estaNoAlcance(jogador)) {
 
                 return inimigo;
 

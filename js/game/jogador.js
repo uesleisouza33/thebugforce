@@ -35,6 +35,11 @@ export default class Jogador extends Entidade {
         this.specialAbility =
             characterConfig.habilidadeEspecial;
 
+        this.specialAttack =
+            new Attack(
+                characterConfig.habilidadeEspecial
+            );
+
         this.velocidade = characterConfig.velocidade;
 
         this.vidaMaxima = characterConfig.vida;
@@ -63,6 +68,9 @@ export default class Jogador extends Entidade {
         if (this.morto)
             return;
 
+        this.primaryAttack.update(deltaTime);
+        this.specialAttack.update(deltaTime);
+
         if (this.movendo) {
             this.animacao.update(deltaTime);
         }
@@ -87,8 +95,31 @@ export default class Jogador extends Entidade {
         if (this.morto)
             return;
 
-        console.log(this.primaryAttack);
+        if (this.spriteConfig.animations.shoot) {
+
+            this.animacao.tocar("shoot");
+
+        }
+
         this.primaryAttack.executar(this);
+
+    }
+
+    usarHabilidade() {
+
+        if (this.morto)
+            return;
+
+        this.specialAttack.executar(this);
+
+    }
+
+    verificarAtaques(inimigos) {
+
+        let pontos = 0;
+        pontos += this.primaryAttack.verificarColisoes(inimigos);
+        pontos += this.specialAttack.verificarColisoes(inimigos);
+        return pontos;
 
     }
 
@@ -99,7 +130,7 @@ export default class Jogador extends Entidade {
 
         this.movendo = false;
 
-        if (teclas["a"]) {
+        if (teclas["a"] || teclas["arrowleft"]) {
 
             this.x -= this.velocidade;
             this.direcao = -1;
@@ -107,7 +138,7 @@ export default class Jogador extends Entidade {
 
         }
 
-        if (teclas["d"]) {
+        if (teclas["d"] || teclas["arrowright"]) {
 
             this.x += this.velocidade;
             this.direcao = 1;
@@ -115,14 +146,14 @@ export default class Jogador extends Entidade {
 
         }
 
-        if (teclas["w"]) {
+        if (teclas["w"] || teclas["arrowup"]) {
 
             this.y -= this.velocidade;
             this.movendo = true;
 
         }
 
-        if (teclas["s"]) {
+        if (teclas["s"] || teclas["arrowdown"]) {
 
             this.y += this.velocidade;
             this.movendo = true;
@@ -151,7 +182,7 @@ export default class Jogador extends Entidade {
     receberDano(dano = 10) {
 
         if (this.invencivel || this.morto)
-            return;
+            return false;
 
         this.vida -= dano;
 
@@ -172,6 +203,8 @@ export default class Jogador extends Entidade {
 
         }
 
+        return true;
+
     }
 
     curar(valor = 20) {
@@ -187,6 +220,9 @@ export default class Jogador extends Entidade {
     }
 
     draw(ctx) {
+
+        this.primaryAttack.draw(ctx);
+        this.specialAttack.draw(ctx);
 
         // Pisca quando está invencível
         if (this.invencivel) {

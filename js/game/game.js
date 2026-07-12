@@ -1,7 +1,6 @@
 import SPRITES from "./sprites.js";
 import CHARACTERS from "./characters.js";
-
-
+import ENEMIES from "./enemies.js";
 
 import PlayerSpawner from "./playerspawn.js";
 import EnemySpawner from "./enemyspawn.js";
@@ -37,7 +36,6 @@ let enemySpawner;
 
 let estadoJogo = "jogando"; // "jogando" | "gameover"
 let pontuacao = 0;
-let tempoSobrevivido = 0;
 
 const teclas = {};
 
@@ -49,8 +47,25 @@ window.addEventListener("keydown", (e) => {
 
     teclas[e.key.toLowerCase()] = true;
 
+    // Teste de dano (tecla H)
     if (e.key.toLowerCase() === "h" && jogador) {
-        jogador.receberDano();
+        jogador.receberDano(10);
+    }
+
+    // Ataque primário (Espaço)
+    if (e.code === "Space" && jogador) {
+        e.preventDefault();
+        jogador.atacar();
+    }
+
+    // Habilidade especial (Q)
+    if (e.key.toLowerCase() === "q" && jogador) {
+        jogador.usarHabilidade();
+    }
+
+    // Evita scroll com setas
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
     }
 
 });
@@ -58,18 +73,6 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
 
     teclas[e.key.toLowerCase()] = false;
-
-});
-
-window.addEventListener("keydown", (e) => {
-
-    teclas[e.key.toLowerCase()] = true;
-
-    if (e.code === "Space") {
-
-        jogador.atacar();
-
-    }
 
 });
 
@@ -89,7 +92,14 @@ function iniciar() {
     enemySpawner = new EnemySpawner(
 
         [
-            SPRITES.profEdu
+            {
+                spriteConfig: SPRITES.profEdu,
+                enemyConfig: ENEMIES.profEdu
+            },
+            {
+                spriteConfig: SPRITES.profWendel,
+                enemyConfig: ENEMIES.profWendel
+            }
         ],
 
         canvas
@@ -110,10 +120,39 @@ function finalizarJogo() {
 
     estadoJogo = "gameover";
 
-    // Salva a pontuação para a tela de Game Over ler
     sessionStorage.setItem("pontuacaoFinal", pontuacao);
 
     window.location.href = "gameOver.html";
+
+}
+
+// =====================
+// Coleta de drops
+// =====================
+
+function verificarColetaDrops() {
+
+    for (const inimigo of enemySpawner.inimigos) {
+
+        if (!inimigo.drop || !inimigo.drop.ativo)
+            continue;
+
+        const drop = inimigo.drop;
+
+        const colidiu =
+            jogador.x < drop.x + drop.largura &&
+            jogador.x + jogador.largura > drop.x &&
+            jogador.y < drop.y + drop.altura &&
+            jogador.y + jogador.altura > drop.y;
+
+        if (colidiu) {
+
+            jogador.curar(drop.cura);
+            drop.ativo = false;
+
+        }
+
+    }
 
 }
 
@@ -127,28 +166,133 @@ function atualizar(deltaTime) {
 
     jogador.update(deltaTime);
 
-    enemySpawner.update(deltaTime);
+    pontuacao += enemySpawner.update(deltaTime, jogador);
 
+    pontuacao += jogador.verificarAtaques(enemySpawner.inimigos);
+
+    verificarColetaDrops();
 
     const inimigo = enemySpawner.verificarColisao(jogador);
 
     if (inimigo) {
 
-        jogador.receberDano(10);
+        pontuacao += inimigo.atacar(jogador);
 
     }
 
-    // Pontuação: 1 ponto por segundo sobrevivido.
-    // Ajuste essa conta se preferir pontuar de outra forma
-    // (ex: por inimigo desviado).
-    tempoSobrevivido += deltaTime;
-    pontuacao = Math.floor(tempoSobrevivido / 1000);
+    if (pontuacao < 0) {
+
+        pontuacao = 0;
+
+    }
 
     if (jogador.morto && estadoJogo === "jogando") {
 
         finalizarJogo();
 
     }
+
+}
+
+// =====================
+// HUD
+// =====================
+
+function desenharHUD() {
+
+    // --- Barra de vida ---
+    ctx.fillStyle = "#111";
+    ctx.fillRect(18, 18, 204, 22);
+
+    ctx.fillStyle = "#ff3333";
+
+    const vidaPct = jogador.vida / jogador.vidaMaxima;
+
+    if (vidaPct > 0.5) {
+        ctx.fillStyle = "#33cc33";
+    } else if (vidaPct > 0.25) {
+        ctx.fillStyle = "#ffaa00";
+    } else {
+        ctx.fillStyle = "#ff3333";
+    }
+
+    ctx.fillRect(20, 20, vidaPct * 200, 18);
+
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(18, 18, 204, 22);
+
+    // Vida numérica
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 11px monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(
+        jogador.vida + " / " + jogador.vidaMaxima,
+        120,
+        29
+    );
+
+    // --- Nome do personagem ---
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 13px monospace";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText(
+        jogador.characterConfig.nome || "JOGADOR",
+        20,
+        58
+    );
+
+    // --- Habilidade especial ---
+    const agora = Date.now();
+    const cooldownTotal = jogador.characterConfig.habilidadeEspecial.cooldown;
+    const tempoDesde = agora - jogador.specialAttack.ultimoAtaque;
+    const emRecarga = tempoDesde < cooldownTotal;
+
+    const labelQ = "Q";
+    const larguraBarraQ = 100;
+
+    ctx.fillStyle = "#111";
+    ctx.fillRect(20, 65, larguraBarraQ, 10);
+
+    if (emRecarga) {
+
+        const progresso = tempoDesde / cooldownTotal;
+
+        ctx.fillStyle = "#6644ff";
+        ctx.fillRect(20, 65, progresso * larguraBarraQ, 10);
+
+        ctx.fillStyle = "#aaa";
+
+    } else {
+
+        ctx.fillStyle = "#6644ff";
+        ctx.fillRect(20, 65, larguraBarraQ, 10);
+
+        ctx.fillStyle = "#fff";
+
+    }
+
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(20, 65, larguraBarraQ, 10);
+
+    ctx.font = "bold 10px monospace";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("[Q] Habilidade", 126, 74);
+
+    // --- Pontuação ---
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 14px monospace";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText(
+        "PONTOS: " + pontuacao,
+        canvas.width - 20,
+        38
+    );
 
 }
 
@@ -173,27 +317,11 @@ function desenhar() {
         canvas.height
     );
 
-    jogador.draw(ctx);
-
     enemySpawner.draw(ctx);
 
-    ctx.fillStyle = "#222";
-    ctx.fillRect(20, 20, 200, 20);
+    jogador.draw(ctx);
 
-    ctx.fillStyle = "#00ff00";
-    ctx.fillRect(
-        20,
-        20,
-        (jogador.vida / jogador.vidaMaxima) * 200,
-        20
-    );
-
-    ctx.strokeStyle = "#fff";
-    ctx.strokeRect(20, 20, 200, 20);
-
-    ctx.fillStyle = "#fff";
-    ctx.font = "16px sans-serif";
-    ctx.fillText("Pontos: " + pontuacao, 20, 62);
+    desenharHUD();
 
 }
 

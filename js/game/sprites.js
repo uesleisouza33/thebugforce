@@ -46,7 +46,26 @@ const SPRITES = {
         width: 80,
         height: 160,
 
-        velocidade: 2,
+        animations: {
+            walk: {
+                row: 0,
+                frames: 4,
+                speed: 120
+            }
+        }
+
+    },
+    profWendel: {
+
+        src: "../assets/game/inimigos/prof_wendel/wendel.png",
+
+        // Tamanho REAL do frame na imagem
+        frameWidth: 68,
+        frameHeight: 127,
+
+        // Tamanho que será desenhado no jogo
+        width: 80,
+        height: 160,
 
         animations: {
             walk: {
