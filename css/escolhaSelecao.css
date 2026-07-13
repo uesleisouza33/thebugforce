@@ -1,0 +1,549 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
+
+body {
+    /* 1. Coloque o link ou caminho da sua imagem aqui embaixo */
+    background-image: url('../assets/img/fundoEscolha.png');
+    
+    /* 2. Faz a imagem cobrir a tela inteira sem achatar ou distorcer */
+    background-size: cover;
+    
+    /* 3. Mantém a imagem sempre centralizada */
+    background-position: center;
+    
+    /* 4. Evita que a imagem crie um "mosaico" se a tela for muito grande */
+    background-repeat: no-repeat;
+    
+    /* 5. Fixa a imagem no fundo (ela não rola junto com o texto) */
+    background-attachment: fixed;
+    
+    /* Estilos básicos para a página */
+    margin: 0;
+    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
+}
+
+#imagem-central {
+    /* 1. Desprende a imagem do fluxo normal da página */
+    position: absolute;
+    
+    /* 2. Empurra a imagem para a metade exata da tela (vertical e horizontal) */
+    top: 45%;
+    left: 50%;
+    
+    /* 3. Puxa a imagem de volta pela metade do PRÓPRIO tamanho dela, para ficar perfeitamente no centro */
+    transform: translate(-50%, -50%);
+    width: 600px;
+  
+    
+    /* Opcional: Coloca uma sombrinha para destacar a imagem do fundo */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px; /* Arredonda as bordas se quiser */
+}
+
+#icon{
+       position: absolute;
+      top:  150px;
+    left: 595px;
+    width: 150px;
+}
+
+#ueslei{
+    position: absolute;
+      top:  164px;
+    left: 430px;
+    width: 80px;
+}
+
+#jair{
+      position: absolute;
+      top:  170px;
+    left: 530px;
+    width: 70px;
+}
+
+#titulo{
+     position: absolute;
+      top:  12px;
+        left: 360px;
+    width: 600px;
+    animation: flutuarTitulo 3.5s ease-in-out infinite;
+}
+
+@keyframes flutuarTitulo {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+#larissa{
+  position: absolute;
+      top:  170px;
+    left: 742px;
+    width: 75px;
+}
+
+
+#eliel{
+  position: absolute;
+        top:  172px;
+    left: 837px;
+    width: 70px;
+}
+
+#blok{
+      position: absolute;
+      top:  270px;
+    left: 460px;
+    width: 170px;
+}
+
+#blok2{
+       position: absolute;
+      top:  270px;
+    left: 585px;
+    width: 170px;
+}
+
+#blok3{
+      position: absolute;
+      top:  270px;
+    left: 710px;
+    width: 170px;
+}
+
+/* ═══════════════════════════════
+   SELEÇÃO DE PERSONAGEM - HOVER E CLIQUE
+   ═══════════════════════════════ */
+
+/* Todos os slots de personagem jogável recebem cursor de "clicável"
+   e uma transição suave para a animação de hover */
+.personagem-slot {
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    /* garante que o transform/scale não bagunce o alinhamento dos outros elementos */
+    transform-origin: center bottom;
+}
+
+/* Efeito ao passar o mouse: o personagem "levanta" e brilha */
+.personagem-slot:hover {
+    transform: scale(1.08) translateY(-6px);
+    filter: drop-shadow(0 0 12px #00eaff) drop-shadow(0 0 22px #00eaff);
+    animation: pulsarSlot 0.9s ease-in-out infinite;
+}
+
+@keyframes pulsarSlot {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 18px #00eaff);
+    }
+    50% {
+        filter: drop-shadow(0 0 18px #00eaff) drop-shadow(0 0 30px #00eaff);
+    }
+}
+
+/* Personagem escolhido pelo Jogador 1 (contorno azul) */
+.personagem-slot.selecionado-p1 {
+    transform: scale(1.1) translateY(-6px);
+    filter: drop-shadow(0 0 14px #00aaff) drop-shadow(0 0 26px #00aaff);
+    animation: none;
+}
+
+/* Personagem escolhido pelo Jogador 2 (contorno vermelho/rosa) */
+.personagem-slot.selecionado-p2 {
+    transform: scale(1.1) translateY(-6px);
+    filter: drop-shadow(0 0 14px #ff2d55) drop-shadow(0 0 26px #ff2d55);
+    animation: none;
+}
+
+/* Depois de escolhido, tira o hover extra pra não conflitar com a seleção */
+.personagem-slot.selecionado-p1:hover,
+.personagem-slot.selecionado-p2:hover {
+    animation: none;
+}
+
+/* Slots bloqueados não reagem ao mouse */
+.bloqueado {
+    cursor: not-allowed;
+    filter: grayscale(0.6) brightness(0.7);
+}
+
+/* Texto de status (de quem é a vez de escolher) */
+#status-selecao {
+    position: absolute;
+    top: 470px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    
+    
+    /* ── CONFIGURAÇÕES DO BRILHO NEON RETRO ── */
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    
+    /* Centro da letra claro simula a forte intensidade da lâmpada acesa */
+    color: #e6ffff; 
+    
+    /* Camadas iniciais fortes + rastro largo borrado de luz ciano no fundo */
+    text-shadow: 
+        0 0 4px #ffffff,
+        0 0 8px #33ecff,
+        0 0 18px #33ecff,
+        0 0 35px #00aaff;
+        
+    /* Adiciona a animação de pulsação suave */
+    animation: brilharStatus 1.5s infinite alternate ease-in-out;
+}
+
+/* Animação que altera a intensidade das camadas de sombra */
+@keyframes brilharStatus {
+    0% {
+        text-shadow: 
+            0 0 4px #ffffff,
+            0 0 8px #33ecff,
+            0 0 15px #33ecff,
+            0 0 25px #00aaff;
+    }
+    100% {
+        text-shadow: 
+            0 0 6px #ffffff,
+            0 0 14px #33ecff,
+            0 0 26px #33ecff,
+            0 0 45px #00aaff,
+            0 0 65px #00aaff;
+    }
+}
+
+/* ═══════════════════════════════
+   BOTÃO DE CONFIRMAR (mesmo estilo "vazado" dos botões
+   JOGAR / MANUAL / SOBRE O JOGO da tela inicial)
+   ═══════════════════════════════ */
+#btn-confirmar {
+    position: absolute;
+    top: 515px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Controlado pela verificação do JS */
+    
+    /* Espaçamento interno e largura (mesmo padrão do menu inicial) */
+    width: 300px;
+    padding: 18px 0;
+    
+    /* ── Tipografia idêntica aos botões da tela inicial ── */
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    color: #00eaff;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 8px #00eaff, 0 0 16px rgba(0, 234, 255, 0.6);
+    
+    /* Mesmo "quadrado vazado": fundo escuro translúcido + borda neon */
+    background: rgba(4, 12, 22, 0.55);
+    
+    /* Borda neon ciano e cantos levemente arredondados, igual aos da tela inicial */
+    border: 2px solid #00eaff;
+    border-radius: 10px;
+    cursor: pointer;
+    
+    /* Brilho neon por fora e por dentro, igual aos botões JOGAR/MANUAL/SOBRE */
+    box-shadow: 0 0 16px rgba(0, 234, 255, 0.6), inset 0 0 14px rgba(0, 234, 255, 0.12);
+    
+    /* Transições de movimento rápidas e responsivas */
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+/* Efeito ao passar o mouse por cima do Confirmar */
+#btn-confirmar:hover {
+    transform: translateX(-50%) scale(1.04);
+    background: rgba(0, 234, 255, 0.14);
+    box-shadow: 0 0 26px rgba(0, 234, 255, 0.9), inset 0 0 18px rgba(0, 234, 255, 0.2);
+}
+
+/* Efeito rápido de clique pressionado */
+#btn-confirmar:active {
+    transform: translateX(-50%) scale(0.98);
+}
+
+/* ═══════════════════════════════
+   PREVIEW DO PERSONAGEM (aparece ao lado do slot no hover)
+   ═══════════════════════════════ */
+#preview-personagem {
+    position: absolute;
+    display: none; 
+    bottom: 50px; 
+    /* Coloque o !important logo após o valor, antes do ponto e vírgula */
+   margin-left: -60px;
+    width: 310px;
+    pointer-events: none;
+    z-index: 5;
+    filter: drop-shadow(0 0 10px #00eaff);
+}
+
+/* ═══════════════════════════════
+   IMAGEM DO PERSONAGEM ESCOLHIDO (desliza pra tela)
+   ═══════════════════════════════ */
+.imagem-jogador {
+    position: absolute;
+    display: none; /* o JS muda pra "block" no momento da escolha */
+    z-index: 6;
+    height: 510px;
+    width: auto;
+    bottom: 50px; 
+}
+
+/* Correção específica para o Eliel: 
+   Adicionado um clip-path para esconder a linha fantasma nas laterais da imagem */
+.imagem-jogador[src*="eliel.png"],
+#preview-personagem[src*="eliel.png"] {
+    bottom: -5px !important;
+}
+
+/* Jogador 1: entra vindo da esquerda */
+#img-p1 {
+    left: 5px;
+}
+
+/* Jogador 2: entra vindo da direita */
+#img-p2 {
+    right: 95px;
+    left: auto;
+}
+
+#red {
+    position: absolute;
+      top:  470px;
+    left: -80px;
+    width: 560px;
+}
+
+#blue{
+       position: absolute;
+    top:  470px;
+    left: 850px;
+       width: 560px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ██ INÍCIO DA ÁREA PARA MEXER NOS PERSONAGENS DA ESQUERDA ██
+   (Jogador 1 - Padrão para todos, exceto a exceção do Eliel abaixo)
+   ════════════════════════════════════════════════════════════════ */
+
+.entrada-esquerda {
+    display: block;
+    /* Aqui você pode alterar o tempo (0.6s) ou o tipo da animação (ease-out) */
+    animation: entrarEsquerda 0.6s ease-out forwards;
+}
+
+@keyframes entrarEsquerda {
+    0% {
+        /* Mexa aqui para definir de onde eles partem (distância inicial) */
+        transform: translateX(-120vw);
+        opacity: 0;
+    }
+    100% {
+        /* Mexa aqui para definir o quão para a frente ou para trás eles vão ao parar */
+        transform: translateX(30px);
+        opacity: 1;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ██ FIM DA ÁREA (ESQUERDA PADRÃO) ██ 
+   ════════════════════════════════════════════════════════════════ */
+
+
+/* Classes adicionadas pelo JS na hora do clique para o Jogador 2 */
+.entrada-direita {
+    display: block;
+    animation: entrarDireita 0.6s ease-out forwards;
+}
+
+@keyframes entrarDireita {
+    0% {
+        transform: translateX(120vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(40px);
+        opacity: 1;
+    }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ██ INÍCIO DA ÁREA PARA MEXER APENAS NA ANIMAÇÃO DO ELIEL ██
+   ════════════════════════════════════════════════════════════════ */
+
+/* Quando o Eliel for escolhido como Jogador 1 (Esquerda) */
+.entrada-esquerda[src*="eliel.png"] {
+    display: block;
+    animation: entrarElielEsquerda 0.6s ease-out forwards;
+}
+
+/* Quando o Eliel for escolhido como Jogador 2 (Direita) */
+.entrada-direita[src*="eliel.png"] {
+    display: block;
+    animation: entrarElielDireita 0.6s ease-out forwards;
+}
+
+/* O que o Eliel faz ao entrar vindo da Esquerda (Jogador 1) */
+@keyframes entrarElielEsquerda {
+    0% {
+        transform: translateX(-120vw);
+        opacity: 0;
+    }
+    100% {
+        /* Aumente este valor (ex: 100px, 150px) se quiser que ele vá AINDA MAIS pra frente */
+        transform: translateX(80px); /* Ajustado para empurrá-lo mais para o centro */
+        opacity: 1;
+    }
+}
+
+/* O que o Eliel faz ao entrar vindo da Direita (Jogador 2) */
+@keyframes entrarElielDireita {
+    0% {
+        transform: translateX(120vw);
+        opacity: 0;
+    }
+    100% {
+        /* Diminua este valor (ex: -100px, -150px) para deixá-lo simétrico ao Jogador 1 */
+        transform: translateX(-5px);
+        opacity: 1;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ██ FIM DA ÁREA DO ELIEL ██ 
+   ════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════
+   BOTÕES DE MODO (MULTIPLAYER / SINGLEPLAYER)
+   Mesmo estilo "vazado" dos outros botões, um vermelho (esquerda)
+   e um ciano (direita), com ícone + título + subtítulo.
+   Todos os valores abaixo são só um ponto de partida — mexa à vontade.
+   ═══════════════════════════════ */
+
+/* Estilo base compartilhado pelos dois botões (multiplayer e singleplayer) */
+.botao-modo {
+    position: absolute;
+
+    /* ↕ Distância do topo da tela — sobe/desce os dois botões juntos */
+    top: 575px;
+
+    display: flex;
+    align-items: center;
+    gap: 11px; /* espaço entre o ícone e o texto */
+
+    /* ↔ Largura total do botão (aumente/diminua se o texto cortar) */
+    width: 280px;
+    padding: 10px 16px; /* espaço interno em cima/baixo e nas laterais */
+
+    background: rgba(4, 12, 22, 0.55); /* fundo escuro translúcido */
+    border-radius: 10px; /* arredondamento dos cantos */
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    z-index: 4; /* garante que fique acima do fundo/painel */
+}
+
+/* Efeito rápido ao clicar (afunda um pouco) */
+.botao-modo:active {
+    transform: scale(0.98);
+}
+
+/* Bloco de texto (título + subtítulo), empilhado verticalmente */
+.texto-modo {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* "MULTIPLAYER" / "SINGLEPLAYER" */
+.titulo-modo {
+    font-weight: 800;
+    font-size: 0.8rem;        /* tamanho do título */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* "Jogue com seu amigo!" / "Jogue solo e supere desafios!" */
+.subtitulo-modo {
+    font-weight: 600;
+    font-size: 0.58rem;       /* tamanho do subtítulo */
+    opacity: 0.85;
+}
+
+/* Ícone SVG (pessoas / espadas) dentro do botão */
+.icone-modo {
+    width: 28px;   /* tamanho do ícone — mude junto com height */
+    height: 28px;
+    stroke-width: 1.6; /* espessura das linhas do ícone */
+    flex-shrink: 0;
+}
+
+/* ── Botão MULTIPLAYER (vermelho, canto inferior esquerdo) ── */
+#btn-multiplayer {
+    /* ↔ Distância da borda ESQUERDA da tela */
+    left: 90px;
+
+    border: 2px solid #ff2d55;       /* cor da borda neon */
+    box-shadow: 0 0 12px rgba(255, 45, 85, 0.6), inset 0 0 10px rgba(255, 45, 85, 0.12); /* brilho externo/interno */
+}
+
+#btn-multiplayer .icone-modo {
+    stroke: #ff2d55;
+    filter: drop-shadow(0 0 5px #ff2d55);
+}
+
+#btn-multiplayer .titulo-modo {
+    color: #ff2d55;
+    text-shadow: 0 0 6px #ff2d55, 0 0 12px rgba(255, 45, 85, 0.6);
+}
+
+#btn-multiplayer .subtitulo-modo {
+    color: #ffc2d1; /* tom mais claro pro subtítulo não brigar com o título */
+}
+
+#btn-multiplayer:hover {
+    transform: scale(1.04); /* "cresce" um pouco no hover */
+    background: rgba(255, 45, 85, 0.14);
+    box-shadow: 0 0 20px rgba(255, 45, 85, 0.9), inset 0 0 14px rgba(255, 45, 85, 0.2);
+}
+
+/* ── Botão SINGLEPLAYER (ciano, canto inferior direito) ── */
+#btn-singleplayer {
+    /* ↔ Distância da borda ESQUERDA da tela (não é da direita, cuidado ao ajustar) */
+    left: 900px;
+
+    border: 2px solid #00eaff;
+    box-shadow: 0 0 12px rgba(0, 234, 255, 0.6), inset 0 0 10px rgba(0, 234, 255, 0.12);
+}
+
+#btn-singleplayer .icone-modo {
+    stroke: #00eaff;
+    filter: drop-shadow(0 0 5px #00eaff);
+}
+
+#btn-singleplayer .titulo-modo {
+    color: #00eaff;
+    text-shadow: 0 0 6px #00eaff, 0 0 12px rgba(0, 234, 255, 0.6);
+}
+
+#btn-singleplayer .subtitulo-modo {
+    color: #b3f2ff;
+}
+
+#btn-singleplayer:hover {
+    transform: scale(1.04);
+    background: rgba(0, 234, 255, 0.14);
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.9), inset 0 0 14px rgba(0, 234, 255, 0.2);
+}

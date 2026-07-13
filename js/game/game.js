@@ -127,9 +127,11 @@ window.addEventListener("click", () => {
 
 function iniciar() {
 
+    const p1Key = sessionStorage.getItem("personagemSelecionado") || "larissa";
+
     playerSpawner = new PlayerSpawner(
-        SPRITES.larissa,
-        CHARACTERS.larissa
+        SPRITES[p1Key],
+        CHARACTERS[p1Key]
     );
 
     jogador = playerSpawner.spawn();
