@@ -153,7 +153,7 @@ function inicializar() {
     btnConfirmar.addEventListener("click", () => {
         if (!escolha) return;
         sessionStorage.setItem("personagemSelecionado", escolha);
-        window.location.href = "jogarSolo.html";
+        window.location.href = "dialogo.html";
     });
 
     if(btnVoltar) {
