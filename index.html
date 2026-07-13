@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
     <link rel="apple-touch-icon" href="./assets/favicon/apple-touch-icon.png">
     <link rel="manifest" href="./assets/favicon/site.webmanifest">
-    <script src="./js/index.js"defer></script>
+    <script src="./js/index.js" defer></script>
     <meta name="theme-color" content="#000000">
     <meta name="theme-color" content="#d10000">
     <title>The Bug Force</title>
@@ -92,7 +92,7 @@
         </div>
 
         <!-- Jair - Força  -->
-        <div class="personagem-hotspot"  data-x="59" data-y="58.5" data-w="9.5" data-h="39.5">
+        <div class="personagem-hotspot" data-x="59" data-y="58.5" data-w="9.5" data-h="39.5">
             <div class="skill-tooltip">
                 <div class="skill-tooltip-title">Jair</div>
                 <div class="skill-tooltip-row">
@@ -159,7 +159,7 @@
 
     <main>
         <section class="botoes">
-            <a href="./html/telaSelecao.html" class="btn btn-ciano">JOGAR</a>
+            <a href="./html/telaSelecao.html?v=2" class="btn btn-ciano">JOGAR</a>
 
             <a href="./html/manual.html" class="btn btn-verde">MANUAL</a>
 
@@ -184,10 +184,12 @@
         // Toca a música do menu na primeira interação do usuário
         const menuAudio = document.getElementById("menu-audio");
         document.addEventListener("click", () => {
-            menuAudio.play().catch(() => {});
+            menuAudio.play().catch(() => { });
+            menuAudio.volume = 0.10;
         }, { once: true });
         document.addEventListener("keydown", () => {
-            menuAudio.play().catch(() => {});
+            menuAudio.play().catch(() => { });
+            menuAudio.volume = 0.10;
         }, { once: true });
     </script>
 </body>
