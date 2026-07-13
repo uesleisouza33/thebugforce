@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/escolhaSelecao.css">
-    <title>Document</title>
+    <link rel="icon" href="../assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <script type="module" src="../js/game/seelectPer.js" defer></script>
+    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#d10000">
+    <title>The Bug Force</title>
 </head>
+
 <body>
     <img src="../assets/img/slots/painel.png" alt="Imagem no centro" id="imagem-central">
+    <img src="../assets/img/slots/iconbugForce.png" alt="" id="icon">
+    <img src="../assets/img/slots/tituloEscolha.png" alt="titulo" id="titulo">
 
-    <img src="../assets/img/slots/tituloEscolha.png" alt="titulo" id="titulo"> 
-   
-      <div> <!--  slots dos personagens estão nessa div -->
-     <img src="../assets/img/slots/uesleiSlot.png" alt="Ueslei" id="ueslei" class="personagem-slot"
-        data-nome="Ueslei"
-        data-preview="../assets/img/manuel/ueslei.png"
-        data-imagem="../assets/img/manuel/ueslei.png">
+    <!-- Painel de Saldo (Integrado sem quebrar o layout) -->
+    <div id="painel-saldo" style="position:absolute; top:20px; right:30px; background:rgba(0,0,0,0.8); border:2px solid #0ff; padding:10px 20px; border-radius:10px; color:#fff; font-family:'Courier New', monospace; font-size:1.2em; text-align:center; z-index:100; text-shadow: 0 0 5px #0ff;">
+        <span>SALDO (PTS)</span><br>
+        <strong id="saldo-display" style="color:#ffdd88; font-size:1.5em;">0</strong>
+    </div>
 
-    <img src="../assets/img/slots/jairSlot.png" alt="Jair" id="jair" class="personagem-slot"
-        data-nome="Jair"
-        data-preview="../assets/img/manuel/jair.png"
-        data-imagem="../assets/img/manuel/jair.png">
+    <div class="modo-jogo">
+        <button id="btnSolo" class="btn btn-ciano">Solo</button>
+        <button id="btnDupla" class="btn btn-verde">Dupla</button>
+    </div>
 
-    <img src="../assets/img/slots/LarissaSlot.png" alt="Larissa" id="larissa" class="personagem-slot"
-        data-nome="Larissa"
-        data-preview="../assets/img/manuel/larissa.png"
-        data-imagem="../assets/img/manuel/larissa.png">
+    <div> <!--  slots dos personagens estão nessa div -->
+        <img src="../assets/img/slots/uesleiSlot.png" alt="Ueslei" id="ueslei" class="personagem-slot"
+            data-nome="Ueslei" data-preview="../assets/img/manuel/ueslei.png"
+            data-imagem="../assets/img/manuel/ueslei.png">
 
-    <img src="../assets/img/slots/plataBlue.png" alt="" id="blue" srcset="">
-    <img src="../assets/img/slots/plataRed.png" alt="" id="red" srcset="">
+        <img src="../assets/img/slots/jairSlot.png" alt="Jair" id="jair" class="personagem-slot" data-nome="Jair"
+            data-preview="../assets/img/manuel/jair.png" data-imagem="../assets/img/manuel/jair.png">
 
-     <img src="../assets/img/slots/ElielSlot.png" alt="Eliel" id="eliel" class="personagem-slot"
-        data-nome="Eliel"
-        data-preview="../assets/img/manuel/eliel.png"
-        data-imagem="../assets/img/manuel/eliel.png">
+        <img src="../assets/img/slots/LarissaSlot.png" alt="Larissa" id="larissa" class="personagem-slot"
+            data-nome="Larissa" data-preview="../assets/img/manuel/larissa.png"
+            data-imagem="../assets/img/manuel/larissa.png">
+
+        <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok" class="bloqueado">
+        <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok2" class="bloqueado">
+        <img src="../assets/img/slots/bloqueadoSlot.png" alt="Bloqueado" id="blok3" class="bloqueado">
+
+        <img src="../assets/img/slots/ElielSlot.png" alt="Eliel" id="eliel" class="personagem-slot" data-nome="Eliel"
+            data-preview="../assets/img/manuel/eliel.png" data-imagem="../assets/img/manuel/eliel.png">
     </div>
 
     <!-- Imagem que aparece ao lado do slot quando o mouse passa por cima (preview) -->
@@ -43,18 +59,11 @@
     <img id="img-p1" class="imagem-jogador" src="" alt="Personagem Jogador 1">
     <img id="img-p2" class="imagem-jogador" src="" alt="Personagem Jogador 2">
 
-    <!-- Painel de Saldo -->
-    <div id="painel-saldo" style="position:absolute; top:20px; right:30px; background:rgba(0,0,0,0.8); border:2px solid #0ff; padding:10px 20px; border-radius:10px; color:#fff; font-family:'Courier New', monospace; font-size:1.2em; text-align:center; z-index:100; text-shadow: 0 0 5px #0ff;">
-        <span>SALDO (PTS)</span><br>
-        <strong id="saldo-display" style="color:#ffdd88; font-size:1.5em;">0</strong>
-    </div>
-
     <!-- Status da seleção (jogador da vez / confirmação) -->
-    <div id="status-selecao">ESCOLHA SEU PERSONAGEM</div>
+    <div id="status-selecao">Jogador 1, escolha seu personagem</div>
 
     <button id="btn-confirmar">CONFIRMAR</button>
-    <button id="btn-voltar" style="position:absolute; bottom:30px; left:30px; font-size:1.2em; padding:10px 20px; cursor:pointer; background:rgba(4, 12, 22, 0.55); border:2px solid #00eaff; color:#00eaff; border-radius:10px;">VOLTAR</button>
 
-    <script type="module" src="../js/game/Seelectpersolo.js"></script>
 </body>
+
 </html>
