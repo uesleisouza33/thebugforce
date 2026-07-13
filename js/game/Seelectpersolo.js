@@ -2,6 +2,8 @@
 // Lógica de seleção e loja - 1 JOGADOR (SOLO)
 // ═══════════════════════════════
 
+import Progresso from './progresso.js';
+
 // Tabela de preços
 const PRECOS_PERSONAGENS = {
     "larissa": 0,
@@ -11,19 +13,10 @@ const PRECOS_PERSONAGENS = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // Aguarda o Progresso ser injetado pelo type="module" do HTML
-    setTimeout(inicializar, 100);
-
+    inicializar();
 });
 
 function inicializar() {
-
-    const Progresso = window.Progresso;
-    if (!Progresso) {
-        console.error("Progresso não carregado!");
-        return;
-    }
 
     const slots = document.querySelectorAll(".personagem-slot");
     const statusEl = document.getElementById("status-selecao");
