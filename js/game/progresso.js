@@ -187,7 +187,7 @@ class ProgressoManager {
         };
         this._salvar();
     }
-
+}
 // Singleton — mesma instância em todo o jogo
 const Progresso = new ProgressoManager();
 
