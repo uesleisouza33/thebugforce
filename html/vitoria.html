@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/vitoria.css" />
-  <title>Vitória — The Bug Force</title>
+  <title>Vitória</title>
 </head>
 
 <body>
@@ -16,6 +16,8 @@
   <div class="victory-overlay">
 
     <div class="victory-content">
+
+      <img class="title-image" src="../assets/img/vitoria.png" alt="Vitória">
 
       <p class="subtitulo">
         <span class="bug-icon"></span>
@@ -27,14 +29,11 @@
         <h2>Pontuação Final</h2>
 
         <div class="score-linha">
-          <img src="../assets/favicon/favicon1.png" alt="">
-          <span id="contador-vitoria">000000</span>
-          <img src="../assets/favicon/favicon1.png" alt="">
+          <img src="../assets/favicon/favicon1.png">
+          <span id="contador-vitoria"></span>
+          <img src="../assets/favicon/favicon1.png">
         </div>
 
-        <div class="score-linha" style="margin-top:10px; opacity: 0.75;">
-          <span style="font-size:0.65em; color:#ffdd88;">🏆 MELHOR: <span id="melhor-vitoria">000000</span></span>
-        </div>
 
       </div>
 
@@ -61,22 +60,28 @@
   </footer>
 
   <script>
-    const pontuacao     = parseInt(sessionStorage.getItem("pontuacaoFinal"),  10) || 0;
-    const melhor        = parseInt(sessionStorage.getItem("melhorPontuacao"), 10) || 0;
+    const pontuacao = parseInt(sessionStorage.getItem("pontuacaoFinal"), 10) || 0;
+    const melhor = parseInt(sessionStorage.getItem("melhorPontuacao"), 10) || 0;
 
-    const elScore  = document.getElementById("contador-vitoria");
+    const elScore = document.getElementById("contador-vitoria");
     const elMelhor = document.getElementById("melhor-vitoria");
 
-    if (elScore)  elScore.textContent  = pontuacao;
+    if (elScore) elScore.textContent = pontuacao;
     if (elMelhor) elMelhor.textContent = melhor;
 
-    document.getElementById("jogar-novamente-btn").addEventListener("click", () => {
-      window.location.href = "jogarSolo.html";
-    });
+    const btnJogarNovamente = document.getElementById("jogar-novamente-btn");
+    if (btnJogarNovamente) {
+      btnJogarNovamente.addEventListener("click", () => {
+        window.location.href = "jogarSolo.html";
+      });
+    }
 
-    document.getElementById("menu-btn").addEventListener("click", () => {
-      window.location.href = "../index.html";
-    });
+    const btnMenu = document.getElementById("menu-btn");
+    if (btnMenu) {
+      btnMenu.addEventListener("click", () => {
+        window.location.href = "../index.html";
+      });
+    }
   </script>
 
 </html>

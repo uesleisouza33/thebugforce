@@ -257,9 +257,17 @@ document.addEventListener("DOMContentLoaded", () => {
         // Salva as escolhas para a tela/jogo seguinte ler
         sessionStorage.setItem("personagemP1", escolhas[1]);
         sessionStorage.setItem("personagemP2", escolhas[2]);
+        
+        // Também salva no formato esperado pelo game.js
+        const pKey = (escolhas[1] || "larissa").toLowerCase();
+        sessionStorage.setItem("personagemSelecionado", pKey);
 
-        // Ajuste este caminho para a tela real de início do jogo
-        window.location.href = "jogarSolo.html";
+        // Inicializa o progresso do jogo
+        sessionStorage.setItem("faseAtual", "0");
+        sessionStorage.setItem("pontuacaoAtual", "0");
+
+        // Redireciona para a tela de diálogos antes do início do jogo
+        window.location.href = "dialogo.html";
 
     });
 

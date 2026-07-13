@@ -1,7 +1,7 @@
 /* ========================================================
    RESET BÁSICO
    ======================================================== */
-   * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -47,6 +47,33 @@ body {
     padding: 30px;
 }
 
+#conter {
+    color: #44ddff;
+    font-size: 34px;
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 4px #44ddff,
+        0 0 10px #44ddff,
+        0 0 22px #44ddff;
+    animation: neon-pulse-azul 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse-azul {
+    from {
+        text-shadow:
+            0 0 4px #44ddff,
+            0 0 10px #44ddff,
+            0 0 22px #44ddff;
+    }
+
+    to {
+        text-shadow:
+            0 0 2px #44ddff,
+            0 0 6px #44ddff,
+            0 0 14px #44ddff;
+    }
+}
+
 /* ========================================================
    TÍTULO
    ======================================================== */
@@ -59,9 +86,12 @@ body {
 }
 
 @keyframes flutuar {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -111,7 +141,8 @@ body {
     justify-content: center;
     gap: 16px;
 }
-.score-linha img{
+
+.score-linha img {
     width: 45px;
     height: auto;
 }
@@ -139,6 +170,7 @@ body {
             0 0 10px #44ddff,
             0 0 22px #44ddff;
     }
+
     to {
         text-shadow:
             0 0 2px #44ddff,
@@ -198,7 +230,7 @@ body {
     box-shadow: 0 0 18px rgba(44, 255, 98, .35);
 }
 
-a{
+a {
     color: #2cff62;
     text-decoration: none;
 }
@@ -238,9 +270,12 @@ footer {
 }
 
 @keyframes arcadeLed {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.35;
     }

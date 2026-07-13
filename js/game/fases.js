@@ -47,7 +47,7 @@ const FASES = [
         id: 2,
         nome: "FASE 2",
         subtitulo: "Os Corredores da Fúria",
-        background: "../assets/game/backgrounds/fase1.webp",
+        background: "../assets/game/backgrounds/fase2.png",
 
         inimigosParaVencer: 12,
         enemyPool: ["profWendel", "profEdu"],
@@ -56,17 +56,44 @@ const FASES = [
         boss: {
             spriteKey: "profWendel",
             enemyKey: "profWendel",
-            nomeExibido: "Prof. Wendel — MODO CORROMPIDO",
+            nomeExibido: "Prof. Carlos — MODO CORROMPIDO",
 
             largura: 160,
             altura: 320,
 
-            vidaExtra: 150,
-            danoExtra: 12,
+            vidaExtra: 250,
+            danoExtra: 20,
             velocidade: 1,
 
             chanceDrop: 1.0,
-            pontosAoMatar: 100
+            pontosAoMatar: 150
+        }
+    },
+
+    {
+        id: 3,
+        nome: "FASE 3",
+        subtitulo: "O Confronto Final",
+        background: "../assets/game/backgrounds/fase3.png",
+
+        inimigosParaVencer: 15,
+        enemyPool: ["profEdu", "profWendel"],
+        intervaloSpawn: 1600,
+
+        boss: {
+            spriteKey: "profEdu",
+            enemyKey: "profEdu",
+            nomeExibido: "Vera — A RAINHA DOS BUGS",
+
+            largura: 180,
+            altura: 360,
+
+            vidaExtra: 350,
+            danoExtra: 25,
+            velocidade: 1.2,
+
+            chanceDrop: 1.0,
+            pontosAoMatar: 250
         }
     }
 

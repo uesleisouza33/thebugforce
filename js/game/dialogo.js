@@ -1,30 +1,80 @@
 const dialogos = [
     {
-        personagem: "Maçanito",
-        imagem:"../assets/img/manuel/macanito2.png",
-        texto: "Pessoal, a situação saiu do controle! Um vírus tomou conta da escola e transformou tudo em um caos."
+        personagem: "Maçaneiro",
+        imagem: "../assets/img/manuel/macanito2.png",
+        texto: "Pessoal, a situação saiu completamente do controle! Um vírus digital invadiu os sistemas da escola e começou a corromper tudo ao seu redor."
     },
     {
-        personagem: "Sandra",
-        imagem:"../assets/img/manuel/sandrinha2.png",
-        texto: "Os corredores estão cheios de inimigos digitais. Vocês precisarão atravessar cada fase para restaurar o sistema."
+        personagem: "Sandrinha",
+        imagem: "../assets/img/manuel/macanito2.png",
+        texto: "Nossa primeira missão será na entrada da escola. À primeira vista, tudo parece normal, como se nada tivesse acontecido... mas não se deixem enganar."
     },
     {
-        personagem: "Maçanito",
-        imagem:"../assets/img/manuel/macanito2.png",
-        texto: "Derrotem todos os inimigos e cuidado! No final de cada fase haverá um chefe muito mais forte."
+        personagem: "Maçaneiro",
+        imagem: "../assets/img/manuel/sandrinha2.png",
+        texto: "Os primeiros professores já foram infectados pelo vírus e agora atacam qualquer pessoa que tenta entrar na escola. Eles não são mais eles mesmos."
     },
     {
-        personagem: "Sandra",
-        imagem:"../assets/img/manuel/sandrinha2.png",
-        texto: "Cada personagem possui uma habilidade especial. Usem isso ao seu favor."
-    },
-    {
-        personagem: "Maçanito",
-        imagem:"../assets/img/manuel/macanito2.png",
-        texto: "Agora é com vocês... Boa sorte, Bug Force!"
+        personagem: "Sandrinha",
+        imagem: "../assets/img/manuel/sandrinha2.png",
+        texto: "Derrotem todos os inimigos, avancem para o interior da escola e descubram quem está por trás dessa invasão digital. Contamos com vocês... Boa sorte, Bug Force!"
     }
 ];
+
+const dialogoFase2 = [
+    {
+        personagem: "Maçaneiro",
+        imagem: "../assets/img/manuel/macanito2.png",
+        texto: "Bom trabalho! Vocês conseguiram libertar os professores da entrada, mas o vírus continua se espalhando pelos corredores."
+    },
+    {
+        personagem: "Sandrinha",
+        imagem: "../assets/img/manuel/sandrinha2.png",
+        texto: "Cuidado! Há ainda mais inimigos infectados por aqui, e a energia do vírus está ficando cada vez mais intensa."
+    },
+    {
+        personagem: "Maçaneiro",
+        imagem: "../assets/img/manuel/macanito2.png",
+        texto: "Detectamos uma grande concentração do vírus no fim do corredor. Parece que o Professor Carlos foi completamente dominado."
+    },
+    {
+        personagem: "Sandrinha",
+        imagem: "../assets/img/manuel/sandrinha2.png",
+        texto: "Derrotem o Professor Carlos para abrir caminho até a próxima área da escola. Boa sorte!"
+    }
+];
+
+const dialogoFase3 = [
+    {
+        personagem: "Maçaneiro",
+        imagem: "../assets/img/manuel/macanito2.png",
+        texto: "Vocês chegaram ao Laboratório de 4.0. Foi aqui que o vírus começou a se espalhar pela escola."
+    },
+    {
+        personagem: "Sandrinha",
+        imagem: "../assets/img/manuel/sandrinha2.png",
+        texto: "Todos os dados apontam para uma única responsável: Vera, a Rainha dos Bugs. Ela controla o vírus e corrompe tudo por onde passa."
+    },
+    {
+        personagem: "Maçaneiro",
+        imagem: "../assets/img/manuel/macanito2.png",
+        texto: "Derrotem a Vera e destruam o núcleo da infecção. Só assim a escola poderá voltar ao normal."
+    },
+    {
+        personagem: "Sandrinha",
+        imagem: "../assets/img/manuel/sandrinha2.png",
+        texto: "Essa é a batalha final, Bug Force. Mostrem a força da programação e acabem de uma vez com os bugs!"
+    }
+];
+
+const faseAtual = parseInt(sessionStorage.getItem("faseAtual") || "0", 10);
+let falasAtuais = dialogos;
+
+if (faseAtual === 1) {
+    falasAtuais = dialogoFase2;
+} else if (faseAtual === 2) {
+    falasAtuais = dialogoFase3;
+}
 
 let indice = 0;
 let escrevendo = false;
@@ -62,12 +112,12 @@ function mostrarDialogo() {
 
     setTimeout(() => {
 
-        nome.textContent = dialogos[indice].personagem;
-        avatar.src = dialogos[indice].imagem;
+        nome.textContent = falasAtuais[indice].personagem;
+        avatar.src = falasAtuais[indice].imagem;
 
         avatar.style.opacity = 1;
 
-        escreverTexto(dialogos[indice].texto);
+        escreverTexto(falasAtuais[indice].texto);
 
     }, 300);
 
@@ -85,7 +135,7 @@ document.addEventListener("keydown", (event) => {
 
         indice++;
 
-        if (indice >= dialogos.length) {
+        if (indice >= falasAtuais.length) {
 
             window.location.href = "jogarSolo.html";
             return;

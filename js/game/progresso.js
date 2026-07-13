@@ -154,7 +154,10 @@ class ProgressoManager {
             "Ueslei": 0,
             "Jair": 0,
             "Larissa": 0,
-            "Eliel": 2500
+            "Eliel": 0,
+            "Prof-Sandra": 3000,
+            "Iza": 5000,
+            "Janice": 10000,
         };
         return precos[key] || 9999;
     }

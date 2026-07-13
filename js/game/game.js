@@ -138,7 +138,11 @@ function iniciar() {
 
     enemySpawner = new EnemySpawner([], canvas);
 
-    carregarFase(0);
+    // Carrega a fase e a pontuação salvas (útil para continuar pós-diálogo)
+    faseIndex = parseInt(sessionStorage.getItem("faseAtual"), 10) || 0;
+    pontuacao = parseInt(sessionStorage.getItem("pontuacaoAtual"), 10) || 0;
+
+    carregarFase(faseIndex);
 
     requestAnimationFrame(loop);
 
@@ -251,6 +255,10 @@ function finalizarJogo() {
     sessionStorage.setItem("pontuacaoFinal",  pontuacao);
     sessionStorage.setItem("melhorPontuacao", resultado.melhorPontuacao);
 
+    // Limpa o progresso temporário do jogo ao perder
+    sessionStorage.removeItem("faseAtual");
+    sessionStorage.removeItem("pontuacaoAtual");
+
     setTimeout(() => {
         window.location.href = "gameOver.html";
     }, 1500);
@@ -270,6 +278,10 @@ function finalizarVitoria() {
     sessionStorage.setItem("pontuacaoFinal",  pontuacao);
     sessionStorage.setItem("melhorPontuacao", resultado.melhorPontuacao);
     sessionStorage.setItem("vitoria", "1");
+
+    // Limpa o progresso temporário do jogo ao vencer
+    sessionStorage.removeItem("faseAtual");
+    sessionStorage.removeItem("pontuacaoAtual");
 
     setTimeout(() => {
         window.location.href = "vitoria.html";
@@ -413,8 +425,10 @@ function atualizarTransicao(deltaTime) {
         if (proximaFase >= FASES.length) {
             finalizarVitoria();
         } else {
-            faseIndex = proximaFase;
-            carregarFase(faseIndex);
+            // Salva o progresso e redireciona para a tela de diálogos da próxima fase
+            sessionStorage.setItem("faseAtual", proximaFase);
+            sessionStorage.setItem("pontuacaoAtual", pontuacao);
+            window.location.href = "dialogo.html";
         }
 
     }

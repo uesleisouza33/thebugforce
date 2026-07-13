@@ -204,6 +204,31 @@ a{
 }
 
 /* ========================================================
+   DICA
+   ======================================================== */
+.dica {
+    color: #ffffff;
+    font-size: 12px;
+    font-family: "Press Start 2P", monospace;
+    line-height: 1.8;
+    max-width: 480px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+}
+
+.dica-lampada {
+    font-size: 16px;
+    filter: drop-shadow(0 0 6px #f0c830);
+}
+
+.dica strong {
+    color: #f0c830;
+    text-shadow: 0 0 6px #f0c830;
+}
+
+/* ========================================================
    FOOTER
    ======================================================== */
 footer {
