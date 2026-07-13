@@ -11,8 +11,8 @@ class AudioManager {
     constructor() {
 
         // Volume padrão — deve ser definido ANTES de _criarAudio
-        this._volumeMusica = 0.25;
-        this._volumeSFX    = 0.35;
+        this._volumeMusica = 0.10;
+        this._volumeSFX    = 0.12;
 
         // Flag para evitar erros antes de interação do usuário
         this._habilitado = false;
@@ -35,7 +35,7 @@ class AudioManager {
             habilidade: "../assets/audio/Sound/ativandopoder.mp3",
             item:       "../assets/audio/Sound/somPlayJogo.mp3",
             morte:      "../assets/audio/Sound/risada_carlos.mp3",
-            hit:        "../assets/audio/Sound/varelaRisada.mp3"
+            // hit:        "../assets/audio/Sound/varelaRisada.mp3"
         };
 
     }

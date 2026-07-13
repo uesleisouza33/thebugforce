@@ -3,6 +3,7 @@ import CHARACTERS from "./characters.js";
 import ENEMIES from "./enemies.js";
 import FASES from "./fases.js";
 import Audio$ from "./audio.js";
+import Progresso from "./progresso.js";
 
 import PlayerSpawner from "./playerspawn.js";
 import EnemySpawner from "./enemyspawn.js";
@@ -243,7 +244,10 @@ function finalizarJogo() {
 
     Audio$.tocarMusica("gameover");
 
-    sessionStorage.setItem("pontuacaoFinal", pontuacao);
+    const resultado = Progresso.registrarPartida(pontuacao);
+
+    sessionStorage.setItem("pontuacaoFinal",  pontuacao);
+    sessionStorage.setItem("melhorPontuacao", resultado.melhorPontuacao);
 
     setTimeout(() => {
         window.location.href = "gameOver.html";
@@ -259,7 +263,10 @@ function finalizarVitoria() {
 
     Audio$.tocarMusica("vitoria");
 
-    sessionStorage.setItem("pontuacaoFinal", pontuacao);
+    const resultado = Progresso.registrarPartida(pontuacao);
+
+    sessionStorage.setItem("pontuacaoFinal",  pontuacao);
+    sessionStorage.setItem("melhorPontuacao", resultado.melhorPontuacao);
     sessionStorage.setItem("vitoria", "1");
 
     setTimeout(() => {

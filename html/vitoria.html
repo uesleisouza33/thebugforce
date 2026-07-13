@@ -32,6 +32,10 @@
           <img src="../assets/favicon/favicon1.png" alt="">
         </div>
 
+        <div class="score-linha" style="margin-top:10px; opacity: 0.75;">
+          <span style="font-size:0.65em; color:#ffdd88;">🏆 MELHOR: <span id="melhor-vitoria">000000</span></span>
+        </div>
+
       </div>
 
       <div class="botoes">
@@ -57,10 +61,14 @@
   </footer>
 
   <script>
-    const pontuacao = parseInt(sessionStorage.getItem("pontuacaoFinal"), 10) || 0;
+    const pontuacao     = parseInt(sessionStorage.getItem("pontuacaoFinal"),  10) || 0;
+    const melhor        = parseInt(sessionStorage.getItem("melhorPontuacao"), 10) || 0;
 
-    const el = document.getElementById("contador-vitoria");
-    if (el) el.textContent = pontuacao;
+    const elScore  = document.getElementById("contador-vitoria");
+    const elMelhor = document.getElementById("melhor-vitoria");
+
+    if (elScore)  elScore.textContent  = pontuacao;
+    if (elMelhor) elMelhor.textContent = melhor;
 
     document.getElementById("jogar-novamente-btn").addEventListener("click", () => {
       window.location.href = "jogarSolo.html";
