@@ -145,6 +145,38 @@ class ProgressoManager {
     // Utilitário
     // =====================
 
+    getSaldo() {
+        return this._dados.pontuacaoTotal;
+    }
+
+    getPreco(key) {
+        const precos = {
+            "Ueslei": 0,
+            "Jair": 0,
+            "Larissa": 0,
+            "Eliel": 2500
+        };
+        return precos[key] || 9999;
+    }
+
+    isDesbloqueado(key) {
+        if (key === "Ueslei" || key === "Jair" || key === "Larissa") return true;
+        return this.estaDesbloqueado(key.toLowerCase());
+    }
+
+    desbloquearPersonagem(key) {
+        const preco = this.getPreco(key);
+        if (this.getSaldo() >= preco) {
+            this._dados.pontuacaoTotal -= preco;
+            if (!this._dados.personagensDesbloqueados.includes(key.toLowerCase())) {
+                this._dados.personagensDesbloqueados.push(key.toLowerCase());
+            }
+            this._salvar();
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Reseta todo o progresso (uso para testes).
      */
@@ -156,9 +188,8 @@ class ProgressoManager {
         this._salvar();
     }
 
-}
-
 // Singleton — mesma instância em todo o jogo
 const Progresso = new ProgressoManager();
 
 export default Progresso;
+export { ProgressoManager };
