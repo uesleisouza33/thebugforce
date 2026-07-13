@@ -22,21 +22,13 @@ body {
 }
 
 #imagem-central {
-    /* 1. Desprende a imagem do fluxo normal da página */
     position: absolute;
-    
-    /* 2. Empurra a imagem para a metade exata da tela (vertical e horizontal) */
-    top: 45%;
+    top: 240px;
     left: 50%;
-    
-    /* 3. Puxa a imagem de volta pela metade do PRÓPRIO tamanho dela, para ficar perfeitamente no centro */
     transform: translate(-50%, -50%);
-    width: 600px;
-  
-    
-    /* Opcional: Coloca uma sombrinha para destacar a imagem do fundo */
+    width: 650px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-    border-radius: 10px; /* Arredonda as bordas se quiser */
+    border-radius: 10px; 
 }
 
 #icon{
@@ -48,10 +40,10 @@ body {
 
 #titulo{
      position: absolute;
-      top:  60px;
+      top:  30px;
         left: 50%;
         transform: translateX(-50%);
-    width: 600px;
+    width: 500px;
     animation: flutuarTitulo 3.5s ease-in-out infinite;
     z-index: 10;
 }
@@ -65,10 +57,10 @@ body {
     }
 }
 
-/* Slots centralizados horizontalmente */
+/* Slots centralizados horizontalmente dentro do painel */
 #ueslei{
     position: absolute;
-      top:  180px;
+      top:  140px;
     left: calc(50% - 190px);
     width: 80px;
     z-index: 10;
@@ -76,7 +68,7 @@ body {
 
 #jair{
       position: absolute;
-      top:  186px;
+      top:  146px;
     left: calc(50% - 90px);
     width: 70px;
     z-index: 10;
@@ -84,16 +76,15 @@ body {
 
 #larissa{
   position: absolute;
-      top:  186px;
+      top:  146px;
     left: calc(50% + 10px);
     width: 75px;
     z-index: 10;
 }
 
-
 #eliel{
   position: absolute;
-        top:  188px;
+        top:  148px;
     left: calc(50% + 110px);
     width: 70px;
     z-index: 10;
@@ -159,11 +150,12 @@ body {
 /* Texto de status (de quem é a vez de escolher) */
 #status-selecao {
     position: absolute;
-    top: 470px;
+    top: 270px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     width: 100%;
+    z-index: 11;
     
     
     /* ── CONFIGURAÇÕES DO BRILHO NEON RETRO ── */
@@ -211,10 +203,11 @@ body {
    ═══════════════════════════════ */
 #btn-confirmar {
     position: absolute;
-    top: 515px;
+    top: 320px;
     left: 50%;
     transform: translateX(-50%);
     display: none; /* Controlado pela verificação do JS */
+    z-index: 15;
     
     /* Espaçamento interno e largura (mesmo padrão do menu inicial) */
     width: 300px;
@@ -264,9 +257,8 @@ body {
 #preview-personagem {
     position: absolute;
     display: none; 
-    bottom: 50px; 
-    /* Coloque o !important logo após o valor, antes do ponto e vírgula */
-   margin-left: -60px;
+    bottom: 450px; 
+    left: calc(50% + 280px); /* À direita do painel central */
     width: 310px;
     pointer-events: none;
     z-index: 5;
@@ -292,29 +284,27 @@ body {
     bottom: -5px !important;
 }
 
-/* Jogador 1: entra vindo da esquerda */
+/* Jogador 1: entra vindo da esquerda e para no CENTRO */
 #img-p1 {
-    left: 5px;
+    left: 50%;
+    /* O translate do keyframe fará o alinhamento final */
 }
 
-/* Jogador 2: entra vindo da direita */
+/* Jogador 2: escondido pois é singleplayer */
 #img-p2 {
-    right: 95px;
-    left: auto;
+    display: none !important;
 }
 
 #red {
     position: absolute;
-      top:  470px;
-    left: -80px;
+    top:  470px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 560px;
 }
 
 #blue{
-       position: absolute;
-    top:  470px;
-    left: 850px;
-       width: 560px;
+    display: none !important;
 }
 
 
@@ -325,19 +315,16 @@ body {
 
 .entrada-esquerda {
     display: block;
-    /* Aqui você pode alterar o tempo (0.6s) ou o tipo da animação (ease-out) */
     animation: entrarEsquerda 0.6s ease-out forwards;
 }
 
 @keyframes entrarEsquerda {
     0% {
-        /* Mexa aqui para definir de onde eles partem (distância inicial) */
-        transform: translateX(-120vw);
+        transform: translateX(-100vw);
         opacity: 0;
     }
     100% {
-        /* Mexa aqui para definir o quão para a frente ou para trás eles vão ao parar */
-        transform: translateX(30px);
+        transform: translateX(-50%); /* Centraliza perfeitamente em 50% */
         opacity: 1;
     }
 }
@@ -384,12 +371,11 @@ body {
 /* O que o Eliel faz ao entrar vindo da Esquerda (Jogador 1) */
 @keyframes entrarElielEsquerda {
     0% {
-        transform: translateX(-120vw);
+        transform: translateX(-100vw);
         opacity: 0;
     }
     100% {
-        /* Aumente este valor (ex: 100px, 150px) se quiser que ele vá AINDA MAIS pra frente */
-        transform: translateX(80px); /* Ajustado para empurrá-lo mais para o centro */
+        transform: translateX(-50%); 
         opacity: 1;
     }
 }
