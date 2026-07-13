@@ -155,15 +155,14 @@ class ProgressoManager {
             "Jair": 0,
             "Larissa": 0,
             "Eliel": 0,
-            "Prof-Sandra": 3000,
-            "Iza": 5000,
-            "Janice": 10000,
+            "Prof-Sandra": 20000,
+            "Janice": 50000,
         };
         return precos[key] || 9999;
     }
 
     isDesbloqueado(key) {
-        if (key === "Ueslei" || key === "Jair" || key === "Larissa") return true;
+        if (key === "Ueslei" || key === "Jair" || key === "Larissa" || key === "Eliel") return true;
         return this.estaDesbloqueado(key.toLowerCase());
     }
 

@@ -129,9 +129,13 @@ function iniciar() {
 
     const p1Key = sessionStorage.getItem("personagemSelecionado") || "larissa";
 
+    // Fallback caso o personagem não tenha sprites ou configurações definidas ainda
+    const spriteConfig = SPRITES[p1Key] || SPRITES["larissa"];
+    const characterConfig = CHARACTERS[p1Key] || CHARACTERS["larissa"];
+
     playerSpawner = new PlayerSpawner(
-        SPRITES[p1Key],
-        CHARACTERS[p1Key]
+        spriteConfig,
+        characterConfig
     );
 
     jogador = playerSpawner.spawn();

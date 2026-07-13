@@ -6,12 +6,12 @@ const dialogos = [
     },
     {
         personagem: "Sandrinha",
-        imagem: "../assets/img/manuel/macanito2.png",
+        imagem: "../assets/img/manuel/sandrinha2.png",
         texto: "Nossa primeira missão será na entrada da escola. À primeira vista, tudo parece normal, como se nada tivesse acontecido... mas não se deixem enganar."
     },
     {
         personagem: "Maçaneiro",
-        imagem: "../assets/img/manuel/sandrinha2.png",
+        imagem: "../assets/img/manuel/macanito2.png",
         texto: "Os primeiros professores já foram infectados pelo vírus e agora atacam qualquer pessoa que tenta entrar na escola. Eles não são mais eles mesmos."
     },
     {

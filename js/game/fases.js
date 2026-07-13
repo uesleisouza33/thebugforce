@@ -21,7 +21,7 @@ const FASES = [
         enemyPool: ["profEdu", "profWendel"],
 
         // Intervalo entre spawns em ms
-        intervaloSpawn: 3000,
+        intervaloSpawn: 10,
 
         boss: {
             spriteKey: "profEdu",

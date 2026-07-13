@@ -101,29 +101,35 @@ body {
 
 #icon{
     position: absolute;
-    top:  230px;
-    left: 900px;
+    top:  252px;
+    left: 827px;
     width: 240px;
 }
 
 #ueslei{
     position: absolute;
-    top:  245px;
-    left: 620px;
+    top:  270px;
+    left: 550px;
     width: 135px;
 }
 
 #jair{
    position: absolute;
-    top:  250px;
-    left: 760px;
-    width: 127px;
+    top:  282px;
+    left: 709px;
+    width: 115px;
+}
+
+#plataBlue{
+   position: absolute;
+    top:  590px;
+    
 }
 
 #titulo{
     position: absolute;
     top:  -60px;
-    left: 555px;
+    left: 480px;
     width: 940px;
     animation: flutuarTitulo 3.5s ease-in-out infinite;
 }
@@ -138,39 +144,39 @@ body {
 }
 
 #larissa{
-   position: absolute;
-    top:  250px;
-    left: 1140px;
-    width: 127px;
+    position: absolute;
+    top:  279px;
+    left: 1070px;
+    width: 125px;
 }
 
 
 #eliel{
   position: absolute;
-    top:  250px;
-    left: 1280px;
-    width: 122px;
+    top:  283px;
+    left: 1220px;
+    width: 115px;
 }
 
 #blok{
     position: absolute;
-    top:  410px;
-    left: 670px;
+    top:  435px;
+    left: 415px;
     width: 297px;
 }
 
-#blok2{
-   position: absolute;
-    top:  410px;
-    left: 860px;
-    width: 297px;
+#sandra{
+     position: absolute;
+    top:  467px;
+    left: 857px;
+    width: 170px;
 }
 
-#blok3{
-    position: absolute;
-    top:  410px;
-    left: 1060px;
-    width: 297px;
+#janice{
+       position: absolute;
+    top:  465px;
+    left: 1050px;
+    width: 170px;
 }
 
 /* ═══════════════════════════════
@@ -222,11 +228,7 @@ body {
     animation: none;
 }
 
-/* Slots bloqueados não reagem ao mouse */
-.bloqueado {
-    cursor: not-allowed;
-    filter: grayscale(0.6) brightness(0.7);
-}
+
 
 /* Texto de status (de quem é a vez de escolher) */
 #status-selecao {
