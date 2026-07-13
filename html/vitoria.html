@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/vitoria.css" />
-  <title>Vitória</title>
+  <title>Vitória — The Bug Force</title>
 </head>
 
 <body>
@@ -16,8 +16,6 @@
   <div class="victory-overlay">
 
     <div class="victory-content">
-
-      <img class="title-image" src="../assets/img/vitoria.png" alt="Vitória">
 
       <p class="subtitulo">
         <span class="bug-icon"></span>
@@ -27,26 +25,25 @@
 
       <div class="score-box">
         <h2>Pontuação Final</h2>
-        
+
         <div class="score-linha">
-          <img src="../assets/favicon/favicon1.png">
-          <span id="contador-vitoria">015230</span>
-          <img src="../assets/favicon/favicon1.png">
+          <img src="../assets/favicon/favicon1.png" alt="">
+          <span id="contador-vitoria">000000</span>
+          <img src="../assets/favicon/favicon1.png" alt="">
         </div>
-        
 
       </div>
 
       <div class="botoes">
 
-        <button class="btn btn-blue">
+        <button id="jogar-novamente-btn" class="btn btn-blue">
           <span class="btn-icon">▶</span>
           Jogar Novamente
         </button>
 
-        <button class="btn btn-green">
+        <button id="menu-btn" class="btn btn-green">
           <span class="btn-icon">🏠</span>
-          <a href="../index.html">Menu Principal</a>
+          Menu Principal
         </button>
 
       </div>
@@ -58,5 +55,20 @@
     <span class="footer-ver">VER 1.0.0</span>
     <span class="footer-copy">&copy; THE BUGS STUDIOS 2026</span>
   </footer>
+
+  <script>
+    const pontuacao = parseInt(sessionStorage.getItem("pontuacaoFinal"), 10) || 0;
+
+    const el = document.getElementById("contador-vitoria");
+    if (el) el.textContent = pontuacao;
+
+    document.getElementById("jogar-novamente-btn").addEventListener("click", () => {
+      window.location.href = "jogarSolo.html";
+    });
+
+    document.getElementById("menu-btn").addEventListener("click", () => {
+      window.location.href = "../index.html";
+    });
+  </script>
 
 </html>

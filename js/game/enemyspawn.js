@@ -22,14 +22,24 @@ export default class EnemySpawner {
         this.spawnMinY = 420;
         this.spawnMaxY = 550;
 
+        // Contador de kills (inimigos mortos, não os que saíram da tela)
+        this.kills = 0;
+
     }
 
-    spawn(x = null, y = null) {
+    /**
+     * Spawna um inimigo.
+     * @param {number|null} x - Posição X. Aleatória se null.
+     * @param {number|null} y - Posição Y. Aleatória se null.
+     * @param {object|null} configOverride - Se informado, usa este config em vez de sortear.
+     */
+    spawn(x = null, y = null, configOverride = null) {
 
-        // Escolhe um personagem aleatório
-        const config =
-            this.enemyConfigs[
-            Math.floor(Math.random() * this.enemyConfigs.length)
+        // Usa override ou sorteia aleatoriamente
+        const config = configOverride
+            ? configOverride
+            : this.enemyConfigs[
+                Math.floor(Math.random() * this.enemyConfigs.length)
             ];
 
         // Posição X aleatória caso não seja informada
@@ -97,11 +107,13 @@ export default class EnemySpawner {
 
         });
 
-        // Remove inimigos que saíram da tela
+        // Remove inimigos que saíram da tela ou morreram
         this.inimigos = this.inimigos.filter(inimigo => {
 
-            if (inimigo.morto)
+            if (inimigo.morto) {
+                this.kills++;
                 return false;
+            }
 
             if (inimigo.x + inimigo.largura <= -50) {
 
