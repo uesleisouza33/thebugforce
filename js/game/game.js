@@ -2,6 +2,7 @@ import SPRITES from "./sprites.js";
 import CHARACTERS from "./characters.js";
 import ENEMIES from "./enemies.js";
 import FASES from "./fases.js";
+import Audio$ from "./audio.js";
 
 import PlayerSpawner from "./playerspawn.js";
 import EnemySpawner from "./enemyspawn.js";
@@ -13,7 +14,6 @@ ctx.imageSmoothingEnabled = false;
 
 // =====================
 // Backgrounds
-// Carrega todos os fundos únicos das fases
 // =====================
 
 const fundos = {};
@@ -28,7 +28,7 @@ FASES.forEach(fase => {
 let fundoAtual = null;
 
 // =====================
-// Carrega todos os sprites
+// Carrega sprites
 // =====================
 
 Object.values(SPRITES).forEach(sprite => {
@@ -44,7 +44,7 @@ let jogador;
 let playerSpawner;
 let enemySpawner;
 
-// Estados possíveis: "jogando" | "boss" | "transicao" | "vitoria" | "gameover"
+// Estados: "jogando" | "boss" | "transicao" | "gameover"
 let estadoJogo = "jogando";
 
 let pontuacao = 0;
@@ -56,18 +56,23 @@ let pontuacao = 0;
 let faseIndex = 0;
 let faseConfig = null;
 
-// Inimigos normais derrotados na fase atual (não conta boss)
 let killsNaFase = 0;
-let killsBase = 0; // valor de enemySpawner.kills quando a fase começou
+let killsBase   = 0;
 
 // Boss
 let bossSpawnado = false;
-let bossRef = null;
-let bossNome = "";
+let bossRef      = null;
+let bossNome     = "";
 
-// Transição entre fases
+// Transição
 let tempoTransicao = 0;
-const DURACAO_TRANSICAO = 3500; // ms
+const DURACAO_TRANSICAO = 3500;
+
+// =====================
+// Rastreamento de kills para SFX
+// =====================
+
+let killsAntes = 0;
 
 const teclas = {};
 
@@ -77,28 +82,29 @@ const teclas = {};
 
 window.addEventListener("keydown", (e) => {
 
+    // Primeira interação — habilita áudio
+    Audio$.habilitar();
+
     teclas[e.key.toLowerCase()] = true;
 
     if (estadoJogo !== "jogando" && estadoJogo !== "boss")
         return;
 
-    // Teste de dano (H)
     if (e.key.toLowerCase() === "h" && jogador) {
         jogador.receberDano(10);
     }
 
-    // Ataque primário (Espaço)
     if (e.code === "Space" && jogador) {
         e.preventDefault();
         jogador.atacar();
+        Audio$.tocarSFX("tiro");
     }
 
-    // Habilidade especial (Q)
     if (e.key.toLowerCase() === "q" && jogador) {
         jogador.usarHabilidade();
+        Audio$.tocarSFX("habilidade");
     }
 
-    // Evita scroll com setas
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
         e.preventDefault();
     }
@@ -106,10 +112,13 @@ window.addEventListener("keydown", (e) => {
 });
 
 window.addEventListener("keyup", (e) => {
-
     teclas[e.key.toLowerCase()] = false;
-
 });
+
+// Habilita áudio no primeiro clique também
+window.addEventListener("click", () => {
+    Audio$.habilitar();
+}, { once: true });
 
 // =====================
 // Inicialização
@@ -124,7 +133,6 @@ function iniciar() {
 
     jogador = playerSpawner.spawn();
 
-    // Cria o spawner com o pool da fase 1
     enemySpawner = new EnemySpawner([], canvas);
 
     carregarFase(0);
@@ -141,31 +149,32 @@ function carregarFase(index) {
 
     faseConfig = FASES[index];
 
-    // Atualiza fundo
     fundoAtual = fundos[faseConfig.background];
 
-    // Atualiza pool de inimigos
     enemySpawner.enemyConfigs = faseConfig.enemyPool.map(key => ({
         spriteConfig: SPRITES[key],
-        enemyConfig: ENEMIES[key]
+        enemyConfig:  ENEMIES[key]
     }));
 
     enemySpawner.intervaloSpawn = faseConfig.intervaloSpawn;
-
-    // Reseta estado da fase
     enemySpawner.limpar();
     enemySpawner.tempoSpawn = 0;
     enemySpawner.iniciar();
 
-    killsBase = enemySpawner.kills;
-    killsNaFase = 0;
+    killsBase    = Number.isFinite(enemySpawner.kills) ? enemySpawner.kills : 0;
+    killsNaFase  = 0;
+    killsAntes   = killsBase;
 
     bossSpawnado = false;
-    bossRef = null;
-    bossNome = "";
+    bossRef      = null;
+    bossNome     = "";
 
     tempoTransicao = 0;
-    estadoJogo = "jogando";
+    estadoJogo     = "jogando";
+
+    // Música da fase
+    const musicaKey = "fase" + (index + 1);
+    Audio$.tocarMusica(musicaKey);
 
 }
 
@@ -175,37 +184,33 @@ function carregarFase(index) {
 
 function spawnBoss() {
 
-    const bossCfg = faseConfig.boss;
-
+    const bossCfg   = faseConfig.boss;
     const spriteBase = SPRITES[bossCfg.spriteKey];
-    const enemyBase = ENEMIES[bossCfg.enemyKey];
+    const enemyBase  = ENEMIES[bossCfg.enemyKey];
 
-    // Sprite do boss: mesmo sprite, tamanho maior
     const bossSprite = {
-        src: spriteBase.src,
-        image: spriteBase.image,
-        frameWidth: spriteBase.frameWidth,
+        src:         spriteBase.src,
+        image:       spriteBase.image,
+        frameWidth:  spriteBase.frameWidth,
         frameHeight: spriteBase.frameHeight,
-        width: bossCfg.largura,
-        height: bossCfg.altura,
-        animations: spriteBase.animations
+        width:       bossCfg.largura,
+        height:      bossCfg.altura,
+        animations:  spriteBase.animations
     };
 
-    // Config do boss: stats aumentados
     const bossEnemy = {
-        vida: enemyBase.vida + bossCfg.vidaExtra,
-        velocidade: bossCfg.velocidade,
-        dano: enemyBase.dano + bossCfg.danoExtra,
+        vida:          enemyBase.vida + bossCfg.vidaExtra,
+        velocidade:    bossCfg.velocidade,
+        dano:          enemyBase.dano + bossCfg.danoExtra,
         alcanceAtaque: enemyBase.alcanceAtaque || 20,
         cooldownAtaque: Math.max(500, (enemyBase.cooldownAtaque || 1000) - 200),
         pontosAoMatar: bossCfg.pontosAoMatar,
         pontosAoBater: -2,
         pontosAoPassar: 0,
-        chanceDrop: bossCfg.chanceDrop,
-        tipo: "boss"
+        chanceDrop:    bossCfg.chanceDrop,
+        tipo:          "boss"
     };
 
-    // Para o spawn de inimigos normais e limpa a tela
     enemySpawner.parar();
     enemySpawner.limpar();
 
@@ -214,13 +219,17 @@ function spawnBoss() {
 
     enemySpawner.spawn(bossX, bossY, {
         spriteConfig: bossSprite,
-        enemyConfig: bossEnemy
+        enemyConfig:  bossEnemy
     });
 
-    bossRef = enemySpawner.inimigos[enemySpawner.inimigos.length - 1];
+    bossRef  = enemySpawner.inimigos[enemySpawner.inimigos.length - 1];
     bossNome = bossCfg.nomeExibido;
+
     bossSpawnado = true;
-    estadoJogo = "boss";
+    estadoJogo   = "boss";
+
+    // Som de boss
+    Audio$.tocarSFX("morte");
 
 }
 
@@ -232,22 +241,30 @@ function finalizarJogo() {
 
     estadoJogo = "gameover";
 
+    Audio$.tocarMusica("gameover");
+
     sessionStorage.setItem("pontuacaoFinal", pontuacao);
 
-    window.location.href = "gameOver.html";
+    setTimeout(() => {
+        window.location.href = "gameOver.html";
+    }, 1500);
 
 }
 
 // =====================
-// Vitória (último boss morreu)
+// Vitória
 // =====================
 
 function finalizarVitoria() {
 
+    Audio$.tocarMusica("vitoria");
+
     sessionStorage.setItem("pontuacaoFinal", pontuacao);
     sessionStorage.setItem("vitoria", "1");
 
-    window.location.href = "vitoria.html";
+    setTimeout(() => {
+        window.location.href = "vitoria.html";
+    }, 1500);
 
 }
 
@@ -271,10 +288,9 @@ function verificarColetaDrops() {
             jogador.y + jogador.altura > drop.y;
 
         if (colidiu) {
-
             jogador.curar(drop.cura);
             drop.ativo = false;
-
+            Audio$.tocarSFX("item");
         }
 
     }
@@ -282,10 +298,27 @@ function verificarColetaDrops() {
 }
 
 // =====================
-// Update — jogando (inimigos normais)
+// Checa kills para tocar SFX de morte de inimigo
+// =====================
+
+function verificarSFXKills() {
+
+    const killsAgora = Number.isFinite(enemySpawner.kills) ? enemySpawner.kills : 0;
+
+    if (killsAgora > killsAntes) {
+        Audio$.tocarSFX("morte");
+        killsAntes = killsAgora;
+    }
+
+}
+
+// =====================
+// Update — jogando
 // =====================
 
 function atualizarJogando(deltaTime) {
+
+    const vidaAntes = jogador.vida;
 
     jogador.mover(teclas);
     jogador.update(deltaTime);
@@ -294,19 +327,22 @@ function atualizarJogando(deltaTime) {
     pontuacao += jogador.verificarAtaques(enemySpawner.inimigos);
 
     verificarColetaDrops();
+    verificarSFXKills();
 
     const inimigo = enemySpawner.verificarColisao(jogador);
     if (inimigo) {
-        pontuacao += inimigo.atacar(jogador);
+        const pontosPerdidos = inimigo.atacar(jogador);
+        if (jogador.vida < vidaAntes) {
+            Audio$.tocarSFX("hit");
+        }
+        pontuacao += pontosPerdidos;
     }
 
     if (pontuacao < 0) pontuacao = 0;
 
-    // Atualiza kills na fase atual (defensivo contra NaN/undefined)
     const killsTotal = Number.isFinite(enemySpawner.kills) ? enemySpawner.kills : 0;
     killsNaFase = Math.max(0, killsTotal - killsBase);
 
-    // Libera boss quando atingir o limite
     if (!bossSpawnado && killsNaFase >= faseConfig.inimigosParaVencer) {
         spawnBoss();
     }
@@ -323,6 +359,8 @@ function atualizarJogando(deltaTime) {
 
 function atualizarBoss(deltaTime) {
 
+    const vidaAntes = jogador.vida;
+
     jogador.mover(teclas);
     jogador.update(deltaTime);
 
@@ -333,14 +371,17 @@ function atualizarBoss(deltaTime) {
 
     const inimigo = enemySpawner.verificarColisao(jogador);
     if (inimigo) {
-        pontuacao += inimigo.atacar(jogador);
+        const pontosPerdidos = inimigo.atacar(jogador);
+        if (jogador.vida < vidaAntes) {
+            Audio$.tocarSFX("hit");
+        }
+        pontuacao += pontosPerdidos;
     }
 
     if (pontuacao < 0) pontuacao = 0;
 
-    // Boss morreu?
     if (bossRef && bossRef.morto && enemySpawner.inimigos.length === 0) {
-        estadoJogo = "transicao";
+        estadoJogo     = "transicao";
         tempoTransicao = 0;
     }
 
@@ -351,7 +392,7 @@ function atualizarBoss(deltaTime) {
 }
 
 // =====================
-// Update — transição entre fases
+// Update — transição
 // =====================
 
 function atualizarTransicao(deltaTime) {
@@ -363,7 +404,6 @@ function atualizarTransicao(deltaTime) {
         const proximaFase = faseIndex + 1;
 
         if (proximaFase >= FASES.length) {
-            // Todas as fases concluídas
             finalizarVitoria();
         } else {
             faseIndex = proximaFase;
@@ -375,24 +415,20 @@ function atualizarTransicao(deltaTime) {
 }
 
 // =====================
-// HUD — durante gameplay
+// HUD — gameplay
 // =====================
 
 function desenharHUD() {
 
-    // --- Barra de vida ---
+    // Barra de vida
     ctx.fillStyle = "#111";
     ctx.fillRect(18, 18, 204, 22);
 
     const vidaPct = jogador.vida / jogador.vidaMaxima;
 
-    if (vidaPct > 0.5) {
-        ctx.fillStyle = "#33cc33";
-    } else if (vidaPct > 0.25) {
-        ctx.fillStyle = "#ffaa00";
-    } else {
-        ctx.fillStyle = "#ff3333";
-    }
+    if (vidaPct > 0.5)       ctx.fillStyle = "#33cc33";
+    else if (vidaPct > 0.25) ctx.fillStyle = "#ffaa00";
+    else                     ctx.fillStyle = "#ff3333";
 
     ctx.fillRect(20, 20, vidaPct * 200, 18);
 
@@ -406,65 +442,56 @@ function desenharHUD() {
     ctx.textBaseline = "middle";
     ctx.fillText(jogador.vida + " / " + jogador.vidaMaxima, 120, 29);
 
-    // --- Nome do personagem ---
+    // Nome
     ctx.fillStyle = "#fff";
     ctx.font = "bold 13px monospace";
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
     ctx.fillText(jogador.characterConfig.nome || "JOGADOR", 20, 58);
 
-    // --- Habilidade especial ---
-    const agora = Date.now();
+    // Habilidade especial
+    const agora        = Date.now();
     const cooldownTotal = jogador.characterConfig.habilidadeEspecial.cooldown;
-    const tempoDesde = agora - jogador.specialAttack.ultimoAtaque;
-    const emRecarga = tempoDesde < cooldownTotal;
+    const tempoDesde   = agora - jogador.specialAttack.ultimoAtaque;
+    const emRecarga    = tempoDesde < cooldownTotal;
 
     ctx.fillStyle = "#111";
     ctx.fillRect(20, 65, 100, 10);
 
-    if (emRecarga) {
-        ctx.fillStyle = "#6644ff";
-        ctx.fillRect(20, 65, (tempoDesde / cooldownTotal) * 100, 10);
-        ctx.fillStyle = "#aaa";
-    } else {
-        ctx.fillStyle = "#6644ff";
-        ctx.fillRect(20, 65, 100, 10);
-        ctx.fillStyle = "#fff";
-    }
+    ctx.fillStyle = "#6644ff";
+    ctx.fillRect(20, 65, (emRecarga ? (tempoDesde / cooldownTotal) : 1) * 100, 10);
 
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 1;
     ctx.strokeRect(20, 65, 100, 10);
 
+    ctx.fillStyle = emRecarga ? "#aaa" : "#fff";
     ctx.font = "bold 10px monospace";
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
     ctx.fillText("[Q] Habilidade", 126, 74);
 
-    // --- Pontuação ---
+    // Pontuação
     ctx.fillStyle = "#fff";
     ctx.font = "bold 14px monospace";
     ctx.textAlign = "right";
     ctx.textBaseline = "alphabetic";
     ctx.fillText("PONTOS: " + pontuacao, canvas.width - 20, 38);
 
-    // --- Info da fase ---
+    // Fase
     ctx.fillStyle = "#fff";
     ctx.font = "bold 12px monospace";
     ctx.textAlign = "right";
     ctx.fillText(faseConfig.nome, canvas.width - 20, 58);
 
-    // --- Contador de inimigos (só antes do boss) ---
+    // Contador de inimigos (antes do boss)
     if (!bossSpawnado) {
-
-        const meta = faseConfig.inimigosParaVencer;
+        const meta  = faseConfig.inimigosParaVencer;
         const atual = Math.min(killsNaFase, meta);
-
         ctx.fillStyle = "#ffdd00";
         ctx.font = "bold 11px monospace";
         ctx.textAlign = "right";
         ctx.fillText("INIMIGOS: " + atual + " / " + meta, canvas.width - 20, 76);
-
     }
 
 }
@@ -479,37 +506,30 @@ function desenharHUDBoss() {
 
     if (!bossRef) return;
 
-    // Barra de vida do boss — centralizada no topo
     const bossBarW = 600;
     const bossBarH = 20;
     const bossBarX = (canvas.width - bossBarW) / 2;
     const bossBarY = 20;
 
-    // Fundo
     ctx.fillStyle = "#111";
     ctx.fillRect(bossBarX - 2, bossBarY - 2, bossBarW + 4, bossBarH + 4);
 
-    // Vida
     const bossVidaPct = Math.max(0, bossRef.vida / bossRef.vidaMaxima);
     ctx.fillStyle = "#cc0000";
     ctx.fillRect(bossBarX, bossBarY, bossVidaPct * bossBarW, bossBarH);
 
-    // Borda
     ctx.strokeStyle = "#ff4444";
     ctx.lineWidth = 2;
     ctx.strokeRect(bossBarX, bossBarY, bossBarW, bossBarH);
 
-    // Nome do boss
     ctx.fillStyle = "#ff4444";
     ctx.font = "bold 13px monospace";
     ctx.textAlign = "center";
     ctx.textBaseline = "alphabetic";
     ctx.fillText(bossNome, canvas.width / 2, bossBarY - 5);
 
-    // Vida numérica
     ctx.fillStyle = "#fff";
     ctx.font = "bold 11px monospace";
-    ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(
         Math.max(0, bossRef.vida) + " / " + bossRef.vidaMaxima,
@@ -520,68 +540,57 @@ function desenharHUDBoss() {
 }
 
 // =====================
-// Draw — overlay de transição entre fases
+// Draw — overlay transição
 // =====================
 
 function desenharTransicao() {
 
-    // Jogo por baixo (congelado)
     ctx.drawImage(fundoAtual, 0, 0, canvas.width, canvas.height);
     enemySpawner.draw(ctx);
     jogador.draw(ctx);
 
-    // Overlay escuro com fade
     const alpha = Math.min(0.85, (tempoTransicao / 1000) * 0.85);
     ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Texto da fase completa
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    // "FASE X COMPLETA"
     ctx.fillStyle = "#ffd700";
     ctx.font = "bold 42px monospace";
     ctx.shadowColor = "#ffd700";
     ctx.shadowBlur = 20;
     ctx.fillText("FASE " + faseConfig.id + " COMPLETA!", canvas.width / 2, canvas.height / 2 - 60);
 
-    // Subtítulo
     ctx.fillStyle = "#fff";
     ctx.font = "bold 18px monospace";
     ctx.shadowBlur = 0;
     ctx.fillText(faseConfig.subtitulo, canvas.width / 2, canvas.height / 2 - 15);
 
-    // Pontuação
     ctx.fillStyle = "#aaffaa";
     ctx.font = "bold 20px monospace";
     ctx.fillText("Pontuação: " + pontuacao, canvas.width / 2, canvas.height / 2 + 30);
 
-    // Próxima fase (se existir)
     const proximaIndex = faseIndex + 1;
+
     if (proximaIndex < FASES.length) {
 
         const proximaFase = FASES[proximaIndex];
-
-        // Barra de progresso da transição
-        const progresso = Math.min(1, tempoTransicao / DURACAO_TRANSICAO);
+        const progresso   = Math.min(1, tempoTransicao / DURACAO_TRANSICAO);
         const barW = 400;
         const barX = (canvas.width - barW) / 2;
         const barY = canvas.height / 2 + 80;
 
         ctx.fillStyle = "#333";
         ctx.fillRect(barX, barY, barW, 12);
-
         ctx.fillStyle = "#ffd700";
         ctx.fillRect(barX, barY, progresso * barW, 12);
-
         ctx.strokeStyle = "#fff";
         ctx.lineWidth = 1;
         ctx.strokeRect(barX, barY, barW, 12);
 
         ctx.fillStyle = "#ccc";
         ctx.font = "bold 13px monospace";
-        ctx.shadowBlur = 0;
         ctx.fillText(
             "Preparando: " + proximaFase.nome + " — " + proximaFase.subtitulo,
             canvas.width / 2,
@@ -603,17 +612,15 @@ function desenharTransicao() {
 }
 
 // =====================
-// Draw — gameplay principal
+// Draw — gameplay
 // =====================
 
 function desenhar() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     ctx.drawImage(fundoAtual, 0, 0, canvas.width, canvas.height);
 
     enemySpawner.draw(ctx);
-
     jogador.draw(ctx);
 
     if (estadoJogo === "boss") {

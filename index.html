@@ -179,7 +179,17 @@
         </span>
     </footer>
 
-    <audio src="./assets/audio/music/BugForce_telaInicial.mp3" loop autoplay></audio>
+    <audio id="menu-audio" src="./assets/audio/music/BugForce_telaInicial.mp3" loop></audio>
+    <script>
+        // Toca a música do menu na primeira interação do usuário
+        const menuAudio = document.getElementById("menu-audio");
+        document.addEventListener("click", () => {
+            menuAudio.play().catch(() => {});
+        }, { once: true });
+        document.addEventListener("keydown", () => {
+            menuAudio.play().catch(() => {});
+        }, { once: true });
+    </script>
 </body>
 
 </html>
