@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://SEU-LINK-VERCEL.vercel.app">
+  <a href="https://thebugforce.vercel.app/">
     <img src="https://img.shields.io/badge/🎮-Jogar%20Agora-success?style=for-the-badge" alt="Jogar Agora">
   </a>
 </p>
@@ -250,7 +250,7 @@ ou simplesmente abra o arquivo **index.html** em um navegador compatível.
 
 **Vercel**
 
-https://SEU-LINK-VERCEL.vercel.app
+https://thebugforce.vercel.app/
 
 ---
 
@@ -273,7 +273,7 @@ SESI/SENAI Digital Studios
 
 **Product Owner (Professor Orientador)**
 
-Professor Carlos *(substitua pelo nome completo, se necessário).*
+Professor Carlos
 
 ---
 
