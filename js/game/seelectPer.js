@@ -1,3 +1,5 @@
+import { ProgressoManager } from './progresso.js';
+
 // ═══════════════════════════════
 // Lógica de seleção de personagem - 2 JOGADORES
 //
