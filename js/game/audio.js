@@ -11,8 +11,8 @@ class AudioManager {
     constructor() {
 
         // Volume padrão — deve ser definido ANTES de _criarAudio
-        this._volumeMusica = 0.4;
-        this._volumeSFX    = 0.7;
+        this._volumeMusica = 0.25;
+        this._volumeSFX    = 0.35;
 
         // Flag para evitar erros antes de interação do usuário
         this._habilitado = false;
