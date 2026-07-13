@@ -26,45 +26,111 @@ body {
     position: absolute;
     
     /* 2. Empurra a imagem para a metade exata da tela (vertical e horizontal) */
-    top: 45%;
+    top: 50%;
     left: 50%;
     
     /* 3. Puxa a imagem de volta pela metade do PRÓPRIO tamanho dela, para ficar perfeitamente no centro */
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 970px;
   
     
     /* Opcional: Coloca uma sombrinha para destacar a imagem do fundo */
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
     border-radius: 10px; /* Arredonda as bordas se quiser */
 }
+/* ===== Modo de jogo ===== */
+.modo-jogo{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-bottom:40px;
+}
+
+/* ===== Botão Base ===== */
+.btn{
+    position:relative;
+
+    top: 140px;
+    width:180px;
+    height:60px;
+
+    font-family:'Press Start 2P', monospace;
+    font-size:15px;
+
+    border:3px solid;
+    border-radius:4px;
+
+    background:rgba(0,0,0,.75);
+    cursor:pointer;
+
+    text-transform:uppercase;
+    transition:.2s;
+}
+
+
+.btn:hover::before{
+    left:-18px;
+    opacity:1;
+}
+
+.btn:hover{
+    transform:translateX(5px) scale(1.03);
+}
+
+/* SOLO */
+.btn-ciano{
+    color:#44ddff;
+    border-color:#00ccff;
+    box-shadow:0 0 8px rgba(0,200,255,.5);
+}
+
+.btn-ciano:hover{
+    background:rgba(0,200,255,.15);
+}
+
+/* DUPLA */
+.btn-verde{
+    color:#33ff77;
+    border-color:#22dd55;
+    box-shadow:0 0 8px rgba(34,221,85,.5);
+}
+
+.btn-verde:hover{
+    background:rgba(34,221,85,.15);
+}
 
 #icon{
-       position: absolute;
-      top:  150px;
-    left: 595px;
-    width: 150px;
+    position: absolute;
+    top:  252px;
+    left: 827px;
+    width: 240px;
 }
 
 #ueslei{
     position: absolute;
-      top:  164px;
-    left: 430px;
-    width: 80px;
+    top:  270px;
+    left: 550px;
+    width: 135px;
 }
 
 #jair{
-      position: absolute;
-      top:  170px;
-    left: 530px;
-    width: 70px;
+   position: absolute;
+    top:  282px;
+    left: 709px;
+    width: 115px;
+}
+
+#plataBlue{
+   position: absolute;
+    top:  590px;
+    
 }
 
 #titulo{
-     position: absolute;
-      top:  12px;
-        left: 360px;
-    width: 600px;
+    position: absolute;
+    top:  -60px;
+    left: 480px;
+    width: 940px;
     animation: flutuarTitulo 3.5s ease-in-out infinite;
 }
 
@@ -78,38 +144,38 @@ body {
 }
 
 #larissa{
-  position: absolute;
-      top:  170px;
-    left: 742px;
-    width: 75px;
+    position: absolute;
+    top:  279px;
+    left: 1070px;
+    width: 125px;
 }
 
 
 #eliel{
   position: absolute;
-        top:  172px;
-    left: 837px;
-    width: 70px;
+    top:  283px;
+    left: 1220px;
+    width: 115px;
 }
 
 #blok{
-      position: absolute;
-      top:  270px;
-    left: 460px;
-    width: 170px;
+    position: absolute;
+    top:  435px;
+    left: 415px;
+    width: 297px;
 }
 
 #blok2{
-       position: absolute;
-      top:  270px;
-    left: 585px;
+     position: absolute;
+    top:  467px;
+    left: 857px;
     width: 170px;
 }
 
 #blok3{
-      position: absolute;
-      top:  270px;
-    left: 710px;
+       position: absolute;
+    top:  465px;
+    left: 1050px;
     width: 170px;
 }
 
@@ -162,25 +228,20 @@ body {
     animation: none;
 }
 
-/* Slots bloqueados não reagem ao mouse */
-.bloqueado {
-    cursor: not-allowed;
-    filter: grayscale(0.6) brightness(0.7);
-}
+
 
 /* Texto de status (de quem é a vez de escolher) */
 #status-selecao {
     position: absolute;
-    top: 470px;
+    top: 760px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     width: 100%;
     
-    
     /* ── CONFIGURAÇÕES DO BRILHO NEON RETRO ── */
     font-family: 'Press Start 2P', monospace;
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
     
@@ -223,13 +284,13 @@ body {
    ═══════════════════════════════ */
 #btn-confirmar {
     position: absolute;
-    top: 515px;
+    top: 815px;
     left: 50%;
     transform: translateX(-50%);
     display: none; /* Controlado pela verificação do JS */
     
     /* Espaçamento interno e largura (mesmo padrão do menu inicial) */
-    width: 300px;
+    width: 370px;
     padding: 18px 0;
     
     /* ── Tipografia idêntica aos botões da tela inicial ── */
@@ -275,11 +336,10 @@ body {
    ═══════════════════════════════ */
 #preview-personagem {
     position: absolute;
-    display: none; 
-    bottom: 50px; 
-    /* Coloque o !important logo após o valor, antes do ponto e vírgula */
-   margin-left: -60px;
-    width: 310px;
+    display: none; /* o JS troca pra "block" quando tem que aparecer */
+    bottom: 130px;
+    left: 100px;
+    width: 420px;
     pointer-events: none;
     z-index: 5;
     filter: drop-shadow(0 0 10px #00eaff);
@@ -292,77 +352,42 @@ body {
     position: absolute;
     display: none; /* o JS muda pra "block" no momento da escolha */
     z-index: 6;
-    height: 510px;
+    height: 650px;
     width: auto;
-    bottom: 50px; 
-}
-
-/* Correção específica para o Eliel: 
-   Adicionado um clip-path para esconder a linha fantasma nas laterais da imagem */
-.imagem-jogador[src*="eliel.png"],
-#preview-personagem[src*="eliel.png"] {
-    bottom: -5px !important;
+    bottom: 130px;
 }
 
 /* Jogador 1: entra vindo da esquerda */
 #img-p1 {
-    left: 5px;
+    left: 80px;
 }
 
 /* Jogador 2: entra vindo da direita */
 #img-p2 {
-    right: 95px;
+    right: 130px;
     left: auto;
 }
 
-#red {
-    position: absolute;
-      top:  470px;
-    left: -80px;
-    width: 560px;
-}
-
-#blue{
-       position: absolute;
-    top:  470px;
-    left: 850px;
-       width: 560px;
-}
-
-
-/* ════════════════════════════════════════════════════════════════
-   ██ INÍCIO DA ÁREA PARA MEXER NOS PERSONAGENS DA ESQUERDA ██
-   (Jogador 1 - Padrão para todos, exceto a exceção do Eliel abaixo)
-   ════════════════════════════════════════════════════════════════ */
-
+/* Classes adicionadas pelo JS na hora do clique, disparam a animação */
 .entrada-esquerda {
     display: block;
-    /* Aqui você pode alterar o tempo (0.6s) ou o tipo da animação (ease-out) */
     animation: entrarEsquerda 0.6s ease-out forwards;
+}
+
+.entrada-direita {
+    display: block;
+    animation: entrarDireita 0.6s ease-out forwards;
 }
 
 @keyframes entrarEsquerda {
     0% {
-        /* Mexa aqui para definir de onde eles partem (distância inicial) */
         transform: translateX(-120vw);
         opacity: 0;
     }
     100% {
-        /* Mexa aqui para definir o quão para a frente ou para trás eles vão ao parar */
-        transform: translateX(30px);
+        transform: translateX(0);
         opacity: 1;
     }
-}
-
-/* ════════════════════════════════════════════════════════════════
-   ██ FIM DA ÁREA (ESQUERDA PADRÃO) ██ 
-   ════════════════════════════════════════════════════════════════ */
-
-
-/* Classes adicionadas pelo JS na hora do clique para o Jogador 2 */
-.entrada-direita {
-    display: block;
-    animation: entrarDireita 0.6s ease-out forwards;
 }
 
 @keyframes entrarDireita {
@@ -371,179 +396,7 @@ body {
         opacity: 0;
     }
     100% {
-        transform: translateX(40px);
+        transform: translateX(0);
         opacity: 1;
     }
-}
-
-
-/* ════════════════════════════════════════════════════════════════
-   ██ INÍCIO DA ÁREA PARA MEXER APENAS NA ANIMAÇÃO DO ELIEL ██
-   ════════════════════════════════════════════════════════════════ */
-
-/* Quando o Eliel for escolhido como Jogador 1 (Esquerda) */
-.entrada-esquerda[src*="eliel.png"] {
-    display: block;
-    animation: entrarElielEsquerda 0.6s ease-out forwards;
-}
-
-/* Quando o Eliel for escolhido como Jogador 2 (Direita) */
-.entrada-direita[src*="eliel.png"] {
-    display: block;
-    animation: entrarElielDireita 0.6s ease-out forwards;
-}
-
-/* O que o Eliel faz ao entrar vindo da Esquerda (Jogador 1) */
-@keyframes entrarElielEsquerda {
-    0% {
-        transform: translateX(-120vw);
-        opacity: 0;
-    }
-    100% {
-        /* Aumente este valor (ex: 100px, 150px) se quiser que ele vá AINDA MAIS pra frente */
-        transform: translateX(80px); /* Ajustado para empurrá-lo mais para o centro */
-        opacity: 1;
-    }
-}
-
-/* O que o Eliel faz ao entrar vindo da Direita (Jogador 2) */
-@keyframes entrarElielDireita {
-    0% {
-        transform: translateX(120vw);
-        opacity: 0;
-    }
-    100% {
-        /* Diminua este valor (ex: -100px, -150px) para deixá-lo simétrico ao Jogador 1 */
-        transform: translateX(-5px);
-        opacity: 1;
-    }
-}
-
-/* ════════════════════════════════════════════════════════════════
-   ██ FIM DA ÁREA DO ELIEL ██ 
-   ════════════════════════════════════════════════════════════════ */
-
-
-/* ═══════════════════════════════
-   BOTÕES DE MODO (MULTIPLAYER / SINGLEPLAYER)
-   Mesmo estilo "vazado" dos outros botões, um vermelho (esquerda)
-   e um ciano (direita), com ícone + título + subtítulo.
-   Todos os valores abaixo são só um ponto de partida — mexa à vontade.
-   ═══════════════════════════════ */
-
-/* Estilo base compartilhado pelos dois botões (multiplayer e singleplayer) */
-.botao-modo {
-    position: absolute;
-
-    /* ↕ Distância do topo da tela — sobe/desce os dois botões juntos */
-    top: 575px;
-
-    display: flex;
-    align-items: center;
-    gap: 11px; /* espaço entre o ícone e o texto */
-
-    /* ↔ Largura total do botão (aumente/diminua se o texto cortar) */
-    width: 280px;
-    padding: 10px 16px; /* espaço interno em cima/baixo e nas laterais */
-
-    background: rgba(4, 12, 22, 0.55); /* fundo escuro translúcido */
-    border-radius: 10px; /* arredondamento dos cantos */
-    text-decoration: none;
-    cursor: pointer;
-
-    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
-    z-index: 4; /* garante que fique acima do fundo/painel */
-}
-
-/* Efeito rápido ao clicar (afunda um pouco) */
-.botao-modo:active {
-    transform: scale(0.98);
-}
-
-/* Bloco de texto (título + subtítulo), empilhado verticalmente */
-.texto-modo {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Nunito', sans-serif;
-}
-
-/* "MULTIPLAYER" / "SINGLEPLAYER" */
-.titulo-modo {
-    font-weight: 800;
-    font-size: 0.8rem;        /* tamanho do título */
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-/* "Jogue com seu amigo!" / "Jogue solo e supere desafios!" */
-.subtitulo-modo {
-    font-weight: 600;
-    font-size: 0.58rem;       /* tamanho do subtítulo */
-    opacity: 0.85;
-}
-
-/* Ícone SVG (pessoas / espadas) dentro do botão */
-.icone-modo {
-    width: 28px;   /* tamanho do ícone — mude junto com height */
-    height: 28px;
-    stroke-width: 1.6; /* espessura das linhas do ícone */
-    flex-shrink: 0;
-}
-
-/* ── Botão MULTIPLAYER (vermelho, canto inferior esquerdo) ── */
-#btn-multiplayer {
-    /* ↔ Distância da borda ESQUERDA da tela */
-    left: 90px;
-
-    border: 2px solid #ff2d55;       /* cor da borda neon */
-    box-shadow: 0 0 12px rgba(255, 45, 85, 0.6), inset 0 0 10px rgba(255, 45, 85, 0.12); /* brilho externo/interno */
-}
-
-#btn-multiplayer .icone-modo {
-    stroke: #ff2d55;
-    filter: drop-shadow(0 0 5px #ff2d55);
-}
-
-#btn-multiplayer .titulo-modo {
-    color: #ff2d55;
-    text-shadow: 0 0 6px #ff2d55, 0 0 12px rgba(255, 45, 85, 0.6);
-}
-
-#btn-multiplayer .subtitulo-modo {
-    color: #ffc2d1; /* tom mais claro pro subtítulo não brigar com o título */
-}
-
-#btn-multiplayer:hover {
-    transform: scale(1.04); /* "cresce" um pouco no hover */
-    background: rgba(255, 45, 85, 0.14);
-    box-shadow: 0 0 20px rgba(255, 45, 85, 0.9), inset 0 0 14px rgba(255, 45, 85, 0.2);
-}
-
-/* ── Botão SINGLEPLAYER (ciano, canto inferior direito) ── */
-#btn-singleplayer {
-    /* ↔ Distância da borda ESQUERDA da tela (não é da direita, cuidado ao ajustar) */
-    left: 900px;
-
-    border: 2px solid #00eaff;
-    box-shadow: 0 0 12px rgba(0, 234, 255, 0.6), inset 0 0 10px rgba(0, 234, 255, 0.12);
-}
-
-#btn-singleplayer .icone-modo {
-    stroke: #00eaff;
-    filter: drop-shadow(0 0 5px #00eaff);
-}
-
-#btn-singleplayer .titulo-modo {
-    color: #00eaff;
-    text-shadow: 0 0 6px #00eaff, 0 0 12px rgba(0, 234, 255, 0.6);
-}
-
-#btn-singleplayer .subtitulo-modo {
-    color: #b3f2ff;
-}
-
-#btn-singleplayer:hover {
-    transform: scale(1.04);
-    background: rgba(0, 234, 255, 0.14);
-    box-shadow: 0 0 20px rgba(0, 234, 255, 0.9), inset 0 0 14px rgba(0, 234, 255, 0.2);
 }
