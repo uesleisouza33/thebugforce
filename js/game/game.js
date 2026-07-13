@@ -305,10 +305,8 @@ function verificarSFXKills() {
 
     const killsAgora = Number.isFinite(enemySpawner.kills) ? enemySpawner.kills : 0;
 
-    if (killsAgora > killsAntes) {
-        Audio$.tocarSFX("morte");
-        killsAntes = killsAgora;
-    }
+    // Apenas atualiza o contador — sem SFX para inimigos comuns
+    killsAntes = killsAgora;
 
 }
 
