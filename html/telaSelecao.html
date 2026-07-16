@@ -14,59 +14,103 @@
     <meta name="theme-color" content="#000000">
     <meta name="theme-color" content="#d10000">
     <title>The Bug Force</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+        /* Contêiner de resolução fixa que escala para caber na janela */
+        #game-container {
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+            top: 0;
+            left: 0;
+            transform-origin: top left;
+            /* transform (translate + scale) calculado pelo JS */
+        }
+    </style>
 </head>
 
 <body>
-    <img src="../assets/img/slots/painel.png" alt="Imagem no centro" id="imagem-central">
-    <img src="../assets/img/slots/iconbugForce.png" alt="" id="icon">
-    <img src="../assets/img/slots/tituloEscolha.png" alt="titulo" id="titulo">
+    <!-- Contêiner de escala fixa: tudo dentro mantém proporções em qualquer resolução -->
+    <div id="game-container">
 
-    <!-- Painel de Saldo (Integrado sem quebrar o layout) -->
-    <div id="painel-saldo" style="position:absolute; top:20px; right:30px; background:rgba(0,0,0,0.8); border:2px solid #0ff; padding:10px 20px; border-radius:10px; color:#fff; font-family:'Courier New', monospace; font-size:1.2em; text-align:center; z-index:100; text-shadow: 0 0 5px #0ff;">
-        <span>SALDO (PTS)</span><br>
-        <strong id="saldo-display" style="color:#ffdd88; font-size:1.5em;">0</strong>
-    </div>
+        <img src="../assets/img/slots/painel.png" alt="Imagem no centro" id="imagem-central">
+        <img src="../assets/img/slots/iconbugForce.png" alt="" id="icon">
+        <img src="../assets/img/slots/tituloEscolha.png" alt="titulo" id="titulo">
 
-    <div class="modo-jogo">
-        <button id="btnSolo" class="btn btn-ciano">Solo</button>
-        <button id="btnDupla" class="btn btn-verde">Dupla</button>
-    </div>
+        <!-- Painel de Saldo -->
+        <div id="painel-saldo">
+            <span>SALDO (PTS)</span><br>
+            <strong id="saldo-display">0</strong>
+        </div>
 
-    <div> <!--  slots dos personagens estão nessa div -->
-        <img src="../assets/img/slots/uesleiSlot.png" alt="Ueslei" id="ueslei" class="personagem-slot"
-            data-nome="Ueslei" data-preview="../assets/img/manuel/ueslei.png"
-            data-imagem="../assets/img/manuel/ueslei.png">
+        <div class="modo-jogo">
+            <button id="btnSolo" class="btn btn-ciano">Solo</button>
+            <button id="btnDupla" class="btn btn-verde">Dupla</button>
+        </div>
 
-        <img src="../assets/img/slots/jairSlot.png" alt="Jair" id="jair" class="personagem-slot" data-nome="Jair"
-            data-preview="../assets/img/manuel/jair.png" data-imagem="../assets/img/manuel/jair.png">
+        <div> <!--  slots dos personagens estão nessa div -->
+            <img src="../assets/img/slots/uesleiSlot.png" alt="Ueslei" id="ueslei" class="personagem-slot"
+                data-nome="Ueslei" data-preview="../assets/img/manuel/ueslei.png"
+                data-imagem="../assets/img/manuel/ueslei.png">
 
-        <img src="../assets/img/slots/LarissaSlot.png" alt="Larissa" id="larissa" class="personagem-slot"
-            data-nome="Larissa" data-preview="../assets/img/manuel/larissa.png"
-            data-imagem="../assets/img/manuel/larissa.png">
+            <img src="../assets/img/slots/jairSlot.png" alt="Jair" id="jair" class="personagem-slot" data-nome="Jair"
+                data-preview="../assets/img/manuel/jair.png" data-imagem="../assets/img/manuel/jair.png">
 
-        <img src="../assets/img/slots/sandraSlot.png" alt="Prof-Sandra" id="sandra" class="personagem-slot"
-            data-nome="Prof-Sandra" data-preview="../assets/img/manuel/sandra.png"
-            data-imagem="../assets/img/manuel/sandra.png">
+            <img src="../assets/img/slots/LarissaSlot.png" alt="Larissa" id="larissa" class="personagem-slot"
+                data-nome="Larissa" data-preview="../assets/img/manuel/larissa.png"
+                data-imagem="../assets/img/manuel/larissa.png">
 
-        <img src="../assets/img/slots/JaniceSlot.png" alt="Janice" id="janice" class="personagem-slot"
-            data-nome="Janice" data-preview="../assets/img/manuel/janice.png"
-            data-imagem="../assets/img/manuel/janice.png">
+            <img src="../assets/img/slots/sandraSlot.png" alt="Prof-Sandra" id="sandra" class="personagem-slot"
+                data-nome="Prof-Sandra" data-preview="../assets/img/manuel/sandra.png"
+                data-imagem="../assets/img/manuel/sandra.png">
 
-        <img src="../assets/img/slots/ElielSlot.png" alt="Eliel" id="eliel" class="personagem-slot" data-nome="Eliel"
-            data-preview="../assets/img/manuel/eliel.png" data-imagem="../assets/img/manuel/eliel.png">
-    </div>
+            <img src="../assets/img/slots/JaniceSlot.png" alt="Janice" id="janice" class="personagem-slot"
+                data-nome="Janice" data-preview="../assets/img/manuel/janice.png"
+                data-imagem="../assets/img/manuel/janice.png">
 
-    <!-- Imagem que aparece ao lado do slot quando o mouse passa por cima (preview) -->
-    <img id="preview-personagem" src="" alt="">
+            <img src="../assets/img/slots/ElielSlot.png" alt="Eliel" id="eliel" class="personagem-slot" data-nome="Eliel"
+                data-preview="../assets/img/manuel/eliel.png" data-imagem="../assets/img/manuel/eliel.png">
+        </div>
 
-    <!-- Imagens que deslizam pra tela quando um personagem é escolhido -->
-    <img id="img-p1" class="imagem-jogador" src="" alt="Personagem Jogador 1">
-    <img id="img-p2" class="imagem-jogador" src="" alt="Personagem Jogador 2">
+        <!-- Preview ao passar o mouse -->
+        <img id="preview-personagem" src="" alt="">
 
-    <!-- Status da seleção (jogador da vez / confirmação) -->
-    <div id="status-selecao">Jogador 1, escolha seu personagem</div>
+        <!-- Personagens que deslizam ao selecionar -->
+        <img id="img-p1" class="imagem-jogador" src="" alt="Personagem Jogador 1">
+        <img id="img-p2" class="imagem-jogador" src="" alt="Personagem Jogador 2">
 
-    <button id="btn-confirmar">CONFIRMAR</button>
+        <!-- Status da seleção -->
+        <div id="status-selecao">Jogador 1, escolha seu personagem</div>
+
+        <button id="btn-confirmar">CONFIRMAR</button>
+
+    </div><!-- /game-container -->
+
+    <script>
+        /* Escala o #game-container (1920x1080) para caber na janela atual,
+           mantendo proporções e centralizando vertical e horizontalmente. */
+        function escalarContainer() {
+            const container = document.getElementById('game-container');
+            const escalaX = window.innerWidth  / 1920;
+            const escalaY = window.innerHeight / 1080;
+            const escala  = Math.min(escalaX, escalaY);
+
+            const offsetX = (window.innerWidth  - 1920 * escala) / 2;
+            const offsetY = (window.innerHeight - 1080 * escala) / 2;
+
+            container.style.transform =
+                `translate(${offsetX}px, ${offsetY}px) scale(${escala})`;
+        }
+        escalarContainer();
+        window.addEventListener('resize', escalarContainer);
+    </script>
 
 </body>
 

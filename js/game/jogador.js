@@ -59,8 +59,7 @@ export default class Jogador extends Entidade {
             this.animacao.adicionar(nome, dados);
         });
 
-        this.animacao.tocar("walk");
-        this.animacao.parar();
+        this.animacao.tocar("idle");
     }
 
     update(deltaTime) {
@@ -173,7 +172,7 @@ export default class Jogador extends Entidade {
 
         } else {
 
-            this.animacao.parar();
+            this.animacao.tocar("idle");
 
         }
 

@@ -15,11 +15,30 @@ body {
     
     /* 5. Fixa a imagem no fundo (ela não rola junto com o texto) */
     background-attachment: fixed;
-    
-    /* Estilos básicos para a página */
-    margin: 0;
-    font-family: 'Nunito', sans-serif; /* mesma fonte dos botões da tela inicial */
 }
+
+/* Painel de saldo - posicionado dentro do game-container (1920x1080) */
+#painel-saldo {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #0ff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2em;
+    text-align: center;
+    z-index: 100;
+    text-shadow: 0 0 5px #0ff;
+}
+
+#painel-saldo strong {
+    color: #ffdd88;
+    font-size: 1.5em;
+}
+
 
 #imagem-central {
     /* 1. Desprende a imagem do fluxo normal da página */
@@ -99,31 +118,72 @@ body {
     background:rgba(34,221,85,.15);
 }
 
+/* ================================================================
+   POSICIONAMENTO FINAL - CORRIGIDO
+   Painel: left=475, top=217, w=970, h=646
+   Linha 1 (top row):
+     Ueslei: left=560, w=125, right=685
+     gap=10
+     Jair:   left=695, w=110, right=805
+     gap=15
+     Icon:   left=820, w=140, right=960
+     gap=15
+     Larissa:left=975, w=120, right=1095
+     gap=10
+     Eliel:  left=1105, w=110, right=1215
+   Linha 2 (bottom row) - centrada entre ícone e jair:
+     Sandra: left=695, w=145, right=840
+     gap=10
+     Janice: left=850, w=145, right=995
+   ================================================================ */
+
 #icon{
     position: absolute;
-    top:  252px;
-    left: 827px;
-    width: 240px;
+    top:  358px;
+    left: 820px;
+    width: 140px;
 }
 
 #ueslei{
     position: absolute;
-    top:  270px;
-    left: 550px;
-    width: 135px;
+    top:  350px;
+    left: 560px;
+    width: 125px;
 }
 
 #jair{
-   position: absolute;
-    top:  282px;
-    left: 709px;
-    width: 115px;
+    position: absolute;
+    top:  353px;
+    left: 695px;
+    width: 110px;
 }
 
-#plataBlue{
-   position: absolute;
-    top:  590px;
-    
+#larissa{
+    position: absolute;
+    top:  352px;
+    left: 975px;
+    width: 120px;
+}
+
+#eliel{
+    position: absolute;
+    top:  354px;
+    left: 1105px;
+    width: 110px;
+}
+
+#sandra{
+    position: absolute;
+    top:  535px;
+    left: 695px;
+    width: 145px;
+}
+
+#janice{
+    position: absolute;
+    top:  535px;
+    left: 850px;
+    width: 145px;
 }
 
 #titulo{
@@ -143,41 +203,6 @@ body {
     }
 }
 
-#larissa{
-    position: absolute;
-    top:  279px;
-    left: 1070px;
-    width: 125px;
-}
-
-
-#eliel{
-  position: absolute;
-    top:  283px;
-    left: 1220px;
-    width: 115px;
-}
-
-#blok{
-    position: absolute;
-    top:  435px;
-    left: 415px;
-    width: 300px;
-}
-
-#sandra{
-     position: absolute;
-    top:  430px;
-    left: 710px;
-    width: 285px;
-}
-
-#janice{
-    position: absolute;
-    top:  430px;
-    left: 910px;
-    width: 285px;
-}
 
 /* ═══════════════════════════════
    SELEÇÃO DE PERSONAGEM - HOVER E CLIQUE
