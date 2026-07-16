@@ -1,4 +1,5 @@
 import Inimigo from "./inimigo.js";
+import SPRITES from "./sprites.js";
 
 export default class EnemySpawner {
 
@@ -8,6 +9,7 @@ export default class EnemySpawner {
         this.canvas = canvas;
 
         this.inimigos = [];
+        this.drops = [];
 
         this.tempoSpawn = 0;
         this.intervaloSpawn = 3000;
@@ -112,6 +114,9 @@ export default class EnemySpawner {
 
             if (inimigo.morto) {
                 this.kills++;
+                if (inimigo.drop && inimigo.drop.ativo) {
+                    this.drops.push(inimigo.drop);
+                }
                 return false;
             }
 
@@ -126,17 +131,62 @@ export default class EnemySpawner {
 
         });
 
+        // Move e limpa drops coletados/fora da tela
+        this.drops.forEach(drop => {
+            if (drop.ativo) {
+                drop.x -= 1.0;
+                if (drop.x + drop.largura < -50) {
+                    drop.ativo = false;
+                }
+            }
+        });
+        this.drops = this.drops.filter(drop => drop.ativo);
+
+        Inimigo.updateProjeteis(deltaTime, jogador);
+
         return pontos;
 
     }
 
     draw(ctx) {
 
+        // Desenha os drops ativos primeiro
+        this.drops.forEach(drop => {
+            if (drop.ativo) {
+                ctx.save();
+                ctx.shadowColor = "#ffd700";
+                ctx.shadowBlur = 12;
+
+                const amuletoSprite = SPRITES.item_amuleto;
+                if (amuletoSprite && amuletoSprite.image) {
+                    ctx.drawImage(
+                        amuletoSprite.image,
+                        drop.x,
+                        drop.y,
+                        drop.largura,
+                        drop.altura
+                    );
+                } else {
+                    ctx.font = "22px serif";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(
+                        "🔮",
+                        drop.x + drop.largura / 2,
+                        drop.y + drop.altura / 2
+                    );
+                }
+                ctx.restore();
+            }
+        });
+
         this.inimigos.forEach(inimigo => {
 
             inimigo.draw(ctx);
 
         });
+
+        Inimigo.drawProjeteis(ctx);
 
     }
 
@@ -181,6 +231,8 @@ export default class EnemySpawner {
     limpar() {
 
         this.inimigos = [];
+        this.drops = [];
+        Inimigo.projeteis = [];
 
     }
 

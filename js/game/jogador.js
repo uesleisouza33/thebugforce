@@ -67,8 +67,16 @@ export default class Jogador extends Entidade {
         if (this.morto)
             return;
 
-        this.primaryAttack.update(deltaTime);
-        this.specialAttack.update(deltaTime);
+        this.primaryAttack.update(deltaTime, this);
+        this.specialAttack.update(deltaTime, this);
+
+        if (this.tempoPrecisao && this.tempoPrecisao > 0) {
+            this.tempoPrecisao -= deltaTime;
+        }
+
+        if (this.tempoSuperDano && this.tempoSuperDano > 0) {
+            this.tempoSuperDano -= deltaTime;
+        }
 
         if (this.movendo) {
             this.animacao.update(deltaTime);
@@ -229,6 +237,42 @@ export default class Jogador extends Entidade {
             if (Math.floor(Date.now() / 80) % 2 === 0)
                 return;
 
+        }
+
+        // Aura de Precisão (Ueslei)
+        if (this.tempoPrecisao && this.tempoPrecisao > 0) {
+            ctx.save();
+            ctx.strokeStyle = "rgba(51, 153, 255, 0.4)";
+            ctx.lineWidth = 4;
+            ctx.shadowColor = "#3399ff";
+            ctx.shadowBlur = 12;
+            ctx.beginPath();
+            ctx.arc(
+                this.x + this.largura / 2,
+                this.y + this.altura / 2,
+                Math.max(this.largura, this.altura) / 2 + 10,
+                0, Math.PI * 2
+            );
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Aura de Super Danos (Jair)
+        if (this.tempoSuperDano && this.tempoSuperDano > 0) {
+            ctx.save();
+            ctx.strokeStyle = "rgba(51, 255, 51, 0.4)";
+            ctx.lineWidth = 4;
+            ctx.shadowColor = "#33ff33";
+            ctx.shadowBlur = 12;
+            ctx.beginPath();
+            ctx.arc(
+                this.x + this.largura / 2,
+                this.y + this.altura / 2,
+                Math.max(this.largura, this.altura) / 2 + 10,
+                0, Math.PI * 2
+            );
+            ctx.stroke();
+            ctx.restore();
         }
 
         this.animacao.draw(

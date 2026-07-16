@@ -21,19 +21,19 @@ const FASES = [
         enemyPool: ["profEdu", "profWendel"],
 
         // Intervalo entre spawns em ms
-        intervaloSpawn: 10,
+        intervaloSpawn: 2500,
 
         boss: {
-            spriteKey: "profEdu",
-            enemyKey: "profEdu",
-            nomeExibido: "Prof. Edu — MODO CORROMPIDO",
+            spriteKey: "juliana",
+            enemyKey: "juliana",
+            nomeExibido: "Juliana — MODO CORROMPIDO",
 
             // Tamanho exibido na tela (maior que o normal)
             largura: 160,
             altura: 320,
 
             // Stats adicionais em cima do config base
-            vidaExtra: 200,
+            vidaExtra: 350,
             danoExtra: 15,
             velocidade: 1,
 
@@ -54,16 +54,16 @@ const FASES = [
         intervaloSpawn: 2200,
 
         boss: {
-            spriteKey: "profWendel",
-            enemyKey: "profWendel",
+            spriteKey: "profCarlos",
+            enemyKey: "profCarlos",
             nomeExibido: "Prof. Carlos — MODO CORROMPIDO",
 
-            largura: 160,
-            altura: 320,
+            largura: 240,
+            altura: 348,
 
-            vidaExtra: 250,
+            vidaExtra: 400,
             danoExtra: 20,
-            velocidade: 1,
+            velocidade: 0,
 
             chanceDrop: 1.0,
             pontosAoMatar: 150
@@ -81,16 +81,16 @@ const FASES = [
         intervaloSpawn: 1600,
 
         boss: {
-            spriteKey: "profEdu",
-            enemyKey: "profEdu",
+            spriteKey: "vera",
+            enemyKey: "vera",
             nomeExibido: "Vera — A RAINHA DOS BUGS",
 
-            largura: 180,
-            altura: 360,
+            largura: 150,
+            altura: 250,
 
-            vidaExtra: 350,
+            vidaExtra: 700,
             danoExtra: 25,
-            velocidade: 1.2,
+            velocidade: 0,
 
             chanceDrop: 1.0,
             pontosAoMatar: 250

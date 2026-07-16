@@ -7,6 +7,7 @@ import Progresso from "./progresso.js";
 
 import PlayerSpawner from "./playerspawn.js";
 import EnemySpawner from "./enemyspawn.js";
+import Efeitos from "./combat/effects.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -219,7 +220,8 @@ function spawnBoss() {
         pontosAoBater: -2,
         pontosAoPassar: 0,
         chanceDrop:    bossCfg.chanceDrop,
-        tipo:          "boss"
+        tipo:          "boss",
+        tipoAtaque:    enemyBase.tipoAtaque
     };
 
     enemySpawner.parar();
@@ -250,6 +252,7 @@ function spawnBoss() {
 
 function finalizarJogo() {
 
+    Efeitos.particulas = [];
     estadoJogo = "gameover";
 
     Audio$.tocarMusica("gameover");
@@ -275,6 +278,7 @@ function finalizarJogo() {
 
 function finalizarVitoria() {
 
+    Efeitos.particulas = [];
     Audio$.tocarMusica("vitoria");
 
     const resultado = Progresso.registrarPartida(pontuacao);
@@ -299,12 +303,10 @@ function finalizarVitoria() {
 
 function verificarColetaDrops() {
 
-    for (const inimigo of enemySpawner.inimigos) {
+    for (const drop of enemySpawner.drops) {
 
-        if (!inimigo.drop || !inimigo.drop.ativo)
+        if (!drop.ativo)
             continue;
-
-        const drop = inimigo.drop;
 
         const colidiu =
             jogador.x < drop.x + drop.largura &&
@@ -346,6 +348,8 @@ function atualizarJogando(deltaTime) {
     jogador.mover(teclas);
     jogador.update(deltaTime);
 
+    Efeitos.update(deltaTime);
+
     pontuacao += enemySpawner.update(deltaTime, jogador);
     pontuacao += jogador.verificarAtaques(enemySpawner.inimigos);
 
@@ -386,6 +390,8 @@ function atualizarBoss(deltaTime) {
 
     jogador.mover(teclas);
     jogador.update(deltaTime);
+
+    Efeitos.update(deltaTime);
 
     pontuacao += enemySpawner.update(deltaTime, jogador);
     pontuacao += jogador.verificarAtaques(enemySpawner.inimigos);
@@ -647,6 +653,7 @@ function desenhar() {
 
     enemySpawner.draw(ctx);
     jogador.draw(ctx);
+    Efeitos.draw(ctx);
 
     if (estadoJogo === "boss") {
         desenharHUDBoss();

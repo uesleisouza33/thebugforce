@@ -259,7 +259,10 @@ document.addEventListener("DOMContentLoaded", () => {
         sessionStorage.setItem("personagemP2", escolhas[2]);
         
         // Também salva no formato esperado pelo game.js
-        const pKey = (escolhas[1] || "larissa").toLowerCase();
+        let pKey = (escolhas[1] || "larissa").toLowerCase();
+        if (pKey === "prof-sandra") {
+            pKey = "sandra";
+        }
         sessionStorage.setItem("personagemSelecionado", pKey);
 
         // Inicializa o progresso do jogo

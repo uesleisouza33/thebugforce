@@ -3,206 +3,187 @@
 body {
     /* 1. Coloque o link ou caminho da sua imagem aqui embaixo */
     background-image: url('../assets/img/fundoEscolha.png');
-    
+
     /* 2. Faz a imagem cobrir a tela inteira sem achatar ou distorcer */
     background-size: cover;
-    
+
     /* 3. Mantém a imagem sempre centralizada */
     background-position: center;
-    
+
     /* 4. Evita que a imagem crie um "mosaico" se a tela for muito grande */
     background-repeat: no-repeat;
-    
+
     /* 5. Fixa a imagem no fundo (ela não rola junto com o texto) */
     background-attachment: fixed;
-}
 
-/* Painel de saldo - posicionado dentro do game-container (1920x1080) */
-#painel-saldo {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #0ff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    color: #fff;
-    font-family: 'Courier New', monospace;
-    font-size: 1.2em;
-    text-align: center;
-    z-index: 100;
-    text-shadow: 0 0 5px #0ff;
+    /* Estilos básicos para a página */
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    /* mesma fonte dos botões da tela inicial */
 }
-
-#painel-saldo strong {
-    color: #ffdd88;
-    font-size: 1.5em;
-}
-
 
 #imagem-central {
     /* 1. Desprende a imagem do fluxo normal da página */
     position: absolute;
-    
+
     /* 2. Empurra a imagem para a metade exata da tela (vertical e horizontal) */
     top: 50%;
     left: 50%;
-    
+
     /* 3. Puxa a imagem de volta pela metade do PRÓPRIO tamanho dela, para ficar perfeitamente no centro */
     transform: translate(-50%, -50%);
     width: 970px;
-  
-    
+
+
     /* Opcional: Coloca uma sombrinha para destacar a imagem do fundo */
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-    border-radius: 10px; /* Arredonda as bordas se quiser */
+    border-radius: 10px;
+    /* Arredonda as bordas se quiser */
 }
+
 /* ===== Modo de jogo ===== */
-.modo-jogo{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    margin-bottom:40px;
+.modo-jogo {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
 /* ===== Botão Base ===== */
-.btn{
-    position:relative;
+.btn {
+    position: relative;
 
     top: 140px;
-    width:180px;
-    height:60px;
+    width: 180px;
+    height: 60px;
 
-    font-family:'Press Start 2P', monospace;
-    font-size:15px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 15px;
 
-    border:3px solid;
-    border-radius:4px;
+    border: 3px solid;
+    border-radius: 4px;
 
-    background:rgba(0,0,0,.75);
-    cursor:pointer;
+    background: rgba(0, 0, 0, .75);
+    cursor: pointer;
 
-    text-transform:uppercase;
-    transition:.2s;
+    text-transform: uppercase;
+    transition: .2s;
 }
 
 
-.btn:hover::before{
-    left:-18px;
-    opacity:1;
+.btn:hover::before {
+    left: -18px;
+    opacity: 1;
 }
 
-.btn:hover{
-    transform:translateX(5px) scale(1.03);
+.btn:hover {
+    transform: translateX(5px) scale(1.03);
 }
 
 /* SOLO */
-.btn-ciano{
-    color:#44ddff;
-    border-color:#00ccff;
-    box-shadow:0 0 8px rgba(0,200,255,.5);
+.btn-ciano {
+    color: #44ddff;
+    border-color: #00ccff;
+    box-shadow: 0 0 8px rgba(0, 200, 255, .5);
 }
 
-.btn-ciano:hover{
-    background:rgba(0,200,255,.15);
+.btn-ciano:hover {
+    background: rgba(0, 200, 255, .15);
 }
 
 /* DUPLA */
-.btn-verde{
-    color:#33ff77;
-    border-color:#22dd55;
-    box-shadow:0 0 8px rgba(34,221,85,.5);
+.btn-verde {
+    color: #33ff77;
+    border-color: #22dd55;
+    box-shadow: 0 0 8px rgba(34, 221, 85, .5);
 }
 
-.btn-verde:hover{
-    background:rgba(34,221,85,.15);
+.btn-verde:hover {
+    background: rgba(34, 221, 85, .15);
 }
 
-/* ================================================================
-   POSICIONAMENTO FINAL - CORRIGIDO
-   Painel: left=475, top=217, w=970, h=646
-   Linha 1 (top row):
-     Ueslei: left=560, w=125, right=685
-     gap=10
-     Jair:   left=695, w=110, right=805
-     gap=15
-     Icon:   left=820, w=140, right=960
-     gap=15
-     Larissa:left=975, w=120, right=1095
-     gap=10
-     Eliel:  left=1105, w=110, right=1215
-   Linha 2 (bottom row) - centrada entre ícone e jair:
-     Sandra: left=695, w=145, right=840
-     gap=10
-     Janice: left=850, w=145, right=995
-   ================================================================ */
-
-#icon{
+#icon {
     position: absolute;
-    top:  358px;
-    left: 820px;
-    width: 140px;
+    top: 252px;
+    left: 827px;
+    width: 240px;
 }
 
-#ueslei{
+#ueslei {
     position: absolute;
-    top:  350px;
-    left: 560px;
-    width: 125px;
+    top: 270px;
+    left: 550px;
+    width: 135px;
 }
 
-#jair{
+#jair {
     position: absolute;
-    top:  353px;
-    left: 695px;
-    width: 110px;
+    top: 282px;
+    left: 709px;
+    width: 115px;
 }
 
-#larissa{
+#plataBlue {
     position: absolute;
-    top:  352px;
-    left: 975px;
-    width: 120px;
+    top: 590px;
+
 }
 
-#eliel{
+#titulo {
     position: absolute;
-    top:  354px;
-    left: 1105px;
-    width: 110px;
-}
-
-#sandra{
-    position: absolute;
-    top:  535px;
-    left: 695px;
-    width: 145px;
-}
-
-#janice{
-    position: absolute;
-    top:  535px;
-    left: 850px;
-    width: 145px;
-}
-
-#titulo{
-    position: absolute;
-    top:  -60px;
+    top: -60px;
     left: 480px;
     width: 940px;
     animation: flutuarTitulo 3.5s ease-in-out infinite;
 }
 
 @keyframes flutuarTitulo {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
 }
 
+#larissa {
+    position: absolute;
+    top: 279px;
+    left: 1070px;
+    width: 125px;
+}
+
+
+#eliel {
+    position: absolute;
+    top: 283px;
+    left: 1220px;
+    width: 115px;
+}
+
+#blok {
+    position: absolute;
+    top: 430px;
+    left: 560px;
+    width: 135px;
+}
+
+#sandra {
+    position: absolute;
+    top: 430px;
+    left: 740px;
+    width: 135px;
+}
+
+#janice {
+    position: absolute;
+    top: 430px;
+    left: 920px;
+    width: 135px;
+}
 
 /* ═══════════════════════════════
    SELEÇÃO DE PERSONAGEM - HOVER E CLIQUE
@@ -225,9 +206,12 @@ body {
 }
 
 @keyframes pulsarSlot {
-    0%, 100% {
+
+    0%,
+    100% {
         filter: drop-shadow(0 0 10px #00eaff) drop-shadow(0 0 18px #00eaff);
     }
+
     50% {
         filter: drop-shadow(0 0 18px #00eaff) drop-shadow(0 0 30px #00eaff);
     }
@@ -263,23 +247,23 @@ body {
     transform: translateX(-50%);
     text-align: center;
     width: 100%;
-    
+
     /* ── CONFIGURAÇÕES DO BRILHO NEON RETRO ── */
     font-family: 'Press Start 2P', monospace;
     font-size: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    
+
     /* Centro da letra claro simula a forte intensidade da lâmpada acesa */
-    color: #e6ffff; 
-    
+    color: #e6ffff;
+
     /* Camadas iniciais fortes + rastro largo borrado de luz ciano no fundo */
-    text-shadow: 
+    text-shadow:
         0 0 4px #ffffff,
         0 0 8px #33ecff,
         0 0 18px #33ecff,
         0 0 35px #00aaff;
-        
+
     /* Adiciona a animação de pulsação suave */
     animation: brilharStatus 1.5s infinite alternate ease-in-out;
 }
@@ -287,14 +271,15 @@ body {
 /* Animação que altera a intensidade das camadas de sombra */
 @keyframes brilharStatus {
     0% {
-        text-shadow: 
+        text-shadow:
             0 0 4px #ffffff,
             0 0 8px #33ecff,
             0 0 15px #33ecff,
             0 0 25px #00aaff;
     }
+
     100% {
-        text-shadow: 
+        text-shadow:
             0 0 6px #ffffff,
             0 0 14px #33ecff,
             0 0 26px #33ecff,
@@ -312,12 +297,13 @@ body {
     top: 815px;
     left: 50%;
     transform: translateX(-50%);
-    display: none; /* Controlado pela verificação do JS */
-    
+    display: none;
+    /* Controlado pela verificação do JS */
+
     /* Espaçamento interno e largura (mesmo padrão do menu inicial) */
     width: 370px;
     padding: 18px 0;
-    
+
     /* ── Tipografia idêntica aos botões da tela inicial ── */
     font-family: 'Nunito', sans-serif;
     font-weight: 800;
@@ -328,18 +314,18 @@ body {
     text-align: center;
     text-decoration: none;
     text-shadow: 0 0 8px #00eaff, 0 0 16px rgba(0, 234, 255, 0.6);
-    
+
     /* Mesmo "quadrado vazado": fundo escuro translúcido + borda neon */
     background: rgba(4, 12, 22, 0.55);
-    
+
     /* Borda neon ciano e cantos levemente arredondados, igual aos da tela inicial */
     border: 2px solid #00eaff;
     border-radius: 10px;
     cursor: pointer;
-    
+
     /* Brilho neon por fora e por dentro, igual aos botões JOGAR/MANUAL/SOBRE */
     box-shadow: 0 0 16px rgba(0, 234, 255, 0.6), inset 0 0 14px rgba(0, 234, 255, 0.12);
-    
+
     /* Transições de movimento rápidas e responsivas */
     transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
 }
@@ -361,7 +347,8 @@ body {
    ═══════════════════════════════ */
 #preview-personagem {
     position: absolute;
-    display: none; /* o JS troca pra "block" quando tem que aparecer */
+    display: none;
+    /* o JS troca pra "block" quando tem que aparecer */
     bottom: 130px;
     left: 100px;
     width: 420px;
@@ -375,7 +362,8 @@ body {
    ═══════════════════════════════ */
 .imagem-jogador {
     position: absolute;
-    display: none; /* o JS muda pra "block" no momento da escolha */
+    display: none;
+    /* o JS muda pra "block" no momento da escolha */
     z-index: 6;
     height: 650px;
     width: auto;
@@ -409,6 +397,7 @@ body {
         transform: translateX(-120vw);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -420,6 +409,7 @@ body {
         transform: translateX(120vw);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
