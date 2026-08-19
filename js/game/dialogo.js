@@ -136,8 +136,8 @@ document.addEventListener("keydown", (event) => {
         indice++;
 
         if (indice >= falasAtuais.length) {
-
-            window.location.href = "jogarSolo.html";
+            const modo = sessionStorage.getItem("modoJogo");
+            window.location.href = modo === "2" ? "jogarMult.html" : "jogarSolo.html";
             return;
         }
 
@@ -146,9 +146,8 @@ document.addEventListener("keydown", (event) => {
 
     // P = pula toda a história
     if (event.key.toLowerCase() === "p") {
-
-        window.location.href = "jogarSolo.html";
-
+        const modo = sessionStorage.getItem("modoJogo");
+        window.location.href = modo === "2" ? "jogarMult.html" : "jogarSolo.html";
     }
 
 });

@@ -42,9 +42,11 @@ Object.values(SPRITES).forEach(sprite => {
 // Estado do jogo
 // =====================
 
-let jogador;
-let playerSpawner;
-let enemySpawner;
+let modoJogo = 1; // 1 = Solo | 2 = Dupla
+let jogador1 = null;
+let jogador2 = null;
+let jogadores = [];
+let enemySpawner = null;
 
 // Estados: "jogando" | "boss" | "transicao" | "gameover"
 let estadoJogo = "jogando";
@@ -87,34 +89,54 @@ window.addEventListener("keydown", (e) => {
     // Primeira interação — habilita áudio
     Audio$.habilitar();
 
-    teclas[e.key.toLowerCase()] = true;
+    const key = e.key.toLowerCase();
+    const code = e.code || "";
+    teclas[key] = true;
+    if (code) teclas[code.toLowerCase()] = true;
 
     if (estadoJogo !== "jogando" && estadoJogo !== "boss")
         return;
 
-    if (e.key.toLowerCase() === "h" && jogador) {
-        jogador.receberDano(10);
+    // Tecla de testes / debug
+    if (key === "h" && jogador1) {
+        jogador1.receberDano(10);
     }
 
-    if (e.code === "Space" && jogador) {
+    // Evita rolagem da tela para teclas do jogo
+    if (["arrowup", "arrowdown", "arrowleft", "arrowright", "space", "enter"].includes(code.toLowerCase()) ||
+        ["arrowup", "arrowdown", "arrowleft", "arrowright", " "].includes(key)) {
         e.preventDefault();
-        jogador.atacar();
-        Audio$.tocarSFX("tiro");
     }
 
-    if (e.key.toLowerCase() === "q" && jogador) {
-        jogador.usarHabilidade();
-        Audio$.tocarSFX("habilidade");
+    // --- CONTROLES JOGADOR 1 ---
+    if (jogador1 && !jogador1.morto) {
+        if (code === "Space" || key === " ") {
+            jogador1.atacar();
+            Audio$.tocarSFX("tiro");
+        }
+        if (key === "q") {
+            jogador1.usarHabilidade();
+            Audio$.tocarSFX("habilidade");
+        }
     }
 
-    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-        e.preventDefault();
+    // --- CONTROLES JOGADOR 2 ---
+    if (modoJogo === 2 && jogador2 && !jogador2.morto) {
+        if (code === "Enter" || key === "enter" || key === "k" || code === "numpad0") {
+            jogador2.atacar();
+            Audio$.tocarSFX("tiro");
+        }
+        if (key === "l" || e.key === "Shift" || code === "shiftright" || code === "shiftleft" || key === "p") {
+            jogador2.usarHabilidade();
+            Audio$.tocarSFX("habilidade");
+        }
     }
 
 });
 
 window.addEventListener("keyup", (e) => {
     teclas[e.key.toLowerCase()] = false;
+    if (e.code) teclas[e.code.toLowerCase()] = false;
 });
 
 // Habilita áudio no primeiro clique também
@@ -128,18 +150,54 @@ window.addEventListener("click", () => {
 
 function iniciar() {
 
-    const p1Key = sessionStorage.getItem("personagemSelecionado") || "larissa";
+    modoJogo = parseInt(sessionStorage.getItem("modoJogo") || "1", 10);
 
-    // Fallback caso o personagem não tenha sprites ou configurações definidas ainda
-    const spriteConfig = SPRITES[p1Key] || SPRITES["larissa"];
-    const characterConfig = CHARACTERS[p1Key] || CHARACTERS["larissa"];
+    let p1Key = sessionStorage.getItem("personagemP1") || sessionStorage.getItem("personagemSelecionado") || "larissa";
+    p1Key = p1Key.toLowerCase();
+    if (p1Key === "prof-sandra") p1Key = "sandra";
 
-    playerSpawner = new PlayerSpawner(
-        spriteConfig,
-        characterConfig
+    const spriteConfig1 = SPRITES[p1Key] || SPRITES["larissa"];
+    const characterConfig1 = CHARACTERS[p1Key] || CHARACTERS["larissa"];
+
+    const playerSpawner1 = new PlayerSpawner(
+        spriteConfig1,
+        characterConfig1
     );
 
-    jogador = playerSpawner.spawn();
+    jogador1 = playerSpawner1.spawn();
+    jogador1.playerNumber = 1;
+    jogadores = [jogador1];
+
+    if (modoJogo === 2) {
+        let p2Key = sessionStorage.getItem("personagemP2") || "ueslei";
+        p2Key = p2Key.toLowerCase();
+        if (p2Key === "prof-sandra") p2Key = "sandra";
+
+        const spriteConfig2 = SPRITES[p2Key] || SPRITES["ueslei"];
+        const characterConfig2 = CHARACTERS[p2Key] || CHARACTERS["ueslei"];
+
+        const playerSpawner2 = new PlayerSpawner(
+            spriteConfig2,
+            characterConfig2
+        );
+
+        jogador2 = playerSpawner2.spawn();
+        jogador2.playerNumber = 2;
+        jogador2.y = Math.min(600, jogador1.y + 40);
+        jogadores.push(jogador2);
+    } else {
+        jogador2 = null;
+    }
+
+    // Atualiza dica na tela se houver elemento .dica
+    const dicaEl = document.querySelector(".dica");
+    if (dicaEl) {
+        if (modoJogo === 2) {
+            dicaEl.innerHTML = "P1: WASD = MOVER | ESPAÇO = DISPARAR | Q = ESPECIAL &nbsp;&nbsp;|&nbsp;&nbsp; P2: SETAS = MOVER | ENTER = DISPARAR | L / SHIFT = ESPECIAL";
+        } else {
+            dicaEl.innerHTML = "SETAS / WASD = MOVER &nbsp;|&nbsp; ESPAÇO = DISPARAR &nbsp;|&nbsp; Q = HABILIDADE ESPECIAL";
+        }
+    }
 
     enemySpawner = new EnemySpawner([], canvas);
 
@@ -160,6 +218,11 @@ function iniciar() {
 function carregarFase(index) {
 
     faseConfig = FASES[index];
+
+    const txtFaseEl = document.querySelector(".fase-atual");
+    if (txtFaseEl && faseConfig) {
+        txtFaseEl.textContent = `${faseConfig.nome} — ${faseConfig.subtitulo}`;
+    }
 
     fundoAtual = fundos[faseConfig.background];
 
@@ -308,16 +371,20 @@ function verificarColetaDrops() {
         if (!drop.ativo)
             continue;
 
-        const colidiu =
-            jogador.x < drop.x + drop.largura &&
-            jogador.x + jogador.largura > drop.x &&
-            jogador.y < drop.y + drop.altura &&
-            jogador.y + jogador.altura > drop.y;
+        for (const j of jogadores) {
+            if (!j || j.morto || !drop.ativo) continue;
 
-        if (colidiu) {
-            jogador.curar(drop.cura);
-            drop.ativo = false;
-            Audio$.tocarSFX("item");
+            const colidiu =
+                j.x < drop.x + drop.largura &&
+                j.x + j.largura > drop.x &&
+                j.y < drop.y + drop.altura &&
+                j.y + j.altura > drop.y;
+
+            if (colidiu) {
+                j.curar(drop.cura);
+                drop.ativo = false;
+                Audio$.tocarSFX("item");
+            }
         }
 
     }
@@ -343,27 +410,39 @@ function verificarSFXKills() {
 
 function atualizarJogando(deltaTime) {
 
-    const vidaAntes = jogador.vida;
-
-    jogador.mover(teclas);
-    jogador.update(deltaTime);
+    jogadores.forEach(j => {
+        if (j && !j.morto) {
+            j.mover(teclas, modoJogo);
+            j.update(deltaTime);
+        }
+    });
 
     Efeitos.update(deltaTime);
 
-    pontuacao += enemySpawner.update(deltaTime, jogador);
-    pontuacao += jogador.verificarAtaques(enemySpawner.inimigos);
+    pontuacao += enemySpawner.update(deltaTime, jogadores);
+
+    jogadores.forEach(j => {
+        if (j && !j.morto) {
+            pontuacao += j.verificarAtaques(enemySpawner.inimigos);
+        }
+    });
 
     verificarColetaDrops();
     verificarSFXKills();
 
-    const inimigo = enemySpawner.verificarColisao(jogador);
-    if (inimigo) {
-        const pontosPerdidos = inimigo.atacar(jogador);
-        if (jogador.vida < vidaAntes) {
-            Audio$.tocarSFX("hit");
+    jogadores.forEach(j => {
+        if (j && !j.morto) {
+            const vidaAntes = j.vida;
+            const inimigo = enemySpawner.verificarColisao(j);
+            if (inimigo) {
+                const pontosPerdidos = inimigo.atacar(j);
+                if (j.vida < vidaAntes) {
+                    Audio$.tocarSFX("hit");
+                }
+                pontuacao += pontosPerdidos;
+            }
         }
-        pontuacao += pontosPerdidos;
-    }
+    });
 
     if (pontuacao < 0) pontuacao = 0;
 
@@ -374,7 +453,8 @@ function atualizarJogando(deltaTime) {
         spawnBoss();
     }
 
-    if (jogador.morto) {
+    const todosMortos = jogadores.length > 0 && jogadores.every(j => j.morto);
+    if (todosMortos) {
         finalizarJogo();
     }
 
@@ -386,35 +466,48 @@ function atualizarJogando(deltaTime) {
 
 function atualizarBoss(deltaTime) {
 
-    const vidaAntes = jogador.vida;
-
-    jogador.mover(teclas);
-    jogador.update(deltaTime);
+    jogadores.forEach(j => {
+        if (j && !j.morto) {
+            j.mover(teclas, modoJogo);
+            j.update(deltaTime);
+        }
+    });
 
     Efeitos.update(deltaTime);
 
-    pontuacao += enemySpawner.update(deltaTime, jogador);
-    pontuacao += jogador.verificarAtaques(enemySpawner.inimigos);
+    pontuacao += enemySpawner.update(deltaTime, jogadores);
+
+    jogadores.forEach(j => {
+        if (j && !j.morto) {
+            pontuacao += j.verificarAtaques(enemySpawner.inimigos);
+        }
+    });
 
     verificarColetaDrops();
 
-    const inimigo = enemySpawner.verificarColisao(jogador);
-    if (inimigo) {
-        const pontosPerdidos = inimigo.atacar(jogador);
-        if (jogador.vida < vidaAntes) {
-            Audio$.tocarSFX("hit");
+    jogadores.forEach(j => {
+        if (j && !j.morto) {
+            const vidaAntes = j.vida;
+            const inimigo = enemySpawner.verificarColisao(j);
+            if (inimigo) {
+                const pontosPerdidos = inimigo.atacar(j);
+                if (j.vida < vidaAntes) {
+                    Audio$.tocarSFX("hit");
+                }
+                pontuacao += pontosPerdidos;
+            }
         }
-        pontuacao += pontosPerdidos;
-    }
+    });
 
     if (pontuacao < 0) pontuacao = 0;
 
-    if (bossRef && bossRef.morto && enemySpawner.inimigos.length === 0) {
+    if (bossRef && bossRef.morto) {
         estadoJogo     = "transicao";
         tempoTransicao = 0;
     }
 
-    if (jogador.morto) {
+    const todosMortos = jogadores.length > 0 && jogadores.every(j => j.morto);
+    if (todosMortos) {
         finalizarJogo();
     }
 
@@ -449,58 +542,78 @@ function atualizarTransicao(deltaTime) {
 // HUD — gameplay
 // =====================
 
-function desenharHUD() {
+function desenharHUDPlayer(j, startX, startY, pLabel) {
+    if (!j) return;
 
-    // Barra de vida
     ctx.fillStyle = "#111";
-    ctx.fillRect(18, 18, 204, 22);
+    ctx.fillRect(startX - 2, startY - 2, 204, 22);
 
-    const vidaPct = jogador.vida / jogador.vidaMaxima;
+    const vidaPct = Math.max(0, j.vida / j.vidaMaxima);
 
-    if (vidaPct > 0.5)       ctx.fillStyle = "#33cc33";
-    else if (vidaPct > 0.25) ctx.fillStyle = "#ffaa00";
-    else                     ctx.fillStyle = "#ff3333";
+    if (j.morto) {
+        ctx.fillStyle = "#555";
+        ctx.fillRect(startX, startY, 200, 18);
+    } else if (vidaPct > 0.5) {
+        ctx.fillStyle = "#33cc33";
+        ctx.fillRect(startX, startY, vidaPct * 200, 18);
+    } else if (vidaPct > 0.25) {
+        ctx.fillStyle = "#ffaa00";
+        ctx.fillRect(startX, startY, vidaPct * 200, 18);
+    } else {
+        ctx.fillStyle = "#ff3333";
+        ctx.fillRect(startX, startY, vidaPct * 200, 18);
+    }
 
-    ctx.fillRect(20, 20, vidaPct * 200, 18);
-
-    ctx.strokeStyle = "#fff";
-    ctx.lineWidth = 1;
-    ctx.strokeRect(18, 18, 204, 22);
+    ctx.strokeStyle = j.playerNumber === 1 ? "#00ccff" : "#ff3366";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(startX - 2, startY - 2, 204, 22);
 
     ctx.fillStyle = "#fff";
     ctx.font = "bold 11px monospace";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(jogador.vida + " / " + jogador.vidaMaxima, 120, 29);
+    const txtVida = j.morto ? "K.O." : (j.vida + " / " + j.vidaMaxima);
+    ctx.fillText(txtVida, startX + 100, startY + 9);
 
     // Nome
     ctx.fillStyle = "#fff";
-    ctx.font = "bold 13px monospace";
+    ctx.font = "bold 12px monospace";
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
-    ctx.fillText(jogador.characterConfig.nome || "JOGADOR", 20, 58);
+    const nomePlayer = (j.characterConfig && j.characterConfig.nome) ? j.characterConfig.nome : "JOGADOR";
+    ctx.fillText(pLabel + ": " + nomePlayer, startX, startY + 38);
 
     // Habilidade especial
-    const agora        = Date.now();
-    const cooldownTotal = jogador.characterConfig.habilidadeEspecial.cooldown;
-    const tempoDesde   = agora - jogador.specialAttack.ultimoAtaque;
-    const emRecarga    = tempoDesde < cooldownTotal;
+    const agora = Date.now();
+    const cooldownTotal = j.characterConfig.habilidadeEspecial.cooldown;
+    const tempoDesde = agora - j.specialAttack.ultimoAtaque;
+    const emRecarga = tempoDesde < cooldownTotal;
 
     ctx.fillStyle = "#111";
-    ctx.fillRect(20, 65, 100, 10);
+    ctx.fillRect(startX, startY + 45, 100, 10);
 
-    ctx.fillStyle = "#6644ff";
-    ctx.fillRect(20, 65, (emRecarga ? (tempoDesde / cooldownTotal) : 1) * 100, 10);
+    ctx.fillStyle = j.playerNumber === 1 ? "#6644ff" : "#ffaa00";
+    ctx.fillRect(startX, startY + 45, (emRecarga ? (tempoDesde / cooldownTotal) : 1) * 100, 10);
 
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 1;
-    ctx.strokeRect(20, 65, 100, 10);
+    ctx.strokeRect(startX, startY + 45, 100, 10);
 
     ctx.fillStyle = emRecarga ? "#aaa" : "#fff";
     ctx.font = "bold 10px monospace";
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
-    ctx.fillText("[Q] Habilidade", 126, 74);
+    const keyHint = j.playerNumber === 1 ? "[Q] Especial" : "[L/Shift] Especial";
+    ctx.fillText(keyHint, startX + 106, startY + 54);
+}
+
+function desenharHUD() {
+
+    desenharHUDPlayer(jogador1, 20, 18, "P1");
+
+    if (modoJogo === 2 && jogador2) {
+        desenharHUDPlayer(jogador2, 250, 18, "P2");
+    }
 
     // Pontuação
     ctx.fillStyle = "#fff";
@@ -578,7 +691,9 @@ function desenharTransicao() {
 
     ctx.drawImage(fundoAtual, 0, 0, canvas.width, canvas.height);
     enemySpawner.draw(ctx);
-    jogador.draw(ctx);
+    jogadores.forEach(j => {
+        if (j && !j.morto) j.draw(ctx);
+    });
 
     const alpha = Math.min(0.85, (tempoTransicao / 1000) * 0.85);
     ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
@@ -652,7 +767,9 @@ function desenhar() {
     ctx.drawImage(fundoAtual, 0, 0, canvas.width, canvas.height);
 
     enemySpawner.draw(ctx);
-    jogador.draw(ctx);
+    jogadores.forEach(j => {
+        if (j && !j.morto) j.draw(ctx);
+    });
     Efeitos.draw(ctx);
 
     if (estadoJogo === "boss") {
@@ -702,11 +819,27 @@ function loop(tempoAtual) {
 // =====================
 
 const promessesFundos = Object.values(fundos).map(img =>
-    new Promise(resolve => { img.onload = resolve; })
+    new Promise(resolve => {
+        if (img.complete) {
+            resolve();
+        } else {
+            img.onload = resolve;
+            img.onerror = resolve;
+        }
+    })
 );
 
 const promessesSprites = Object.values(SPRITES).map(sprite =>
-    new Promise(resolve => { sprite.image.onload = resolve; })
+    new Promise(resolve => {
+        if (sprite.image && sprite.image.complete) {
+            resolve();
+        } else if (sprite.image) {
+            sprite.image.onload = resolve;
+            sprite.image.onerror = resolve;
+        } else {
+            resolve();
+        }
+    })
 );
 
 Promise.all([...promessesFundos, ...promessesSprites]).then(iniciar);

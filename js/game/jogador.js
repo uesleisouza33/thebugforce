@@ -22,6 +22,7 @@ export default class Jogador extends Entidade {
         // Configurações
         this.spriteConfig = spriteConfig;
         this.characterConfig = characterConfig;
+        this.playerNumber = 1;
 
         // Gameplay
         this.direcao = 1;
@@ -130,14 +131,35 @@ export default class Jogador extends Entidade {
 
     }
 
-    mover(teclas) {
+    mover(teclas, modoJogo = 1) {
 
         if (this.morto)
             return;
 
         this.movendo = false;
 
-        if (teclas["a"] || teclas["arrowleft"]) {
+        let left, right, up, down;
+
+        if (this.playerNumber === 2) {
+            left  = teclas["arrowleft"];
+            right = teclas["arrowright"];
+            up    = teclas["arrowup"];
+            down  = teclas["arrowdown"];
+        } else {
+            if (modoJogo === 1) {
+                left  = teclas["a"] || teclas["arrowleft"];
+                right = teclas["d"] || teclas["arrowright"];
+                up    = teclas["w"] || teclas["arrowup"];
+                down  = teclas["s"] || teclas["arrowdown"];
+            } else {
+                left  = teclas["a"];
+                right = teclas["d"];
+                up    = teclas["w"];
+                down  = teclas["s"];
+            }
+        }
+
+        if (left) {
 
             this.x -= this.velocidade;
             this.direcao = -1;
@@ -145,7 +167,7 @@ export default class Jogador extends Entidade {
 
         }
 
-        if (teclas["d"] || teclas["arrowright"]) {
+        if (right) {
 
             this.x += this.velocidade;
             this.direcao = 1;
@@ -153,14 +175,14 @@ export default class Jogador extends Entidade {
 
         }
 
-        if (teclas["w"] || teclas["arrowup"]) {
+        if (up) {
 
             this.y -= this.velocidade;
             this.movendo = true;
 
         }
 
-        if (teclas["s"] || teclas["arrowdown"]) {
+        if (down) {
 
             this.y += this.velocidade;
             this.movendo = true;

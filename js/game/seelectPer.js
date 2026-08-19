@@ -254,16 +254,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnConfirmar.addEventListener("click", () => {
 
-        // Salva as escolhas para a tela/jogo seguinte ler
-        sessionStorage.setItem("personagemP1", escolhas[1]);
-        sessionStorage.setItem("personagemP2", escolhas[2]);
-        
-        // Também salva no formato esperado pelo game.js
-        let pKey = (escolhas[1] || "larissa").toLowerCase();
-        if (pKey === "prof-sandra") {
-            pKey = "sandra";
+        // Salva o modo de jogo (1 = Solo, 2 = Dupla)
+        sessionStorage.setItem("modoJogo", modoJogo);
+
+        let p1Key = (escolhas[1] || "larissa").toLowerCase();
+        if (p1Key === "prof-sandra") {
+            p1Key = "sandra";
         }
-        sessionStorage.setItem("personagemSelecionado", pKey);
+
+        let p2Key = (escolhas[2] || "ueslei").toLowerCase();
+        if (p2Key === "prof-sandra") {
+            p2Key = "sandra";
+        }
+
+        // Salva as escolhas formatadas para a tela/jogo seguinte ler
+        sessionStorage.setItem("personagemP1", p1Key);
+        sessionStorage.setItem("personagemP2", p2Key);
+        sessionStorage.setItem("personagemSelecionado", p1Key);
 
         // Inicializa o progresso do jogo
         sessionStorage.setItem("faseAtual", "0");

@@ -62,9 +62,20 @@ export default class Inimigo extends Entidade {
         if (this.morto)
             return;
 
+        let alvo = null;
+        if (Array.isArray(jogador)) {
+            const vivos = jogador.filter(j => j && !j.morto);
+            if (vivos.length > 0) {
+                vivos.sort((a, b) => Math.abs(this.x - a.x) - Math.abs(this.x - b.x));
+                alvo = vivos[0];
+            }
+        } else if (jogador && !jogador.morto) {
+            alvo = jogador;
+        }
+
         this.atacando =
-            jogador !== null &&
-            this.estaNoAlcance(jogador);
+            alvo !== null &&
+            this.estaNoAlcance(alvo);
 
         if (!this.atacando && this.velocidade > 0) {
 
@@ -72,7 +83,7 @@ export default class Inimigo extends Entidade {
 
         }
 
-        if (this.enemyConfig.comportamentoEspecial === "vera" && jogador && !jogador.morto) {
+        if (this.enemyConfig.comportamentoEspecial === "vera" && alvo) {
             if (!this.ultimoTeleport) this.ultimoTeleport = 0;
             if (!this.tempoGlitch) this.tempoGlitch = 0;
 
@@ -98,8 +109,14 @@ export default class Inimigo extends Entidade {
                 }
             };
 
-            verificarAtaque(jogador.primaryAttack);
-            verificarAtaque(jogador.specialAttack);
+            const listaJogadores = Array.isArray(jogador) 
+                ? jogador.filter(j => j && !j.morto) 
+                : (alvo ? [alvo] : []);
+
+            listaJogadores.forEach(j => {
+                verificarAtaque(j.primaryAttack);
+                verificarAtaque(j.specialAttack);
+            });
 
             if (projetilPerigoso && Date.now() - this.ultimoTeleport > 1500) {
                 this.ultimoTeleport = Date.now();
@@ -113,9 +130,9 @@ export default class Inimigo extends Entidade {
             }
         }
 
-        if (this.enemyConfig.tipoAtaque === "ranged" && jogador && !jogador.morto) {
+        if (this.enemyConfig.tipoAtaque === "ranged" && alvo) {
             if (this.podeAtirarRanged()) {
-                this.atirarRanged(jogador);
+                this.atirarRanged(alvo);
             }
         }
 
@@ -124,6 +141,8 @@ export default class Inimigo extends Entidade {
     }
 
     estaNoAlcance(jogador) {
+
+        if (!jogador || jogador.morto) return false;
 
         return (
             this.x < jogador.x + jogador.largura + this.alcanceAtaque &&
@@ -342,6 +361,11 @@ export default class Inimigo extends Entidade {
 
     static updateProjeteis(deltaTime, jogador) {
         if (!Inimigo.projeteis) return;
+
+        const jogadoresVivos = Array.isArray(jogador) 
+            ? jogador.filter(j => j && !j.morto) 
+            : (jogador && !jogador.morto ? [jogador] : []);
+
         Inimigo.projeteis.forEach(p => {
             p.x += p.velocidade;
             p.y += p.velocidadeY;
@@ -357,24 +381,27 @@ export default class Inimigo extends Entidade {
                 );
             }
 
-            if (p.ativo && jogador && !jogador.morto) {
-                const colidiu =
-                    p.x < jogador.x + jogador.largura &&
-                    p.x + p.largura > jogador.x &&
-                    p.y < jogador.y + jogador.altura &&
-                    p.y + p.altura > jogador.y;
+            if (p.ativo && jogadoresVivos.length > 0) {
+                for (const j of jogadoresVivos) {
+                    const colidiu =
+                        p.x < j.x + j.largura &&
+                        p.x + p.largura > j.x &&
+                        p.y < j.y + j.altura &&
+                        p.y + p.altura > j.y;
 
-                if (colidiu) {
-                    const tomouDano = jogador.receberDano(p.dano);
-                    if (tomouDano) {
-                        Audio$.tocarSFX("hit");
+                    if (colidiu) {
+                        const tomouDano = j.receberDano(p.dano);
+                        if (tomouDano) {
+                            Audio$.tocarSFX("hit");
+                        }
+                        Efeitos.criarSplash(
+                            j.x + j.largura / 2,
+                            j.y + j.altura / 2,
+                            p.cor
+                        );
+                        p.ativo = false;
+                        break;
                     }
-                    Efeitos.criarSplash(
-                        jogador.x + jogador.largura / 2,
-                        jogador.y + jogador.altura / 2,
-                        p.cor
-                    );
-                    p.ativo = false;
                 }
             }
 

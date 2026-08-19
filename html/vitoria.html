@@ -20,6 +20,23 @@
 
 <body>
 
+  <!-- CUTSCENE OVERLAY -->
+  <div id="cutscene-overlay" class="cutscene-overlay">
+    <div class="cutscene-header">
+      <span class="cutscene-title">🎬 CUTSCENE DE VITÓRIA</span>
+      <button id="skip-cutscene-btn" class="btn-skip">PULAR ⏭</button>
+    </div>
+
+    <div class="video-container">
+      <video id="victory-video" src="../assets/img/game/finalvideo.mp4" playsinline preload="auto"></video>
+      <div id="play-prompt" class="play-prompt escondido">
+        <button id="start-video-btn" class="btn-start-video">
+          ▶ CLIQUE PARA INICIAR A CUTSCENE
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="victory-overlay">
 
     <div class="victory-content">
@@ -37,7 +54,7 @@
 
         <div class="score-linha">
           <img src="../assets/favicon/favicon1.png">
-          <span id="contador-vitoria"></span>
+          <span id="contador-vitoria">0</span>
           <img src="../assets/favicon/favicon1.png">
         </div>
 
@@ -45,6 +62,11 @@
       </div>
 
       <div class="botoes">
+
+        <button id="reassistir-btn" class="btn btn-yellow">
+          <span class="btn-icon">🎬</span>
+          Assistir Cutscene
+        </button>
 
         <button id="jogar-novamente-btn" class="btn btn-blue">
           <span class="btn-icon">▶</span>
@@ -89,6 +111,65 @@
         window.location.href = "../index.html";
       });
     }
+
+    // --- CONTROLE DA CUTSCENE DE VITÓRIA ---
+    const cutsceneOverlay = document.getElementById("cutscene-overlay");
+    const victoryVideo = document.getElementById("victory-video");
+    const skipBtn = document.getElementById("skip-cutscene-btn");
+    const playPrompt = document.getElementById("play-prompt");
+    const startVideoBtn = document.getElementById("start-video-btn");
+    const reassistirBtn = document.getElementById("reassistir-btn");
+
+    function encerrarCutscene() {
+      if (victoryVideo) {
+        victoryVideo.pause();
+        victoryVideo.currentTime = 0;
+      }
+      if (cutsceneOverlay) {
+        cutsceneOverlay.classList.add("escondido");
+      }
+    }
+
+    function tocarCutscene() {
+      if (!cutsceneOverlay || !victoryVideo) return;
+      cutsceneOverlay.classList.remove("escondido");
+      playPrompt.classList.add("escondido");
+      victoryVideo.currentTime = 0;
+
+      const playPromise = victoryVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.warn("Autoplay bloqueado pelo navegador. Exibindo prompt do usuário:", error);
+          playPrompt.classList.remove("escondido");
+        });
+      }
+    }
+
+    if (victoryVideo) {
+      victoryVideo.addEventListener("ended", encerrarCutscene);
+    }
+
+    if (skipBtn) {
+      skipBtn.addEventListener("click", encerrarCutscene);
+    }
+
+    if (startVideoBtn) {
+      startVideoBtn.addEventListener("click", () => {
+        playPrompt.classList.add("escondido");
+        victoryVideo.play();
+      });
+    }
+
+    if (reassistirBtn) {
+      reassistirBtn.addEventListener("click", tocarCutscene);
+    }
+
+    // Tenta iniciar a cutscene automaticamente ao carregar a página
+    window.addEventListener("DOMContentLoaded", () => {
+      tocarCutscene();
+    });
   </script>
+
+</body>
 
 </html>
