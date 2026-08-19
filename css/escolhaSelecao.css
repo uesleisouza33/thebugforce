@@ -177,53 +177,54 @@ body {
 /* ===== SLOTS DE PERSONAGENS ===== */
 #slots-wrapper {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* Limites internos da moldura. Os slots passam a ser posicionados
+       dentro desta area, e nao em relacao as bordas externas da imagem. */
+    inset: 76px 54px 118px;
     z-index: 5;
 }
 
 .personagem-slot, .bloqueado {
     position: absolute;
-    width: 124px;
-    height: auto;
+    width: 116px;
+    height: 176px;
+    object-fit: contain;
     cursor: pointer;
     transition: transform 0.25s ease, filter 0.25s ease;
     transform-origin: center center;
 }
 
-/* Posicionamento exato dos 6 slots alinhados com o painel */
+/* Posicionamento dos 6 slots dentro da area util do painel.
+   As porcentagens continuam corretas quando o painel e redimensionado. */
 #larissa {
-    top: 58px;
-    left: 65px;
+    top: 0;
+    left: 0;
 }
 
 #ueslei {
-    top: 58px;
-    left: 205px;
+    top: 0;
+    left: 17%;
 }
 
 #jair {
-    top: 58px;
-    right: 205px;
+    top: 0;
+    right: 17%;
     left: auto;
 }
 
 #eliel {
-    top: 58px;
-    right: 65px;
+    top: 0;
+    right: 0;
     left: auto;
 }
 
 #sandra {
-    top: 272px;
-    left: 350px;
+    top: 205px;
+    left: calc(50% - 128px);
 }
 
 #janice {
-    top: 272px;
-    right: 350px;
+    top: 205px;
+    right: calc(50% - 128px);
     left: auto;
 }
 
